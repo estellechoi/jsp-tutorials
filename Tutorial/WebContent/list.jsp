@@ -17,27 +17,16 @@ ResultSet rs;
 
 // 쿼리문
 String sql = "select*from guest";
-
 // 쿼리문 실행메소드를 rs에 대입 (데이터 가져왔다 !)
 rs = stmt.executeQuery(sql);
 
-// rs에 저장된 값 호출  rs.getString(); 문자열로 출력 rs.getInt(); 정수로 출력
-// 레코드포인터 (default→table의 제일 위(항목줄))
-// 레코드포인터 이동 rs.next();
-rs.next();
-out.println(rs.getString("name"));
-out.println(rs.getString("title"));
-out.println("<p>");
-rs.next();
-out.println(rs.getString("name"));
-out.println(rs.getString("title"));
-out.println("<p>");
-rs.next();
-out.println(rs.getString("name"));
-out.println(rs.getString("title"));
-out.println("<p>");
-
-
+// rs.next(); (레코드포인터 이동 메소드)
+// while(rs.next()){} → rs.next()의 결과값이 true 이면 실행하는 반복문
+while(rs.next()) {
+	out.println(rs.getString("name"));
+	out.println(rs.getString("title"));
+	out.println("<p>");
+}
 
 %>
     
