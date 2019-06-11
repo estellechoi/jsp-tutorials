@@ -44,8 +44,7 @@
        [ex] create table member(name char(10), address char(20), age int);
 
 * 
-       ☆ 고유한 값(번호)를 가지는 ID 필드 추가
-       ※ Mostly essential to do when making fields
+       ☆ 고유한 값(번호)를 가지는 ID 필드 추가   ※ Mostly essential to do when making fields
        sql-> create table "table"(id int auto_increment primary key);
        
        [ex] create table member(id int auto_increment primary key, name char(10), age int);
