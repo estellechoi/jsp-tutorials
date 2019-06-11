@@ -11,10 +11,10 @@
 
 
 ### Datatype(자료형)
-① int
-② char(문자수)
-③ text
-④ ...varchar -> 입력된 문자수 만큼만 메모리 차지
+* int
+* char(문자수)
+* text
+* ...varchar -> 입력된 문자수 만큼만 메모리 차지
 
 
 ### MySQL Console(root) command
