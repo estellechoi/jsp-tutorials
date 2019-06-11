@@ -19,7 +19,7 @@ Statement stmt = conn.createStatement();
 
 //쿼리문
 String sql = "insert into guest(field name,field name)";
-sql=sql+"values('"+a+"','"+b+"')";
+sql=sql+"values('"+a+"','"+b+"')"; // a는 문자열
 
 // 쿼리 실행
 // stmt.executeUpdate(sql);
