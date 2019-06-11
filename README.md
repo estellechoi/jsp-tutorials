@@ -4,9 +4,11 @@
 * mysql -u 아이디 -p 비번
 * bin (실행파일 디렉토리)
 
+
 ♣ SQL Structure
 * MySQL > DB > my DB > Table > Field > Record (values)
 * 작업의 종류  : insert(입력), update(수정), delete(삭제), select(조회)
+
 
 ♣ Datatype(자료형)
 ① int
@@ -14,15 +16,18 @@
 ③ text
 ④ ...varchar -> 입력된 문자수 만큼만 메모리 차지
 
+
 ♣ MySQL Console(root) command
 * Enter password: apmsetup
+
 
 ♣ Basic commands
 * ; or \g → send cmd to mysql.
 * help or \h → help
 * \c → clear the input statement.
 * \q → quit (sql 종료)
-       
+
+
 ♣ Commands
 
        // "db"/"table"/"field" 는 관리자가 입력하는 DB/Table/Field의 이름 
