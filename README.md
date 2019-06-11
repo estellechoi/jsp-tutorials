@@ -1,6 +1,4 @@
-# jsp-tutorials
-
-< My SQL > 
+# My SQL Tutorials
 
 mysql -u 아이디 -p 비번
 
