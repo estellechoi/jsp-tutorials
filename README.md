@@ -24,7 +24,9 @@
 * \q → quit (sql 종료)
        
 ♣ Commands
-* // "db"/"table"/"field" 는 관리자가 입력하는 DB/Table/Field의 이름 
+
+       // "db"/"table"/"field" 는 관리자가 입력하는 DB/Table/Field의 이름 
+
 * show databases; DB 현황 조회
 * create database "db"; DB 생성
 * drop database "db"; DB 삭제
