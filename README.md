@@ -43,9 +43,8 @@
 
        [ex] create table member(name char(10), address char(20), age int);
 
-* ※ Mostly essential to do when making fields
-* create table "table"(id int auto_increment primary key);
-
+##### ※ Mostly essential to do when making fields
+       * create table "table"(id int auto_increment primary key);
        [ex] create table member(id int auto_increment primary key, name char(10), age int);
 
 * show tables; table 현황 조회
