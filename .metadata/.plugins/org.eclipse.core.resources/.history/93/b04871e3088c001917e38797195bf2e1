@@ -1,0 +1,38 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<%@ page import="java.sql.*"%>
+<%
+// DB 연결
+String db = "jdbc:mysql://localhost:3306/hotel?useSSL=false"; // db명 : hotel
+String user = "root";
+String pw = "apmsetup";
+Connection conn = DriverManager.getConnection(db,user,pw);
+
+// DB 컨트롤 객체 생성
+Statement stmt = conn.createStatement();
+
+// 쿼리문
+String sql = "insert into guest(name, title, content)";
+sql=sql+"values('Carina','First guest','Hello. I am here.'')";
+
+// 폼 입력 값 가져오기
+
+out.println(request.getParameter("name"));
+out.println(request.getParameter("title"));
+out.println(request.getParameter("content"));
+
+// 쿼리 실행
+// stmt.executeUpdate(sql);
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+input page
+
+</body>
+</html>

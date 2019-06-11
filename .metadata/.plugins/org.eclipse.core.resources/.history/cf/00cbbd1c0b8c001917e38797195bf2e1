@@ -1,0 +1,24 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+    
+<%@ page import = "java.sql.*" %>
+
+<%
+//DB 연결
+String db = "jdbc:mysql://localhost:3306/DBname?useSSL=false";
+String user = "root";
+String pw = "apmsetup";
+Connection conn = DriverManager.getConnection(db,user,pw);
+Statement stmt = conn.createStatement();
+%>
+    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+ hello world.
+</body>
+</html>

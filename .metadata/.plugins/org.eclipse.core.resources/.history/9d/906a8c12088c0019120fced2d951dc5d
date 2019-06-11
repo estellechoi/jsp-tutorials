@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="input.jsp" method="post">
+User name <input type="text" id="user">
+Title <input type="text" id="tilte">
+Content <textarea name="" id="content" cols="40" rows="50"></textarea>
+<p></p>
+<input type="submit" value="Click">
+</form>
+
+</body>
+</html>

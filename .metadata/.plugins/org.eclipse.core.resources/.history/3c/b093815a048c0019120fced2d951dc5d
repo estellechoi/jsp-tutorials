@@ -1,0 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+    
+<%@ page import = "java.sql.*" %>
+
+<%
+String db;
+String user;
+String pw;
+Connection conn = DriverManager.getConnection(db,user,pw);
+%>
+    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+ hello world.
+</body>
+</html>
