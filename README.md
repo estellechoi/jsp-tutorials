@@ -18,19 +18,19 @@
 
 
 ### MySQL Console(root) command
-* Enter password: apmsetup
+> Enter password: apmsetup
 
 
-### Basic commands
+##### Basic commands
 * ; or \g → send cmd to mysql.
 * help or \h → help
 * \c → clear the input statement.
 * \q → quit (sql 종료)
 
 
-### Commands
+##### Commands
 
-       // "db"/"table"/"field" 는 관리자가 입력하는 DB/Table/Field의 이름 
+> "db"/"table"/"field" 는 관리자가 입력하는 DB/Table/Field의 이름 
 
 * show databases; DB 현황 조회
 * create database "db"; DB 생성
