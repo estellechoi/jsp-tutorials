@@ -43,6 +43,7 @@
 
        [ex] create table member(name char(10), address char(20), age int);
 
+* 
        ※ Mostly essential to do when making fields
        sql-> create table "table"(id int auto_increment primary key);
        
