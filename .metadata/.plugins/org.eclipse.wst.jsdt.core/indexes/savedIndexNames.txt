@@ -1,9 +1,0 @@
-INDEX VERSION 1.4+C:\Users\alfo1-2\jspwork\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-3844905591.index
-3788152261.index
-1079304073.index
-2029279520.index
-1079304073.index
-70846136.index
-657277067.index
-676389914.index
