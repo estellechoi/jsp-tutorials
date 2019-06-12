@@ -1,52 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
-
 <%@ page import="java.sql.*"%>
 
 <%
 	String db = "jdbc:mysql://localhost:3306/hotel?useSSL=false";
 	String user = "root";
 	String pw = "apmsetup";
+	
+	// 데이터베이스 접속 객체
 	Connection conn = DriverManager.getConnection(db, user, pw);
 
+	// 쿼리문 사용하게 해주는 객체
 	Statement stmt = conn.createStatement();
+	
+	// 데이터 수령 객체
 	ResultSet rs;
 
+	// 쿼리문
 	String sql = "select*from guest";
+	
+	// 쿼리실행 메소드(쿼리문) 리턴값 ⇒  데이터 수령 객체
 	rs = stmt.executeQuery(sql);
+	
+	// 레코드포인터 컨트롤
+	rs.next();
 %>
-<table width=500 border=1>
-	<caption>Guests</caption>
-	<tr>
-		<td>Name</td>
-		<td>Title</td>
-		<td>Content</td>
-	</tr>
-	<%
-		while (rs.next()) {
-	%>
-	<tr>
-		<td>
-			<%
-				out.println(rs.getString("name"));
-			%>
-		</td>
-		<td>
-			<%
-				out.println(rs.getString("title"));
-			%>
-		</td>
-		<td>
-			<%
-				out.println(rs.getString("content"));
-			%>
-		</td>
-	</tr>
-	<%
-		}
-	%>
-</table>
-
 <!DOCTYPE html>
 <html>
 <head>
