@@ -10,9 +10,9 @@
 	Statement stmt = conn.createStatement();
 	ResultSet rs;
 
-	// 사용자가 선택한 parameter("id") 가져오기
 	// 링크로 값 보낼 때 (form tag X) : Get 방식
-	// <a href= "이동할 문서?변수=값"> </a> → 주소창에 링크 보여짐
+	// <a href= "이동할 문서?변수=값"> </a> → 주소창에 링크 보여짐	
+	// 사용자가 선택한 링크의 parameter("id")의 값 가져오기
 	String id = request.getParameter("id");
 
 	String sql = "select*from guest where id=" + id;
@@ -43,7 +43,11 @@
 			<td> <%=rs.getString("content")%> </td>
 		</tr>
 		<tr>
-			<td colspan=2 align="center"><a href="Test_delete.jsp?id=<%=rs.getString("id") %>"> 삭제 </a></td>
+			<td colspan=2 align="center">
+			<a href="Test_delete.jsp?id=<%=rs.getString("id") %>"> 삭제 </a>
+			<a href="Test_update.jsp?id=<%=rs.getString("id") %>"> 수정 </a>
+			<a href="Test_list.jsp"> 목록 </a>
+			</td>
 		</tr>
 
 	</table>

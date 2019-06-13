@@ -21,35 +21,34 @@ table, td, tr {
 	padding: 10px;
 	border-spacing: 0px 0px;
 	border-collapse: collapse;
+	text-align: center;
+}
+
+tr {
+	height: 60px;
+}
+
+#fi {
+	height: 50px;
+	font-weight: bold;
+}
+
+#ti {
+	width: 150px;
 }
 
 input {
 	color: "gold";
 }
-"
-WebContent
-/Test_content
-.jsp
-"
 </style>
-<script>
-	function setColor() {
-		var tableCap = document.querySelector('#tableCap');
-		if (tableCap.value == "Click") {
-			tableCap.style.color = "powderblue";
-			tableCap.value = "Blue";
-		} else {
-			tableCap.style.color = "gold";
-			tableCap.value = "Click";
-		}
-	}
-</script>
+
 <body>
-	<input type="button" value="Click" onclick="setColor()">
 	<p></p>
-	<table width=500 border=1>
-		<caption id="tableCap">Guests</caption>
-		<tr>
+	<table width=1000 border=1 align="center">
+		<caption>
+			<h3>Guests' Board</h3>
+		</caption>
+		<tr id="fi">
 			<td>ID</td>
 			<td>Name</td>
 			<td>Title</td>
@@ -62,7 +61,8 @@ WebContent
 		<tr>
 			<td><%=rs.getString("id")%></td>
 			<td><%=rs.getString("name")%></td>
-			<td><a href="Test_content.jsp?id=<%=rs.getString("id")%>"><%=rs.getString("title")%></a></td>
+			<td id="ti"><a
+				href="Test_content.jsp?id=<%=rs.getString("id")%>"><%=rs.getString("title")%></a></td>
 			<td><%=rs.getString("content")%></td>
 		</tr>
 		<%
