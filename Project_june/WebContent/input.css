@@ -1,0 +1,20 @@
+@charset "EUC-KR";
+
+body {
+	background: #4C4C4C;
+	color: lime;
+	font-weight: bold;
+}
+
+input, textarea {
+	border: 1px solid lime;
+	background: #4C4C4C;
+}
+
+#submitButton {
+	background: #4C4C4C;
+	color: lime;
+	font-size: 18px;
+	height: 35px;
+	width: 60px;
+}

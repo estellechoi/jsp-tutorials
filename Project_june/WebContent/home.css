@@ -1,0 +1,47 @@
+@charset "EUC-KR";
+
+body {
+	background: #4C4C4C;
+}
+
+caption {
+	font-weight: bold;
+	color: lime;
+}
+
+table, td, tr {
+	border: 1px solid lime;
+	border-collapse: collapse;
+}
+
+table {
+	margin: auto;
+	width: 1000px;
+}
+
+tr, a {
+	height: 30px;
+	color: lime;
+	text-align: center;
+}
+
+#colId {
+	width: 5%;
+}
+
+#colName {
+	width: 20%;
+}
+
+#colCity {
+	width: 30%;
+}
+
+#colComment {
+	width: 40%;
+}
+
+#checkinButton {
+	border: 1px solid lime;
+	border-radius: 5px;
+}
