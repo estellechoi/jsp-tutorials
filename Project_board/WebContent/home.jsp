@@ -44,7 +44,7 @@
 			<td><%=rs.getString("id")%></td>
 			<td><%=rs.getString("name")%></td>
 			<td><%=rs.getString("city")%></td>
-			<td><a href="comment.jsp?id=<%=rs.getString("id")%>"><%=rs.getString("comment")%></a></td>
+			<td><a href="content.jsp?id=<%=rs.getString("id")%>"><%=rs.getString("comment")%></a></td>
 		</tr>
 		<%
 			}
