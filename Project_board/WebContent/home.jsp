@@ -1,27 +1,30 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ page import="java.sql.*"%>
 <%
-	// DB Á¢¼Ó
-	String db = "jdbc:mysql://localhost:3306/checkin?useSSL=false";
+	// DB ì ‘ì†
+	String db = "jdbc:mysql://localhost:3307/checkin?useSSL=false";
 	String user = "root";
-	String pw = "apmsetup";
+	String pw = "1234";
 	Connection conn = DriverManager.getConnection(db, user, pw);
-	// Äõ¸® Á¶Á¤ °´Ã¼
+	// ì¿¼ë¦¬ ì¡°ì • ê°ì²´
 	Statement stmt = conn.createStatement();
-	// Äõ¸®¹®
-	String sql = "select*from board";
-	// µ¥ÀÌÅÍ ¼ö·É °´Ã¼
+	// ì¿¼ë¦¬ë¬¸
+	String sql = "select*from board order by id desc"; // ìµœì‹ ìˆœ (id ë‚´ë¦¼ì°¨ìˆœ)
+	// ë°ì´í„° ìˆ˜ë ¹ ê°ì²´
 	ResultSet rs;
-	// Äõ¸® ½ÇÇà
+	// ì¿¼ë¦¬ ì‹¤í–‰
 	rs = stmt.executeQuery(sql);
+
+	
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="utf-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="bodyColor.css">
 <link rel="stylesheet" href="home.css">
 </head>
 <body>
@@ -32,22 +35,28 @@
 			<p></p>
 		</caption>
 		<tr id="field">
-			<td id="colId">id</td>
+			<td id="colId">no</td>
 			<td id="colName">name</td>
 			<td id="colCity">city</td>
 			<td id="colComment">comment</td>
 		</tr>
 		<%
+		int n =0;
 			while (rs.next()) {
+			// database table row ë§Œí¼ ë°˜ë³µ
+			n = n+1;
 		%>
 		<tr>
-			<td><%=rs.getString("id")%></td>
+			<td><%=n%></td>
 			<td><%=rs.getString("name")%></td>
 			<td><%=rs.getString("city")%></td>
 			<td><a href="content.jsp?id=<%=rs.getString("id")%>"><%=rs.getString("comment")%></a></td>
 		</tr>
 		<%
+			// <a href="content.jsp?id=13&name=estelle">
 			}
+		stmt.close();
+		conn.close();
 		%>
 	</table>
 

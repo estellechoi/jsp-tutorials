@@ -1,10 +1,5 @@
-@charset "EUC-KR";
+@charset "utf-8";
 
-body {
-	background: #4C4C4C;
-	color: lime;
-	font-weight: bold;
-}
 
 input, textarea {
 	border: 1px solid lime;

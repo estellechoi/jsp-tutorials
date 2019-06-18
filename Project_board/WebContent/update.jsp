@@ -1,13 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ page import="java.sql.*"%>
 <%
-	String db = "jdbc:mysql://localhost:3306/checkin?useSSL=false";
+	String db = "jdbc:mysql://localhost:3307/checkin?useSSL=false";
 	String user = "root";
-	String pw = "apmsetup";
+	String pw = "1234";
 	Connection conn = DriverManager.getConnection(db, user, pw);
 	Statement stmt = conn.createStatement();
 
+	// 한글 인식하기
+	request.setCharacterEncoding("utf-8");
+	// response.setCharacterEncoding("utf-8");
+	//
 	String id = request.getParameter("id");
 	String sql = "select*from board where id=" + id;
 
@@ -18,15 +22,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="utf-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="bodyColor.css">
 <link rel="stylesheet" href="input.css">
 </head>
 <body>
 	<form action="update_ok.jsp" method="post">
-		<input type="hidden" name="id" value="<%=id%>">
-		Name <input type="text" name="name" value="<%=rs.getString("name")%>"
-			disabled>
+		<input type="hidden" name="id" value="<%=id%>"> Name <input
+			type="text" name="name" value="<%=rs.getString("name")%>" disabled>
 		<p></p>
 		City &nbsp; <input type="text" name="city"
 			value="<%=rs.getString("city")%>">
@@ -42,3 +46,8 @@
 
 </body>
 </html>
+
+<%
+	stmt.close();
+	conn.close();
+%>

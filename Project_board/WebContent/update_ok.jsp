@@ -1,30 +1,35 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ page import="java.sql.*"%>
 <%
-String db="jdbc:mysql://localhost:3306/checkin?useSSL=false";
-String user="root";
-String pw="apmsetup";
-Connection conn = DriverManager.getConnection(db,user,pw);
-Statement stmt = conn.createStatement();
+	String db = "jdbc:mysql://localhost:3307/checkin?useSSL=false";
+	String user = "root";
+	String pw = "1234";
+	Connection conn = DriverManager.getConnection(db, user, pw);
+	Statement stmt = conn.createStatement();
 
-// »ç¿ëÀÚ form ÀÔ·Â°ª °¡Á®¿À±â
-String id = request.getParameter("id");
-String city = request.getParameter("city");
-String comment = request.getParameter("comment");
+	//í•œê¸€ ì¸ì‹í•˜ê¸°
+	request.setCharacterEncoding("utf-8");
+	// ì‚¬ìš©ì form ì…ë ¥ê°’ ê°€ì ¸ì˜¤ê¸°
+	String id = request.getParameter("id");
+	String city = request.getParameter("city");
+	String comment = request.getParameter("comment");
 
-String sql="update board set city='"+city+"', comment='"+comment+"' where id="+id;
+	String sql = "update board set city='" + city + "', comment='"
+			+ comment + "' where id=" + id;
 
-stmt.executeUpdate(sql);
+	stmt.executeUpdate(sql);
 
-// content È­¸éÀ¸·Î °¡±â
-response.sendRedirect("content.jsp?id="+id);
-
+	// content í™”ë©´ìœ¼ë¡œ ê°€ê¸°
+	response.sendRedirect("content.jsp?id=" + id);
+	
+	stmt.close();
+	conn.close();
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="utf-8">
 <title>Insert title here</title>
 </head>
 <body>

@@ -1,34 +1,39 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ page import="java.sql.*"%>
 <%
-// DB Á¢¼Ó
-String db="jdbc:mysql://localhost:3306/checkin?useSSL=false";
-String user="root";
-String pw="apmsetup";
-Connection conn = DriverManager.getConnection(db,user,pw);
-// Äõ¸® Á¶Á¤ °´Ã¼
-Statement stmt = conn.createStatement();
+	// DB ì ‘ì†
+	String db = "jdbc:mysql://localhost:3307/checkin?useSSL=false";
+	String user = "root";
+	String pw = "1234";
+	Connection conn = DriverManager.getConnection(db, user, pw);
+	// ì¿¼ë¦¬ ì¡°ì • ê°ì²´
+	Statement stmt = conn.createStatement();
 
-// »ç¿ëÀÚ ÀÔ·Â°ª ¼ö·É
-String username = request.getParameter("name");
-String usercity = request.getParameter("city");
-String usercomment = request.getParameter("comment");
+	//í•œê¸€ ì¸ì‹í•˜ê¸°
+	request.setCharacterEncoding("utf-8");
+	// ì‚¬ìš©ì ì…ë ¥ê°’ ìˆ˜ë ¹
+	String username = request.getParameter("name");
+	String usercity = request.getParameter("city");
+	String usercomment = request.getParameter("comment");
 
-// Äõ¸®¹®
-// insert into "table"("field", "field") values("¹®ÀÚ", ¼ıÀÚ); ·¹ÄÚµå Ãß°¡
-String sql = "insert into board(name, city, comment) values('"+username+"','"+usercity+"','"+usercomment+"')";
+	// ì¿¼ë¦¬ë¬¸
+	// insert into "table"("field", "field") values("ë¬¸ì", ìˆ«ì); ë ˆì½”ë“œ ì¶”ê°€
+	String sql = "insert into board(name, city, comment) values('"
+			+ username + "','" + usercity + "','" + usercomment + "')";
 
-stmt.executeUpdate(sql);
+	stmt.executeUpdate(sql);
 
-// back to home.jsp
-response.sendRedirect("home.jsp");
-
+	// back to home.jsp
+	response.sendRedirect("home.jsp");
+	
+	stmt.close();
+	conn.close();
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="utf-8">
 <title>Insert title here</title>
 </head>
 <body>

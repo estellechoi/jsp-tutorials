@@ -1,9 +1,5 @@
 @charset "EUC-KR";
 
-body {
-	background: #4C4C4C;
-}
-
 caption {
 	font-weight: bold;
 	color: lime;
@@ -34,11 +30,11 @@ tr, a {
 }
 
 #colCity {
-	width: 30%;
+	width: 20%;
 }
 
 #colComment {
-	width: 40%;
+	width: 50%;
 }
 
 #checkinButton {

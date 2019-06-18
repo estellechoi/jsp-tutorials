@@ -1,27 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ page import="java.sql.*"%>
 <%
-	String db = "jdbc:mysql://localhost:3306/checkin?useSSL=false";
+	String db = "jdbc:mysql://localhost:3307/checkin?useSSL=false";
 	String user = "root";
-	String pw = "apmsetup";
+	String pw = "1234";
 	Connection conn = DriverManager.getConnection(db, user, pw);
 	Statement stmt = conn.createStatement();
 	ResultSet rs;
 
-	// »ç¿ëÀÚ°¡ ¼±ÅÃÇÑ ¸µÅ©ÀÇ parameter("id") °ª °¡Á®¿À±â
+	// í•œê¸€ ì¸ì‹í•˜ê¸°
+	request.setCharacterEncoding("utf-8");
+
+	// ì‚¬ìš©ìê°€ ì„ íƒí•œ ë§í¬ì˜ parameter("id") ê°’ ê°€ì ¸ì˜¤ê¸°
 	String id = request.getParameter("id");
 
 	String sql = "select*from board where id=" + id;
 	rs = stmt.executeQuery(sql);
 
 	rs.next();
+	
+
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="utf-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="bodyColor.css">
 <link rel="stylesheet" href="content.css">
 </head>
 <body>
@@ -41,3 +47,8 @@
 	</div>
 </body>
 </html>
+
+<%
+stmt.close();
+conn.close();
+%>
