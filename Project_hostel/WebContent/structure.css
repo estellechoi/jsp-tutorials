@@ -1,0 +1,48 @@
+@charset "utf-8";
+
+body {
+	margin: 0;
+}
+
+header #signin {
+	height: 50px;
+	background: none;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+#signin>a {
+	margin: 15px;
+	font-size: 12px;
+	color: black;
+	text-decoration: none;
+}
+
+#signin>a:hover {
+	text-decoration: underline;
+}
+
+header #logo {
+	height: 80px;
+	background: lightyellow;
+}
+
+section #image {
+	height: 300px;
+	background: none;
+}
+
+section #about {
+	height: 200px;
+	background: lightblue;
+}
+
+section #reserve {
+	height: 300px;
+	background: orange;
+}
+
+footer {
+	height: 100px;
+	background: green;
+}
