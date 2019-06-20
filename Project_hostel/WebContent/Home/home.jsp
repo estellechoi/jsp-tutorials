@@ -12,7 +12,7 @@
 <body>
 <%@ include file="../Common/header.jsp" %>
 	<section>
-		<article id="image"></article>
+		<article id="image"> Arizona </article>
 		<article id="about">인사말</article>
 		<article id="reserve">객실 / 예약 링크</article>
 	</section>

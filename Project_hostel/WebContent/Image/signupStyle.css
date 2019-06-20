@@ -1,5 +1,16 @@
 @charset "utf-8";
 
-table {
+section {
 	height: 500px;
+}
+table {
+	width: 500px;
+	margin: auto;
+	height: 500px;
+	text-align: center;
+}
+
+tr {
+	height: 50px;
+	border: 1px solid gray;
 }
