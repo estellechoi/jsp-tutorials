@@ -69,7 +69,7 @@ header #topbar #menu>ul>li {
 
 section #image {
 	height: 500px;
-	background-image: url(arizona.jpg);
+	background-image: url(../Image/arizona.jpg);
 	background-size: 100%; /* width 기준 */
 	background-repeat: no-repeat;
 }
