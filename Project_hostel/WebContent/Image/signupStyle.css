@@ -14,3 +14,9 @@ tr {
 	height: 50px;
 	border: 1px solid gray;
 }
+
+#useridx, #namex, #passwordx, #confirmPasswordx, #emailx {
+	color: red;
+	font-size: 13px;
+	font-style: italic;
+}
