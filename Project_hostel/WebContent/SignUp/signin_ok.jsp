@@ -18,10 +18,12 @@ String sql="select * from member where userid='"+userid+"' and password='"+passw
 ResultSet rs = stmt.executeQuery(sql);
 
 // 검토
-// 세션변수(session) : session.setAttribute(변수명, 값);
-// 세션변수는 전역변수 (값이 한 번 들어가면 해당값이 계속 존재, 페이지마다 값을 줄 필요가 없음)
+// * 세션변수 : session.setAttribute(변수명, 값);
+//   전역변수 (모든 문서에서 언제나 접근 가능), 자주 사용하는 값을 전역변수 session에 저장
 if(rs.next()) {
 	session.setAttribute("userid",rs.getString("userid"));
+	session.setAttribute("name",rs.getString("name"));
+	response.sendRedirect("../Home/home.jsp");
 }
 else {
 	response.sendRedirect("../SignUp/signin.jsp");
