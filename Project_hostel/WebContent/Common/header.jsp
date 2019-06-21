@@ -4,7 +4,7 @@
 <header>
 	<div id="signin">
 		<a href="../SignUp/signup.jsp">회원가입</a>
-		<a href="">로그인</a>
+		<a href="../SignUp/signin.jsp">로그인</a>
 		<a href="">찾아오시는길</a>
 	</div>
 	<div id="topbar">
