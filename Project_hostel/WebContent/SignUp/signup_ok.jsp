@@ -19,7 +19,7 @@ String sql="insert into member(userid, name, password, email) values('"+userid+"
 stmt.executeUpdate(sql);
 
 // 어디로 보내지
-response.sendRedirect("../Home/home.jsp");
+response.sendRedirect("../Singup/signin.jsp");
 %>
 
 
