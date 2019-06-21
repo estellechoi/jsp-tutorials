@@ -4,10 +4,11 @@ section {
 	height: 500px;
 }
 table {
-	width: 500px;
+	border: 1px solid red;
 	margin: auto;
 	height: 500px;
 	text-align: center;
+	width: 600px;
 }
 
 tr {
@@ -19,4 +20,5 @@ tr {
 	color: red;
 	font-size: 13px;
 	font-style: italic;
+	width: 200px;
 }
