@@ -15,7 +15,7 @@
 		else {
 	%>
 		<a href=""><%=session.getAttribute("name")%> 님, 안녕하세요 !</a>
-		<a href="">정보수정</a>
+		<a href="../SignUp/editProfile_check.jsp">정보수정</a>
 		<a href="../SignUp/signout.jsp">로그아웃</a>
 		<a href="">찾아오시는길</a>	
 	<%

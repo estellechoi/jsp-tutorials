@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="../Image/signinStyle.css">
 <script>
 	function locateToFindAccount() {
-			location =  "../SignUp/findAccount.jsp";
+		location = "../SignUp/findAccount.jsp";
 	}
 	function locateToSignup() {
 		location = "../SignUp/signup.jsp";
@@ -19,6 +19,7 @@
 <body>
 	<%@ include file="../Common/header.jsp"%>
 	<section>
+		<article></article>
 		<article>
 			<form action="signin_ok.jsp" method="post">
 				<div id="captionSignin">로그인</div>

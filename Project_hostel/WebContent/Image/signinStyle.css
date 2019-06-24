@@ -3,7 +3,14 @@
 section {
 	height: 700px;
 }
-article {
+article:nth-child(1) {
+	height: 150px;
+	background-image: url(../Image/arizona.jpg);
+	background-size: 100%;
+	background-repeat: no-repeat;
+
+}
+article:nth-child(2) {
 	margin: auto;
 	width: 400px;
 	border: 1px solid lightgrey;
