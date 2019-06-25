@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%
 String db="jdbc:mysql://localhost:3307/hostel?useSSL=false";
@@ -9,7 +9,7 @@ Connection conn = DriverManager.getConnection(db,user,pw);
 Statement stmt = conn.createStatement();
 
 // 사용자 입력값
-request.setCharacterEncoding("utf-8");
+request.setCharacterEncoding("UTF-8");
 String userid = request.getParameter("userid");
 String password = request.getParameter("password");
 

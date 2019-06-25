@@ -1,0 +1,71 @@
+@charset "UTF-8";
+
+section article:nth-child(1) {
+	height: 150px;
+	background-image: url(../Image/arizona.jpg);
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
+section article:nth-child(2) {
+	height: 1000px;
+}
+
+table {
+	margin: auto;
+	width: 1000px;
+	border: 1px solid lightgrey;
+	border-collapse: collapse;
+	margin-bottom: 50px;
+}
+
+table>caption:nth-child(1) {
+	font-weight: bold;
+	font-size: 25px;
+	padding-top: 50px;
+	padding-bottom: 10px;
+	text-align: left;
+}
+
+table>caption:nth-child(2) {
+	font-weight: bold;
+	font-size: 13px;
+	padding: 20px;
+	text-align: right;
+}
+
+table #fields {
+	font-weight: bold;
+}
+
+table tr, td {
+	border: 1px solid lightgrey;
+	padding: 10px;
+	text-align: center;
+	font-size: 13px;
+}
+
+table tr, td a {
+	text-decoration: none;
+	color: black;
+}
+
+table td:nth-child(1) {
+	width: 7%;
+}
+
+table td:nth-child(2) {
+	width: 50%;
+}
+
+table td:nth-child(3) {
+	width: 18%;
+}
+
+table td:nth-child(4) {
+	width: 15%;
+}
+
+table td:nth-child(5) {
+	width: 15%;
+}

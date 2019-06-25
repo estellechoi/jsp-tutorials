@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../Image/structure.css">
 <link rel="stylesheet" href="../Image/signupStyle.css">
@@ -68,7 +68,7 @@
 						<td id="emailx"></td>
 					</tr>
 					<tr>
-						<td colspan="2"><input type="submit" value="가입하기"></td>
+						<td colspan="3"><input type="submit" value="가입하기"></td>
 					</tr>
 				</table>
 			</form>

@@ -1,7 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
-
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <header>
 	<div id="signin">
 	<%
@@ -30,11 +28,11 @@
 		</div>
 		<div id="menu">
 			<ul>
-				<li>소개</li>
-				<li>객실</li>
-				<li>부대시설</li>
-				<li>커뮤니티</li>
-				<li>예약</li>
+				<li><a href="">소개</a></li>
+				<li><a href="">객실</a></li>
+				<li><a href="">부대시설</a></li>
+				<li><a href="../Board/announce_list.jsp">게시판</a></li>
+				<li><a href="">예약</a></li>
 			</ul>
 		</div>
 	</div>
