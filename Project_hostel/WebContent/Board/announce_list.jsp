@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../Common/DBconnection.jsp"%>
 <%
-	sql = "select*from announce order by id desc";
+	sql = "select*from announce order by id desc"; // 내림차순 정렬
 	rs = stmt.executeQuery(sql);
 %>
 <!DOCTYPE html>
@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../Image/structure.css">
-<link rel="stylesheet" href="../Image/listStructure.css">
+<link rel="stylesheet" href="../Image/listStyle.css">
 <!-- <script>
  	function readNumIncre() {
  	int id = rs.getInt("id");
@@ -35,7 +35,7 @@
 					%>
 					<a href="../Board/announce_write.jsp">글쓰기</a>
 					<%
-						}
+							}
 						}
 					%>
 				</caption>
@@ -45,6 +45,15 @@
 					<td>작성자</td>
 					<td>작성일</td>
 					<td>조회수</td>
+					<%
+						if (session.getAttribute("userid") != null) {
+							if (session.getAttribute("userid").equals("admin")) {
+					%>
+					<td>비고</td>
+					<%
+							}
+						}
+					%>
 				</tr>
 				<%
 					int n = 0;
@@ -53,11 +62,21 @@
 				%>
 				<tr>
 					<td><%=n%></td>
-					<td><a
-						href="../Board/announce_content.jsp?id=<%=rs.getInt("id")%>"><%=rs.getString("title")%></a></td>
+					<td><a href="../Board/announce_readnum.jsp?id=<%=rs.getInt("id")%>">
+						<%=rs.getString("title")%>
+					</a></td>
 					<td><%=rs.getString("userid")%></td>
 					<td><%=rs.getString("writeday")%></td>
-					<td><%=rs.getString("readnum")%></td>
+					<td><%=rs.getString("readnum")%></td>		
+						<%
+							if (session.getAttribute("userid") != null) {
+									if (session.getAttribute("userid").equals("admin")) {
+						%>
+						<td><a href="../Board/announce_delete.jsp?id=<%=rs.getString("id")%>">삭제</a></td>
+						<%
+									}
+							}
+						%>
 				</tr>
 				<%
 					}
