@@ -6,7 +6,7 @@ body {
 
 header {
 	height: 230px;
-	background-image: url(../img/paris_cut.jpg);
+	background-image: url(../Img/paris_cut.jpg);
 	background-size: 100%;
 	background-repeat: no-repeat;
 }
@@ -34,7 +34,7 @@ header>#topbar>#profileImage {
 	height: 40px;
 	border: 1px solid lightgrey;
 	border-radius: 50px;
-	background-image: url(../img/youjin_cut.jpg);
+	background-image: url(../Img/youjin_cut.jpg);
 	background-size: 100%;
 	background-repeat: no-repeat;
 	cursor: pointer;
