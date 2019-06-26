@@ -36,26 +36,31 @@ table>caption:nth-child(2) {
 
 table #fields {
 	font-weight: bold;
+	height: 40px;
 }
 
-table tr, td {
+table tr {
 	border: 1px solid lightgrey;
 	padding: 10px;
 	text-align: center;
 	font-size: 13px;
+	height: 30px;
 }
 
-table tr, td a {
+a {
 	text-decoration: none;
 	color: black;
 }
+a:hover {
+	text-decoration: underline;
+}
 
 table td:nth-child(1) {
-	width: 7%;
+	width: 5%;
 }
 
 table td:nth-child(2) {
-	width: 50%;
+	width: 40%;
 }
 
 table td:nth-child(3) {
@@ -67,5 +72,9 @@ table td:nth-child(4) {
 }
 
 table td:nth-child(5) {
-	width: 15%;
+	width: 10%;
+}
+
+table td:nth-child(6) {
+	width: 10%;
 }
