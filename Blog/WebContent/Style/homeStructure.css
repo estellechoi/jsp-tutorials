@@ -1,0 +1,71 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+}
+
+header {
+	height: 230px;
+	background-image: url(../img/paris_cut.jpg);
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
+header>#topbar {
+	height: 70px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+header>#topbar>a, #profileImage {
+	margin-right: 30px;
+	font-size: 13px;
+	color: white;
+	text-decoration: none;
+}
+
+header>#topbar>a:hover {
+	text-decoration: underline;
+}
+
+header>#topbar>#profileImage {
+	width: 40px;
+	height: 40px;
+	border: 1px solid lightgrey;
+	border-radius: 50px;
+	background-image: url(../img/youjin_cut.jpg);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	cursor: pointer;
+}
+
+section {
+	display: grid;
+	grid-template-columns: 200px 1fr;
+	height: 1000px;
+}
+
+section>#category li {
+	list-style: none;
+	margin-top: 30px;
+}
+
+section>#category li>a {
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+}
+
+section>#category li>a:hover {
+	text-shadow: 1px 1px 1px lightgrey;
+}
+
+section>#feed {
+	
+}
+
+footer {
+	height: 150px;
+	background: #171A0F;
+}
