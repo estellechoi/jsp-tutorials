@@ -1,0 +1,64 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+}
+
+section {
+	height: 1000px;
+}
+
+table {
+	border: 1px solid lightgrey;
+	border-radius: 10px;
+	box-shadow: 1px 1px 3px lightgrey; margin : auto;
+	width: 400px;
+	padding: 20px;
+	margin: auto;
+}
+
+table>caption {
+	padding-top: 50px;
+	padding-bottom: 30px;
+	font-weight: bold;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+table tr {
+	height: 50px;
+	font-size: 13px;
+}
+
+table tr:last-child {
+	text-align: center;
+}
+
+table tr .x {
+	color: red;
+	font-style: italic;
+}
+
+table tr input[type=text], [type=password] {
+	height: 30px;
+	padding-left: 10px;
+	padding-right: 10px;
+	width: 250px;
+	color: #FF00FF;
+	font-size: 14px;
+}
+
+table tr input[type=submit] {
+	background: #FF00FF;
+	color: white;
+	font-weight: bold;
+	border: 1px solid lightgrey;
+	border-radius: 5px;
+	width: 90px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+table tr input[type=text], [type=password], [type=submit]:focus {
+	outline: none;
+}

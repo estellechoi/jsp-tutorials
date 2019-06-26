@@ -9,23 +9,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>유진의 블로그</title>
-<link rel="stylesheet" href="../style/structure.css">
-<script>
-	function locationProfile() {
-		location = "";
-	}
-</script>
+<link rel="stylesheet" href="../Style/homeStyle.css">
 </head>
 
 <body>
-	<header>
-		<div id="topbar">
-			<div id="profileImage" onclick="locationProfile()"></div>
-			<a href="">업로드하기</a> <a href="">회원가입</a> <a href="">로그인</a>
-		</div>
-	</header>
+	<%@ include file="../Common/header.jsp"%>
 	<section>
-		<article id="category">
+		<article>
 			<ul>
 				<li><a href="">에세이</a></li>
 				<li><a href="">개발</a></li>
@@ -33,10 +23,9 @@
 				<li><a href="">커뮤니티</a></li>
 			</ul>
 		</article>
-		<article id="feed"></article>
+		<article></article>
 	</section>
-	<footer></footer>
-
+	<%@ include file="../Common/footer.jsp"%>
 </body>
 
 </html>

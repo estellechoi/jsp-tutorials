@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+}
+
+section {
+	display: grid;
+	grid-template-columns: 200px 1fr;
+	height: 1000px;
+}
+
+section>article:nth-child(1) li {
+	list-style: none;
+	margin-top: 30px;
+}
+
+section>article:nth-child(1) li>a {
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+}
+
+section>article:nth-child(1) li>a:hover {
+	text-shadow: 1px 1px 1px lightgrey;
+}
+
+section>article:nth-child(2) {
+	
+}
+
