@@ -26,7 +26,9 @@ if(rs.next()) {
 	response.sendRedirect("../Home/home.jsp");
 }
 else {
-	response.sendRedirect("../SignUp/signin.jsp");
+	// GET 방식
+	// err=1 ?
+	response.sendRedirect("../SignUp/signin.jsp?err=1");
 }
 
 

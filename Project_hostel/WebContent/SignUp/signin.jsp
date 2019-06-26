@@ -36,6 +36,15 @@
 					<p></p>
 					<input type="checkbox"> 자동로그인
 					<p></p>
+					<%
+					// 에러일 때 err = 1 ( != null)
+					// 값으로 비교하고 싶으면 ? 문자열 비교는 equals 사용
+						if (request.getParameter("err") != null) {
+					%>
+					<span id="error" style="color: red">아이디 혹은 비밀번호가 틀립니다.</span>
+					<%
+						}
+					%>
 				</div>
 			</form>
 			<div id="infoSignin">
