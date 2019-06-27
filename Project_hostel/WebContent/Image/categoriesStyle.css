@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+#categories {
+	border-right: 1px solid lightgrey;
+}
+
+li {
+	margin: 30px;
+	list-style: none;
+	font-weight: bold;
+}

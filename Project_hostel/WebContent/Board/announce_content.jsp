@@ -40,7 +40,7 @@
 					<td>작성자</td>
 					<td>작성일</td>
 				</tr>
-				<tr id="contentInfo">
+				<tr class="contentInfo">
 					<td><%=rs.getString("title")%></td>
 					<td><%=rs.getString("userid")%></td>
 					<td><%=rs.getString("writeday")%></td>

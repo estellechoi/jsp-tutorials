@@ -9,6 +9,8 @@ section article:nth-child(1) {
 
 section article:nth-child(2) {
 	height: 1000px;
+	display: grid;
+	grid-template-columns: 200px 1fr;
 }
 
 table {

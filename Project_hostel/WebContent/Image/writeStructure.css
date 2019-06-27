@@ -41,15 +41,15 @@ table>caption:nth-child(2) a {
 table #fields {
 	font-weight: bold;
 	background: #F6F4F1;
-	height: 30px;
+	height: 20px;
 }
 
-table #contentInfo {
+table .contentInfo {
 	height: 60px;
 }
 
 table #content td {
-	text-align: left;
+	text-align: center;
 	vertical-align: top;
 	height: 600px;
 }
