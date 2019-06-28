@@ -6,7 +6,7 @@
 		location = "../Home/home.jsp";
 	}
 </script>
-<link rel="stylesheet" href="../Style/headerStyle.css">
+<link rel="stylesheet" href="../Style/headerStyle.css?ver=1">
 </head>
 
 <header>

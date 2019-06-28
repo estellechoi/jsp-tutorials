@@ -7,6 +7,12 @@ header {
 	background-repeat: no-repeat;
 }
 
+@media ( max-width : 942px) {
+	header {
+		background-size: 942px 100%;
+	}
+}
+
 header>#topbar {
 	height: 70px;
 	display: flex;
