@@ -7,8 +7,8 @@
 	// 사용자 입력값
 	request.setCharacterEncoding("UTF-8");
 	String title = request.getParameter("title");
- 	title=title.replace("<","&lt;");
- 	title=title.replace(">","&gt;");
+//  	title=title.replace("<","&lt;");
+//  	title=title.replace(">","&gt;");
 // <xmp></xmp>
 	String name = request.getParameter("name");
 	String content = request.getParameter("content");

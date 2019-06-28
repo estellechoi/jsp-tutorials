@@ -42,7 +42,7 @@
 				</tr>
 				<tr class="contentInfo">
 				<!-- replace("&lt;", "<", "&gt;", ">") ???? -->
-					<td><%=rs.getString("title").replace("&lt;", "<", "&gt;", ">")%></td>
+					<td><%=rs.getString("title")%></td>
 					<td><%=rs.getString("userid")%></td>
 					<td><%=rs.getString("writeday")%></td>
 				</tr>
