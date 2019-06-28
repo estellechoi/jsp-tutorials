@@ -12,7 +12,9 @@
 	<section>
 		<%@ include file="../Common/sidebar.jsp"%>
 		<article>
-		
+			<form action="../Member/editProfile_ok.jsp" method="post">
+			
+			</form>
 		</article>
 	</section>
 	<%@ include file="../Common/footer.jsp"%>
