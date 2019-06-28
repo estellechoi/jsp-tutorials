@@ -22,7 +22,7 @@
 			} else {
 		%>
 		<a href="">업로드하기</a>
-		<a href="">정보수정</a>
+		<a href="../Member/editProfile.jsp">정보수정</a>
 		<a href="../Member/signout.jsp">로그아웃</a>
 		<%
 			}
