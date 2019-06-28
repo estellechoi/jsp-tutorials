@@ -4,6 +4,33 @@ body {
 	margin: 0;
 }
 
+#popup {
+	position: absolute;
+	left: 200px;
+	top: 200px;
+	width: 340px;
+	height: 200px;
+	border: 3px solid lightgrey;
+	border-radius: 10px;
+	font-weight: bold;
+}
+
+#popup table {
+	width: 340px;
+	height: 200px;
+}
+
+#popup .pop {
+	text-align: center;
+}
+
+#popup .pop input {
+	margin: 0 20px 0 20px;
+	background: #2C3135;
+	border: 1px solid lightgrey;
+	color: white;
+}
+
 header #signin {
 	height: 50px;
 	display: flex;
@@ -86,14 +113,30 @@ section #image {
 	padding: 20px;
 }
 
-@media ( max-width : 1550px) {
+@media ( max-width : 1673px) {
 	section #image {
-		background-size: 1550px 500px;
+		background-size: 1673px 100%;
 	}
 }
 
 section #about {
-	height: 200px;
+	display: grid;
+	grid-template-columns: 1020px 1fr;
+}
+
+section #about div:nth-child(1) {
+	padding: 10px;
+}
+
+section #about div:nth-child(1)>img {
+	width: 1000px;
+	border: none;
+	border-radius: 10px;
+	border: none;
+}
+
+section #about div:nth-child(1)>img:hover {
+	opacity: 0.5;
 }
 
 section #reserve {

@@ -8,5 +8,5 @@
 	Connection conn = DriverManager.getConnection(db, user, pw);
 	Statement stmt = conn.createStatement();
 	ResultSet rs;
-	String sql;
+	String sql = null;
 %>
