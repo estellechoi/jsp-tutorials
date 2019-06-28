@@ -8,17 +8,20 @@
 
 	request.setCharacterEncoding("UTF-8");
 	String userid = request.getParameter("userid");
-	String name = request.getParameter("name");
 	String password = request.getParameter("password");
-	String email = request.getParameter("email");
-	String sex = request.getParameter("sex");
 
-	String sql = "insert into member(userid, name, password, email, sex)";
-	sql = sql + " values('" + userid + "', '" + name + "', '" + password
-			+ "', '" + email + "', '" + sex + "')";
-	stmt.executeUpdate(sql);
-	
-	response.sendRedirect("../Home/home.jsp");
+	String sql = "select*from member where userid='" + userid
+			+ "' and password='" + password + "'";
+	ResultSet rs = stmt.executeQuery(sql);
+
+	if (rs.next()) {
+		session.setAttribute("userid", rs.getString("userid"));
+		session.setAttribute("name", rs.getString("name"));
+		response.sendRedirect("../Home/home.jsp");
+	} else {
+		// 오류 메세지를 위한 err
+		response.sendRedirect("../Member/signin.jsp?err=1");
+	}
 	
 	stmt.close();
 	conn.close();

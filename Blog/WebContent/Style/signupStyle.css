@@ -48,15 +48,19 @@ table tr input[type=text], [type=password] {
 	font-size: 14px;
 }
 
-table tr input[type=submit] {
+table tr input[type=submit],[type=button] {
 	background: #FF00FF;
 	color: white;
 	font-weight: bold;
 	border: 1px solid lightgrey;
 	border-radius: 5px;
-	width: 90px;
+	width: 150px;
 	padding-top: 10px;
 	padding-bottom: 10px;
+}
+
+table tr input[type=submit],[type=button]:hover {
+	cursor: pointer;
 }
 
 table tr input[type=text], [type=password], [type=submit]:focus {

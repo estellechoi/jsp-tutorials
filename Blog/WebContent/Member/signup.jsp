@@ -14,7 +14,7 @@
 			if (document.all.sex[i].checked)
 				radio = 1;
 		}
-		var x = document.querySelector('.x');
+		var x = document.querySelectorAll('.x');
 		if (document.all.userid.value == "") {
 			x[0].innerText = "!!!"
 			return false;
@@ -68,8 +68,8 @@
 					<td class="x"></td>
 				</tr>
 				<tr>
-					<td><input type="radio" name="sex"> 남 <input
-						type="radio" name="sex"> 여</td>
+					<td><input type="radio" name="sex" value="남"> 남 <input
+						type="radio" name="sex" value="여"> 여</td>
 					<td class="x"></td>
 				</tr>
 				<tr>
