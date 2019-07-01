@@ -10,7 +10,7 @@
 
 	request.setCharacterEncoding("UTF-8");
 	
-	String id = request.getParameter("name");
+	String id = request.getParameter("id");
 	String sql = "delete from board where id=" + id;
 
 	stmt.executeUpdate(sql);
