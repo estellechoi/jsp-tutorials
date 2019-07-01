@@ -26,7 +26,6 @@
 		for (var i = 0; i < hobbyArr.length-1; i++) {
 			document.getElementsByName("hobby")[hobbyArr[i]].checked = "true";
 		}
-
 	}
 </script>
 </head>
