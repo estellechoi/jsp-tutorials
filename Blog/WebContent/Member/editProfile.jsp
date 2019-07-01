@@ -5,10 +5,10 @@
 	String db = "jdbc:mysql://localhost:3307/blog?useSSL=false";
 	Connection conn = DriverManager.getConnection(db, "root", "1234");
 	Statement stmt = conn.createStatement();
-	String sql = "select*from member where userid='"
-			+ session.getAttribute("userid") + "'";
+	String sql = "select*from member where userid='" + session.getAttribute("userid") + "'";
 	ResultSet rs = stmt.executeQuery(sql);
 	rs.next();
+	int sex = rs.getInt("sex");
 %>
 
 <!DOCTYPE html>
@@ -19,8 +19,13 @@
 <link rel="stylesheet" href="../Style/commonStyle.css">
 <link rel="stylesheet" href="../Style/signupStyle.css">
 <script src="../Script/signupCheck.js"></script>
+<script>
+	function getRadioCheck() {
+		document.getElementsByName("sex")[<%=sex%>].checked ="true";
+	}
+</script>
 </head>
-<body>
+<body onload="getRadioCheck()">
 	<%@ include file="../Common/header.jsp"%>
 	<section>
 		<%@ include file="../Common/sidebar.jsp"%>
@@ -55,20 +60,8 @@
 						<td class="x"></td>
 					</tr>
 					<tr>
-						<td>
-							<%
-								if (rs.getString("sex").equals("남")) {
-							%> 
-							<input type="radio" name="sex" value="남" checked> 남 
-							<input type="radio" name="sex" value="여"> 여 
-							<%
- 								} else {
-							%> <input type="radio" name="sex" value="남"> 남 
-							   <input type="radio" name="sex" value="여" checked> 여 
-							<%
-							 	}
-							%>
-						</td>
+						<td><input type="radio" name="sex" value="0"> 남 <input
+							type="radio" name="sex" value="1"> 여</td>
 						<td class="x"></td>
 					</tr>
 					<tr>

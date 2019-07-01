@@ -41,8 +41,8 @@
 						<td class="x"></td>
 					</tr>
 					<tr>
-						<td><input type="radio" name="sex" value="남"> 남 <input
-							type="radio" name="sex" value="여"> 여</td>
+						<td><input type="radio" name="sex" value="0"> 남 <input
+							type="radio" name="sex" value="1"> 여</td>
 						<td class="x"></td>
 					</tr>
 					<tr>
