@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+body {
+	background: darkgrey;
+}
+
+table {
+	margin: auto;
+	border: 1px solid lightyellow;
+	width: 1000px;
+}
+
+table caption:nth-child(1) {
+	margin: 30px;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+table caption:nth-child(2) {
+	margin: 30px;
+	text-align: right;
+}
+
+table caption:nth-child(2) a {
+	margin: 10px;
+	text-decoration: none;
+	color: lightyellow;
+}
+
+table caption:nth-child(2) a:hover {
+	text-decoration: underline;
+}
+
+table tr {
+	height: 40px;
+	text-align: center;
+}
+
+table #fieldName td {
+	border: 1px solid lightyellow;
+	border-radius: 10px;
+	font-weight: bold;
+}
+
+table #contentField {
+	border: 1px solid yellow;
+	border-radius: 10px;
+	height: 500px;
+}
+
+table input,textarea:focus {
+	outline:none;
+}
