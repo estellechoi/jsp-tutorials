@@ -25,75 +25,91 @@
 				<caption>
 					<%
 						if (session.getAttribute("userid") != null) {
-							if (session.getAttribute("userid").equals("admin")) {
+							if (session.getAttribute("userid").equals(rs.getString("userid"))) {
 					%>
-					<a href="../Board/announce_delete.jsp?id=<%=rs.getInt("id")%>">삭제</a>
-					<a href="">수정</a>
+					<a href="../Board/board_delete.jsp?id=<%=rs.getInt("id")%>">삭제</a>
+					<a href="../Board/board_update.jsp?id=<%=rs.getInt("id")%>">수정</a>
 					<%
-						}
-						}
+							}
+						} 
 					%>
 					<a href="../Board/board_list.jsp">목록</a>
 				</caption>
+				
 				<tr id="fields">
 					<td>제목</td>
 					<td>작성자</td>
 					<td>작성일</td>
 				</tr>
+				
 				<tr class="contentInfo">
 				<!-- replace("&lt;", "<", "&gt;", ">") ???? -->
 					<td><%=rs.getString("title")%></td>
 					<td><%=rs.getString("userid")%></td>
 					<td><%=rs.getString("writeday")%></td>
 				</tr>
+				
 				<tr id="fields">
 					<td colspan="3">내용</td>
 				</tr>
+				
 				<tr id="content">
-					<td colspan="3"><%=rs.getString("content").replace("\r\n", "<br>")%>
-						<p></p> 나이 : <%
-							int age = Integer.parseInt(rs.getString("birth"));
-							age = 2019 - age + 1;
-						%><%=age%>
-						<p></p> 혈액형 : <%
-							String blood = "";
-							switch (rs.getInt("blood")) {
-								case 1 :
-									blood = "A";
-									break;
-								case 2 :
-									blood = "B";
-									break;
-								case 3 :
-									blood = "AB";
-									break;
-								case 4 :
-									blood = "O";
-									break;
-							}
-						%> <%=blood%>
-						<p></p> 취미 : <%
-							String hobby[] = rs.getString("hobby").split(",");
-							String hobbyPrint = "";
-							for (int i = 0; i < hobby.length; i++) {
-								switch (hobby[i]) {
-									case "1" :
-										hobbyPrint = hobbyPrint + "수영 ";
+					<td colspan="3">
+						<%=rs.getString("content").replace("\r\n", "<br>")%>
+						<p></p>
+						나이 : 
+						<%
+						long age = 2020 - rs.getLong("birth");
+						%>
+						<%=age%>
+						<p></p>
+						혈액형 :
+						<%
+								String blood = "";
+								switch (rs.getInt("blood")) {
+									case 0 :
+										blood = "A";
 										break;
-									case "2" :
-										hobbyPrint = hobbyPrint + "그림 ";
+									case 1 :
+										blood = "B";
 										break;
-									case "3" :
-										hobbyPrint = hobbyPrint + "춤 ";
+									case 2 :
+										blood = "AB";
 										break;
-									case "4" :
-										hobbyPrint = hobbyPrint + "독서 ";
+									case 3 :
+										blood = "O";
 										break;
 								}
-							}
-						%><%=hobbyPrint%>
-						<p></p> 생일 : <%=rs.getString("birth")%>
-						<p></p></td>
+						%>
+						<%=blood%>
+						<p></p>
+						 취미 : 
+						<%
+								String h[] = rs.getString("hobby").split(",");
+								String hobby = "";
+								for (int i = 0; i < h.length-1; i++) {
+									switch (h[i]) {
+										case "0" :
+											hobby = hobby + "수영 ";
+											break;
+										case "1" :
+											hobby = hobby + "그림 ";
+											break;
+										case "2" :
+											hobby = hobby + "춤 ";
+											break;
+										case "3" :
+											hobby = hobby + "독서 ";
+											break;
+									}
+								}
+						%>
+						<%=hobby%>
+						<p></p> 
+						생일 : 
+						<%=rs.getString("birth")%>
+						<p></p>
+					</td>
 				</tr>
 			</table>
 		</article>
