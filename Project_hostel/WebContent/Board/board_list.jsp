@@ -25,7 +25,17 @@
 				<table>
 					<caption>게시판</caption>
 					<caption>
+					<%
+						if (session.getAttribute("userid") != null) {
+					%>
 						<a href="../Board/board_write.jsp">글쓰기</a>
+					<%
+						} else {
+					%>
+						<a href="../SignUp/signin.jsp">글을 쓰려면 로그인 하세요 !</a>
+					<%
+						}
+					%>
 					</caption>
 					<tr id="fields">
 						<td>순</td>
