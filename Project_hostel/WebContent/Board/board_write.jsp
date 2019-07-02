@@ -30,7 +30,7 @@
 						<caption>
 							<a href="../Board/board_list.jsp">목록</a>
 						</caption>
-
+						<input type="hidden" name="userid" value="<%=session.getAttribute("userid")%>">
 						<tr id="fields">
 							<td>제목</td>
 							<td>작성자</td>
