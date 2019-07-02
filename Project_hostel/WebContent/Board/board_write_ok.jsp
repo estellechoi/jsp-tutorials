@@ -8,12 +8,11 @@
 	request.setCharacterEncoding("UTF-8");
 	String title = request.getParameter("title");
 	String content = request.getParameter("content");
+	String name = request.getParameter("name");
 	String day = request.getParameter("writeday");
 //  	title=title.replace("<","&lt;");
 //  	title=title.replace(">","&gt;");
 // <xmp></xmp>
-	String name = request.getParameter("name");
-	String password = request.getParameter("password");
 	// radio
 	String blood = request.getParameter("blood");
 	// select
@@ -26,8 +25,8 @@
 	}
 
 	// 쿼리 실행
-    sql ="insert into board(title, name, content, readnum, password, blood, birth, hobby, writeday)";
-    sql = sql +" values('"+title+"', '"+name+"', '"+content+"', 0, '"+password+"', "+blood+", '"+birth+"', '"+hobby+"', '"+day+"')";
+    sql ="insert into board(title, name, content, readnum, blood, birth, hobby, writeday)";
+    sql = sql +" values('"+title+"', '"+name+"', '"+content+"', 0, "+blood+", '"+birth+"', '"+hobby+"', '"+day+"')";
 	stmt.executeUpdate(sql);
 
 	response.sendRedirect("../Board/board_list.jsp");

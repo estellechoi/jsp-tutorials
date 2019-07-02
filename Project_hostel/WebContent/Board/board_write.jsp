@@ -38,12 +38,13 @@
 						</tr>
 						<tr class="contentInfo">
 							<td><input type="text" name="title"></td>
-							<td><input type="text" name="name"></td>
+							<td><input type="text" name="name" value="<%=session.getAttribute("name")%>"></td>
 							<td><input type="text" name="writeday" value="<%=day%>" readonly></td>
-						</tr id="fields">  
-							<td>취미 / 생일</td>
+						</tr>
+						<tr id="fields">
+							<td>취미</td>
 							<td>혈액형</td>
-							<td>비밀번호</td>
+							<td>생일연도</td>
 						</tr>
 						<tr class="contentInfo">
 							<td>
@@ -51,7 +52,14 @@
 								<input type="checkbox" name="hobby" value="1"> 그림
 								<input type="checkbox" name="hobby" value="2"> 춤 
 								<input type="checkbox" name="hobby" value="3"> 독서  
-								&nbsp; &nbsp; &nbsp;
+							</td>
+							<td>
+								<input type="radio" name="blood" value="0"> A 
+								<input type="radio" name="blood" value="1"> B 
+								<input type="radio" name="blood" value="2"> AB 
+								<input type="radio" name="blood" value="3">	O
+							</td>
+							<td>
 								<select name="birthYear">
 										<option value="select">생일 연도</option>
 										<%
@@ -62,15 +70,6 @@
 											}
 										%>
 								</select>
-							</td>
-							<td>
-								<input type="radio" name="blood" value="0"> A 
-								<input type="radio" name="blood" value="1"> B 
-								<input type="radio" name="blood" value="2"> AB 
-								<input type="radio" name="blood" value="3">	O
-							</td>
-							<td>
-								<input type="password" name="password" placeholder="비밀번호">
 							</td>
 						</tr>
 						<tr id="fields">
