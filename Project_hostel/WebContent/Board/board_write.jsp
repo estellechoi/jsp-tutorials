@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../Common/Date.jsp"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%
+	Date today = new Date();
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	String day = sdf.format(today);
+%>
 
 <!DOCTYPE html>
 <html>
@@ -33,18 +39,18 @@
 						<tr class="contentInfo">
 							<td><input type="text" name="title"></td>
 							<td><input type="text" name="name"></td>
-							<td><input type="date" name="writeday" value="<%=writeday%>" disabled></td>
-						</tr>  
+							<td><input type="text" name="writeday" value="<%=day%>" readonly></td>
+						</tr id="fields">  
 							<td>취미 / 생일</td>
 							<td>혈액형</td>
 							<td>비밀번호</td>
 						</tr>
 						<tr class="contentInfo">
 							<td>
-								<input type="checkbox" name="hobby"> 수영 
-								<input type="checkbox" name="hobby"> 그림
-								<input type="checkbox" name="hobby"> 춤 
-								<input type="checkbox" name="hobby"> 독서  
+								<input type="checkbox" name="hobby" value="0"> 수영 
+								<input type="checkbox" name="hobby" value="1"> 그림
+								<input type="checkbox" name="hobby" value="2"> 춤 
+								<input type="checkbox" name="hobby" value="3"> 독서  
 								&nbsp; &nbsp; &nbsp;
 								<select name="birthYear">
 										<option value="select">생일 연도</option>
@@ -58,10 +64,10 @@
 								</select>
 							</td>
 							<td>
-								<input type="radio" name="blood" value="1"> A 
-								<input type="radio" name="blood" value="2"> B 
-								<input type="radio" name="blood" value="3"> AB 
-								<input type="radio" name="blood" value="4">	O
+								<input type="radio" name="blood" value="0"> A 
+								<input type="radio" name="blood" value="1"> B 
+								<input type="radio" name="blood" value="2"> AB 
+								<input type="radio" name="blood" value="3">	O
 							</td>
 							<td>
 								<input type="password" name="password" placeholder="비밀번호">
