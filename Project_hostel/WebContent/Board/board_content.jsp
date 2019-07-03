@@ -27,7 +27,11 @@
 						if (session.getAttribute("userid") != null) {
 							if (session.getAttribute("userid").equals(rs.getString("userid"))) {
 					%>
-					<a href="../Board/board_delete.jsp?id=<%=rs.getInt("id")%>">삭제</a>
+					<!-- 함수호출
+					<a href="#" onclick="function()"></a> 이벤트 값 전송 가능
+					<a href="javascript: function()"></a> 이벤트 값 전송 불가 ([ex] 마우스 클릭 좌표를 못 가져옴)
+					-->
+					<a href="javascript: del()">삭제</a>
 					<a href="../Board/board_update.jsp?id=<%=rs.getInt("id")%>">수정</a>
 					<%
 							}
@@ -112,6 +116,34 @@
 					</td>
 				</tr>
 			</table>
+			<!-- 삭제 전 비밀번호 체크를 위한 레이어 만들기 -->
+			<div id="deleteCheck">
+				<form action="../Board/board_del.jsp" method="post">
+					<input type="hidden" name="id" value="<%=rs.getString("id")%>">
+					<input type="hidden" name="userid" value="<%=rs.getString("userid")%>">
+					비밀번호 : <input type="password" name="password"> <p></p>
+					<input type="submit" value="삭제">
+				</form>
+			</div>
+			<script>
+				 function del() {
+					 document.getElementById("deleteCheck").style.visibility = "visible";
+				 }
+			</script>
+			<style>
+				#deleteCheck {
+					position: absolute;
+					left: 400px;
+					top: 400px;
+					width: 200px;
+					height: 200px;
+					background: white;
+					border: 1px solid lightgrey;
+					border-radius: 10px;
+					visibility: hidden;
+					text-align: center;
+				}
+			</style>
 		</article>
 	</section>
 	<%@ include file="../Common/footer.jsp"%>
