@@ -26,16 +26,12 @@
 	String sql = "select*from board where id=" + id;
 	ResultSet rs = stmt.executeQuery(sql);
 	rs.next();
-	if(password.equals(rs.getString("password"))) {
+
 		sql = "update board set title='"+title+"', content='"+content+"'";
 		sql = sql + ", blood="+blood+", birth='"+birth+"', hobby='"+hobby+"'";
 		sql = sql + " where id="+id;
 		stmt.executeUpdate(sql);
 		response.sendRedirect("../Board/board_content.jsp?id="+id);
-	}
-	else {
-		response.sendRedirect("../Board/board_content.jsp?id="+id);
-	}
 
 	stmt.close();
 	conn.close();
