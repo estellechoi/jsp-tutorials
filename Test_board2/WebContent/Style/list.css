@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+table {
+	margin: auto;
+	width: 1000px;
+	border: 1px solid #eeeeee;
+}
+
+table caption:nth-child(1) {
+	font-weight: bold;
+	margin: 10px;
+}
+
+table caption:nth-child(2) {
+	text-align: right;
+	font-size: 13px;
+	margin: 10px;
+}
+
+table tr {
+	text-align: center;
+	font-size: 13px;
+	height: 30px;
+}
+
+table .input {
+	text-align: left;
+}
+
+table #field {
+	font-weight: bold;
+}
+
+table .title {
+	width: 600px;
+}

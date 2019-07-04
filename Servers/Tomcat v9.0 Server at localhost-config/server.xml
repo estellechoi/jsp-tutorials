@@ -149,7 +149,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="Tutorial" path="/Tutorial" reloadable="true" source="org.eclipse.jst.jee.server:Tutorial"/><Context docBase="Project_board" path="/Project_board" reloadable="true" source="org.eclipse.jst.jee.server:Project_board"/><Context docBase="Project_hostel" path="/Project_hostel" reloadable="true" source="org.eclipse.jst.jee.server:Project_hostel"/><Context docBase="Blog" path="/Blog" reloadable="true" source="org.eclipse.jst.jee.server:Blog"/><Context docBase="Test_board" path="/Test_board" reloadable="true" source="org.eclipse.jst.jee.server:Test_board"/></Host>
+      <Context docBase="Tutorial" path="/Tutorial" reloadable="true" source="org.eclipse.jst.jee.server:Tutorial"/><Context docBase="Project_board" path="/Project_board" reloadable="true" source="org.eclipse.jst.jee.server:Project_board"/><Context docBase="Project_hostel" path="/Project_hostel" reloadable="true" source="org.eclipse.jst.jee.server:Project_hostel"/><Context docBase="Blog" path="/Blog" reloadable="true" source="org.eclipse.jst.jee.server:Blog"/><Context docBase="Test_board" path="/Test_board" reloadable="true" source="org.eclipse.jst.jee.server:Test_board"/><Context docBase="Test_board2" path="/Test_board2" reloadable="true" source="org.eclipse.jst.jee.server:Test_board2"/></Host>
     </Engine>
   </Service>
 </Server>
