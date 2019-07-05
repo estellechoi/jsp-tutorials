@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="../Style/list.css">
 </head>
 <body>
+<%@ include file="../Common/header.jsp" %>
+<section>
 	<table>
 		<caption>테스트 게시판</caption>
 		<caption>
@@ -45,6 +47,7 @@
 			}
 		%>
 	</table>
+</section>
 </body>
 </html>
 

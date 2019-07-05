@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+table {
+	border: 1px solid #D3D3D3;
+	border-radius: 10px;
+	box-shadow: 3px 3px 3px #D3D3D3; margin : auto;
+	width: 270px;
+	margin: auto;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+table caption {
+	font-weight: bold;
+	font-size: 30px;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+table tr {
+	height : 50px;
+	text-align: center;
+	font-size: 14px;
+}
+
+table tr input[type=text], [type=password] {
+	height: 35px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+table tr select {
+	height: 30px;
+}
+
+table tr input[type=submit] {
+	height: 30px;
+	width: 80px;
+	background: white;
+	border: 2px solid #D3D3D3;
+	border-radius: 5px;
+	box-shadow: 2px 2px 3px #9E9E9E;
+}
+
+table .xx {
+	width: 30px;
+	color: red;
+	font-weight: bold;
+	font-size: 13px;
+	text-align: left;
+	vertical-algin: center;
+}
