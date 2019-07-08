@@ -4,7 +4,7 @@
 <!-- LocalDateType은 시분초 -->
 <%
 	// 요일
-	LocalDate today = LocalDate.of(2019, 7, 1); // LocalDate.now(); 현재 날짜
+	LocalDate today = LocalDate.of(2020, 2, 1); // LocalDate.now(); 현재 날짜
 	int day = today.getDayOfWeek().getValue(); // 월 ~ 일 : 1 ~ 7
 	if (day == 7) {
 		day = 0;
@@ -33,33 +33,58 @@
 <link rel="stylesheet" href="../Image/cal.css">
 </head>
 <body>
-	<table>
-		<caption><%=today.getMonth()%></caption>
-		<tr>
-			<td>일</td>
-			<td>월</td>
-			<td>화</td>
-			<td>수</td>
-			<td>목</td>
-			<td>금</td>
-			<td>토</td>
-		</tr>
-		<%
-			for (int i = 0; i < week; i++) {
-		%>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<%
-			}
-		%>
-	</table>
-
+	<div id="calBox">
+		<table>
+			<caption><%=today.getMonth()%></caption>
+			<caption><%=today.getYear()%></caption>
+			<tr id="field">
+				<td>일</td>
+				<td>월</td>
+				<td>화</td>
+				<td>수</td>
+				<td>목</td>
+				<td>금</td>
+				<td>토</td>
+			</tr>
+			<!-- 1 ~ length 까지 일수 출력 -->
+			<%
+				int date = 1;
+				String dateColor;
+				for (int i = 0; i < week; i++) {
+			%>
+			<tr>
+				<%
+					for (int j = 0; j < 7; j++) {
+						switch (j) {
+							case 0: dateColor = "red"; break;
+							case 6: dateColor = "blue"; break;
+							default: dateColor = "black";
+						}
+						if (date - day <= length && date - day >= 1) {
+						// if (date > length || (date <= j) && (i == 1)) { <td></td> }
+						// else { <td><%=date</td>}			
+				%>
+						<td>
+								<div class="date" style="color:<%=dateColor%>"><%=date - day%></div>
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+						</td>
+				<%
+						} else {
+				%>
+						<td></td>
+				<%
+						}
+						date = date + 1;
+					}
+				%>
+			</tr>
+			<%
+				}
+			%>
+		</table>
+	</div>
 </body>
 </html>

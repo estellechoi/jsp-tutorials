@@ -1,28 +1,48 @@
 @charset "UTF-8";
 
 body {
-	margin: 0;	
+	margin: 0;
+}
+
+#calBox {
+	margin: auto;
+	border: 1px solid #BEBEBE;
+	border-radius: 10px;
+	box-shadow: 3px 3px 10px #BEBEBE;
+	width: 1000px;
 }
 
 table {
 	margin: auto;
 	width: 700px;
-	border: 1px solid #eeeeee;
+	border: 1px solid #BEBEBE;
 	border-collapse: collapse;
 }
 
-table caption {
+table caption:nth-child(1) {
 	font-size: 25px;
 	font-weight: bold;
 	margin-bottom: 20px;
 	margin-top: 20px;
 }
 
-table td {
-	text-align: center;
-	vertical-align: center;
+table caption:nth-child(2) {
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 20px;
 }
 
-table td tr {
-	border: 1px solid #eeeeee;
+table td, tr {
+	border: 1px solid #BEBEBE;
+	vertical-align: center;
+}
+table td div {
+	height: 15px;
+	padding: 3px;
+}
+
+table #field>td {
+	font-weight: bold;
+	color: #FF8000;
+	text-align: center;
 }
