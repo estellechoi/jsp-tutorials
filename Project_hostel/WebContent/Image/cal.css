@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;	
+}
+
+table {
+	margin: auto;
+	width: 700px;
+	border: 1px solid #eeeeee;
+	border-collapse: collapse;
+}
+
+table caption {
+	font-size: 25px;
+	font-weight: bold;
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+
+table td {
+	text-align: center;
+	vertical-align: center;
+}
+
+table td tr {
+	border: 1px solid #eeeeee;
+}
