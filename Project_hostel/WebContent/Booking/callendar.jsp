@@ -4,7 +4,7 @@
 <!-- LocalDateType은 시분초 -->
 <%
 	// 요일
-	LocalDate today = LocalDate.of(2020, 2, 1); // LocalDate.now(); 현재 날짜
+ 	LocalDate today = LocalDate.of(2020, 2, 1);
 	int day = today.getDayOfWeek().getValue(); // 월 ~ 일 : 1 ~ 7
 	if (day == 7) {
 		day = 0;
@@ -31,12 +31,52 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../Image/cal.css">
+<script>
+	function moveCal() {
+		var yy = document.getElementById("year").value;
+		var mm = document.getElementById("month").value;;
+		location = "../Booking/cal.jsp?yy="+yy+"&mm="+mm;
+	}
+</script>
 </head>
 <body>
 	<div id="calBox">
 		<table>
-			<caption><%=today.getMonth()%></caption>
-			<caption><%=today.getYear()%></caption>
+			<caption>
+				<select name="month" id="month" onchange="moveCal()">
+				<%
+				String monthSelected = "";
+				for (int i=1; i<=12; i++) {
+					if (i == 2) {
+						monthSelected = "selected";
+					} else {
+						monthSelected = "";
+					}
+				%>
+					<option value="<%=i%>" <%=monthSelected%>><%=i%></option>
+				<%
+				}
+				%>
+				</select>
+			</caption>
+			<caption>
+				<select name="year" id="year" onchange="moveCal()">
+				<%
+				String yearSelected = "";
+				int y = today.getYear();
+				for (int i = y + 3; i >= y - 1; i--) {
+					if (i == y) {
+						yearSelected = "selected";
+					} else {
+						yearSelected = "";
+					}
+				%>
+					<option value="<%=i%>" <%=yearSelected%>><%=i%></option>
+				<%
+				}
+				%>
+				</select>
+			</caption>
 			<tr id="field">
 				<td>일</td>
 				<td>월</td>
