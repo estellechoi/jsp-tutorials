@@ -20,36 +20,52 @@ body {
 
 table {
 	margin: auto;
-	width: 700px;
 	border: 1px solid #BEBEBE;
 	border-collapse: collapse;
 }
 
-table caption:nth-child(1) {
-	font-size: 25px;
-	font-weight: bold;
+table caption {
 	margin-bottom: 20px;
 	margin-top: 20px;
 }
 
-table caption:nth-child(2) {
-	font-size: 14px;
-	font-weight: bold;
-	margin-bottom: 20px;
+table caption select {
+	border: 1px solid #BEBEBE;
+	border-radius: 10px;
+	height: 40px;
+	width: 70px;
+	font-size: 20px;
+	text-align: center;
 }
 
 table td, tr {
 	border: 1px solid #BEBEBE;
-	vertical-align: center;
+	width: 100px;
 }
 
 table td div {
 	height: 15px;
-	padding: 3px;
+	padding: 5px;
 }
 
 table #field>td {
 	font-weight: bold;
 	color: #FF8000;
 	text-align: center;
+}
+
+table td .rooms {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+table td .rooms a {
+	text-decoration: none;
+	color: #FF8000;
+}
+
+table td .rooms a:hover {
+	cursor: pointer;
+	font-weight: bold;
 }
