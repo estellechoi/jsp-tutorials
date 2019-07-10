@@ -4,6 +4,11 @@ body {
 	margin: 0;
 }
 
+#sectionCalBox {
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
 #calBox {
 	margin: auto;
 	border: 1px solid #BEBEBE;
@@ -37,6 +42,7 @@ table td, tr {
 	border: 1px solid #BEBEBE;
 	vertical-align: center;
 }
+
 table td div {
 	height: 15px;
 	padding: 3px;
