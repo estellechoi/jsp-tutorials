@@ -32,7 +32,7 @@
 				<li><a href="">객실</a></li>
 				<li><a href="">부대시설</a></li>
 				<li><a href="../Board/announce_list.jsp">게시판</a></li>
-				<li><a href="">예약</a></li>
+				<li><a href="../Booking/callendar_now.jsp">예약</a></li>
 			</ul>
 		</div>
 	</div>
