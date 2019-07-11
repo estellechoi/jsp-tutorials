@@ -18,39 +18,62 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../Image/structure.css">
+<style>
+	table {
+		margin: auto;
+	}
+	table caption {
+		font-weight: bold;
+		font-size: 25px;
+		padding-top: 50px;
+		padding-bottom: 50px;
+	}
+	table td {
+		width: 100px;
+		height: 50px;
+	}
+</style>
 </head>
 <body>
+<%@ include file="../Common/header.jsp" %>
 	<section>
-		<table>
-			<tr>
-				<td>선택한 방</td>
-				<td><%=room%></td>
-			</tr>
-			<tr>
-				<td>예약자</td>
-				<td><input type="text" name="userid"></td>
-			</tr>
-			<tr>
-				<td>체크인</td>
-				<td><%=date%></td>
-			</tr>
-			<tr>
-				<td>숙박일</td>
-				<td>
-					<select name="nights" id="nights">
-						<option value="1">1박2일</option>
-						<option value="2">2박3일</option>
-						<option value="3">3박4일</option>
-						<option value="4">4박5일</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-			</tr>
-		</table>
+		<form action="booking_input_ok.jsp" method="post">
+			<input type="hidden" name="room" value="<%=room%>">
+			<input type="hidden" name="checkinYY" value="<%=yy%>">
+			<input type="hidden" name="checkinMM" value="<%=mm%>">
+			<input type="hidden" name="checkinDD" value="<%=dd%>">
+			<table>
+				<caption>여행 예약</caption>
+					<tr>
+						<td>선택한 방</td>
+						<td><%=room%></td>
+					</tr>
+					<tr>
+						<td>예약자</td>
+						<td><input type="text" name="userid"></td>
+					</tr>
+					<tr>
+						<td>체크인</td>
+						<td><%=date%></td>
+					</tr>
+					<tr>
+						<td>숙박일</td>
+						<td>
+							<select name="nights" id="nights">
+								<option value="1">1박2일</option>
+								<option value="2">2박3일</option>
+								<option value="3">3박4일</option>
+								<option value="4">4박5일</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit" value="예약하기"></td>
+					</tr>
+			</table>
+		</form>
 	</section>
-
+<%@ include file="../Common/footer.jsp" %>
 </body>
 </html>
