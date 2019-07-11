@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.time.LocalDate"%>
+<%@ page import="java.sql.*" %>
 <!-- LocalDateType은 시분초 -->
 <%
+	String db = "jdbc:mysql://localhost:3307/hostel?useSSL=false";
+	String user = "root";
+	String pw = "1234";
+	Connection conn = DriverManager.getConnection(db, user, pw);
+	Statement stmt = conn.createStatement();
+
 	// 현재날짜
  	LocalDate xday = LocalDate.now();
 	int yy = xday.getYear();
@@ -103,11 +110,25 @@
 							}
 							if (date - day <= length && date - day >= 1) {
 							// if (date > length || (date <= j) && (i == 1)) { <td></td> }
-							// else { <td><%=date</td>}			
+							// else { <td><%=date</td>}
 					%>
 							<td>
 									<div class="date" style="color:<%=dateColor%>"><%=date - day%></div>
+							<%
+								String nowday = yy + "-" + mm + "-" + (date - day); // 1 ~ 31일 'yy-MM-dd'
+								String sql = "select*from booking where checkinDate <= '"+nowday+"' and";
+								sql = sql + " checkoutDate > '"+nowday+"' and room='방1'";
+								ResultSet rs = stmt.executeQuery(sql);			
+								if (rs.next()) { // 예약불가인 경우
+							%>
+									<div class="rooms" style="color: darkgrey">room1</div>
+							<%
+								} else {
+							%>
 									<div class="rooms"><a href="booking_input.jsp?room=방1&yy=<%=yy%>&mm=<%=mm%>&dd=<%=date - day%>">room1</a></div>
+							<%
+								}
+							%>
 									<div class="rooms"><a href="booking_input.jsp?room=방2&yy=<%=yy%>&mm=<%=mm%>&dd=<%=date - day%>">room2</a></div>
 									<div class="rooms"><a href="booking_input.jsp?room=방3&yy=<%=yy%>&mm=<%=mm%>&dd=<%=date - day%>">room3</a></div>
 							</td>
