@@ -128,9 +128,31 @@
 									<div class="rooms"><a href="booking_input.jsp?room=방1&yy=<%=yy%>&mm=<%=mm%>&dd=<%=date - day%>">room1</a></div>
 							<%
 								}
+								sql = "select*from booking where checkinDate <= '"+nowday+"' and";
+								sql = sql + " checkoutDate > '"+nowday+"' and room='방2'";
+								rs = stmt.executeQuery(sql);			
+								if (rs.next()) { // 예약불가인 경우
+							%>
+									<div class="rooms" style="color: darkgrey">room2</div>
+							<%
+								} else {
 							%>
 									<div class="rooms"><a href="booking_input.jsp?room=방2&yy=<%=yy%>&mm=<%=mm%>&dd=<%=date - day%>">room2</a></div>
+							<%
+								}
+								sql = "select*from booking where checkinDate <= '"+nowday+"' and";
+								sql = sql + " checkoutDate > '"+nowday+"' and room='방3'";
+								rs = stmt.executeQuery(sql);			
+								if (rs.next()) { // 예약불가인 경우
+							%>
+									<div class="rooms" style="color: darkgrey">room3</div>
+							<%
+								} else {
+							%>
 									<div class="rooms"><a href="booking_input.jsp?room=방3&yy=<%=yy%>&mm=<%=mm%>&dd=<%=date - day%>">room3</a></div>
+							<%
+								}
+							%>					
 							</td>
 					<%
 							} else {
