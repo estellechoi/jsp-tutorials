@@ -5,7 +5,7 @@
 	<ul>
 		<li><a href="">에세이</a></li>
 		<li><a href="">개발</a></li>
-		<li><a href="">디자인</a></li>
-		<li><a href="">커뮤니티</a></li>
+		<li><a href="">사진</a></li>
+		<li><a href="">?</a></li>
 	</ul>
 </article>
