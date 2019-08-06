@@ -23,14 +23,17 @@
 	}
 </style>
 <script>
-	
-	function autoCheck() {
+	function sexCheck() {
 		document.form.sex[<%=rs.getInt("sex")%>].checked = true;
-		document.form.age.value = <%=rs.getString("age")%>;
+	}
+	
+	function ageCheck() {
+		var age = "<%=rs.getString("age")%>";
+		document.form.age.value = age;
 	}
 </script>
 </head>
-<body onload="autoCheck()">
+<body onload="sexCheck(), ageCheck()">
 	<form action="write_ok.jsp" method="post" name="form">
 		제목 <span><%=rs.getString("title")%></span>
 		<p></p>
@@ -51,8 +54,8 @@
 		성별 <input type="radio" name="sex" value="0"> 남자
 		   <input type="radio" name="sex" value="1"> 여자
 		<p></p>
-		<a href="update.jsp?id=<%=rs.getString("id")%>">수정</a> <a
-			href="del.jsp?id=<%=rs.getString("id")%>">삭제</a>
+		<a href="update.jsp?id=<%=rs.getString("id")%>">수정</a>
+		<a href="del.jsp?id=<%=rs.getString("id")%>">삭제</a>
 	</form>
 
 </body>
