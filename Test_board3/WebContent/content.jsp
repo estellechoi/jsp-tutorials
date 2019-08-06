@@ -22,6 +22,9 @@
 		height: 20px;
 	}
 </style>
+<!-- 
+<input type="radio"> & <select> 문서 로드시 체크 설정하기
+ -->
 <script>
 	function sexCheck() {
 		document.form.sex[<%=rs.getInt("sex")%>].checked = true;
