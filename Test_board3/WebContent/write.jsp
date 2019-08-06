@@ -27,7 +27,7 @@
 			<option value="50대">50대</option>
 		</select>
 		<p></p>
-		성별 <input type="radio" name="sex" value="남자"> 남자 <input type="radio" name="sex" value="여자">여자
+		성별 <input type="radio" name="sex" value="0"> 남자 <input type="radio" name="sex" value="1">여자
 		<p></p>
 		비밀번호 <input type="password" name="pwd">
 		<p></p>
