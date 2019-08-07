@@ -23,10 +23,15 @@
 		border-collapse: collapse;
 	}
 	
-	caption {
+	caption:nth-child(1) {
 		padding-top: 20px;
 		padding-bottom: 20px;
 		font-weight: bold;
+	}
+	
+	caption:nth-child(2) {
+		text-align: right;
+		padding-bottom : 10px;
 	}
 	
 	tr {
@@ -51,6 +56,7 @@
 <body>
 	<table>
 		<caption>게시판</caption>
+		<caption><a href="write.jsp">글쓰기</a> <a href="input.jsp">강제 데이터 입력</a></caption>
 		<tr id="field">
 			<td>순</td>
 			<td id="fieldTitle">제목</td>
