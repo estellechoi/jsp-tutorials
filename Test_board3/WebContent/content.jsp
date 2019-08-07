@@ -59,6 +59,7 @@
 		<p></p>
 		<a href="update.jsp?id=<%=rs.getString("id")%>">수정</a>
 		<a href="del.jsp?id=<%=rs.getString("id")%>">삭제</a>
+		<a href="list.jsp">목록</a>
 	</form>
 
 </body>
