@@ -56,7 +56,7 @@
 <body>
 	<table>
 		<caption>게시판</caption>
-		<caption><a href="write.jsp">글쓰기</a> <a href="input.jsp">강제 데이터 입력</a></caption>
+		<caption><a href="write.jsp">글쓰기</a> <a href="forceInput.jsp">강제 데이터 입력</a></caption>
 		<tr id="field">
 			<td>순</td>
 			<td id="fieldTitle">제목</td>
