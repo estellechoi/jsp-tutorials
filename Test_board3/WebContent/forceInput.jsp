@@ -8,12 +8,11 @@
 			"1234");
 	Statement stmt = conn.createStatement();
 
-	request.setCharacterEncoding("UTF-8");
+	// 임의의 값
 	String title = "강제 데이터";
 	String content = "강제 데이터";
 	String user = "작성자";
-
-	String pwd = "1"; // 임의의 값
+	String pwd = "1";
 
 	Date today = new Date();
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -21,9 +20,11 @@
 
 	for (int i = 1; i <= 807; i++) {
 
-		// DB의 데이터는 정수형으로 구성되어있음 → 실수형 데이터를 넣어도 자동으로 정수형으로 변환 후 데이터로 저장함 (반올림)
-		String age = (Math.random() * 10 * 10) + "";
-		String sex = (Math.random() * 2) + "";
+		// DB의 데이터는 정수형으로 구성되어있음 
+		// 실수형 데이터를 넣었더니 "data too long for age" 에러 발생
+		// 자동으로 정수형 변환 후 데이터로 저장하는 것이 아닌가보네? (반올림)
+		String age = ((int) Math.random() * 100) + "";
+		String sex = ((int) Math.random() * 2) + "";
 
 		String sql = "insert into testboard(title, content, user, age, sex, pwd, readnum, writeday)";
 		sql = sql + " values(?,?,?,?,?,?,?,?)";
