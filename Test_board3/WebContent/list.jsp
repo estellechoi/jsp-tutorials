@@ -117,7 +117,11 @@ td {
 				
 					sql = "select*from testboard order by id desc";
 					rs = stmt.executeQuery(sql);
-					rs.next();
+					
+					// * 레코드 개수 구하기
+					rs.last(); // 마지막 레코드로 이동
+					int tot = rs.getRow(); // 현재 레코드의 행을 리턴
+
 					int id = Integer.parseInt(rs.getString("id"));
 					
 					int p = pageNum / 10;
