@@ -5,7 +5,8 @@
 	Connection conn = DriverManager.getConnection(
 			"jdbc:mysql://localhost:3307/java?useSSL=false", "root",
 			"1234");
-	Statement stmt = conn.createStatement();
+	Statement stmt = conn.createStatement();	
+	request.setCharacterEncoding("UTF-8");
 
 	// select*from testboard limit index, n; (index 부터 n 개)
 	int index;
@@ -43,7 +44,7 @@
 	}
 	else {
 		sql = "select*from testboard where user like '%"+sWord+"%' order by id desc limit " + index + ", 10";
-	}	
+	}
 	ResultSet rs = stmt.executeQuery(sql);
 %>
 <!DOCTYPE html>
