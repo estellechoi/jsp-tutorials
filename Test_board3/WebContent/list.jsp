@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%
+// to do
+// 게시글 직접 검색하기 기능 - 검색어 입력 후 다음 페이지 링크를 누르면 검색필터가 사라지는 문제
+// content.jsp에서 목록 버튼 눌렀을 때, 이전에 보던 목록 그대로 보여주기 기능을 추가해야 함
 	Connection conn = DriverManager.getConnection(
 			"jdbc:mysql://localhost:3307/java?useSSL=false", "root",
 			"1234");
