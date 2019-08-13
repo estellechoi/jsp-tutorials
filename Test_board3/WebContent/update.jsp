@@ -6,6 +6,7 @@
 			"1234");
 	Statement stmt = conn.createStatement();
 
+	String pageNum = request.getParameter("page");
 	String id = request.getParameter("id");
 	String sql = "select*from testboard where id =" + id;
 	ResultSet rs = stmt.executeQuery(sql);
@@ -42,6 +43,7 @@ span {
 </head>
 <body onload="sexCheck(), ageCheck()">
 	<form action="update_ok.jsp" method="post" name="form">
+	<input type="hidden" name="page" value="<%=pageNum%>">
 	<input type="hidden" name="id" value="<%=id%>">
 		제목 <input type="text" name="title" value="<%=rs.getString("title")%>">
 		<p></p>
