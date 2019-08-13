@@ -8,10 +8,11 @@
 	Statement stmt = conn.createStatement();
 
 	String id = request.getParameter("id");
+	String pageNum = request.getParameter("pageNum");
 	String sql = "update testboard set readnum=readnum+1 where id=" + id;
 	stmt.executeUpdate(sql);
 
-	response.sendRedirect("content.jsp?id=" + id + "");
+	response.sendRedirect("content.jsp?id=" + id + "&page="+pageNum);
 	conn.close();
 	stmt.close();
 %>
