@@ -8,6 +8,7 @@
 	Statement stmt = conn.createStatement();
 
 	request.setCharacterEncoding("UTF-8");
+	String pageNum = request.getParameter("page");
 	String id = request.getParameter("id");
 	String title = request.getParameter("title");
 	String content = request.getParameter("content");
@@ -23,6 +24,7 @@
 		sql = "update testboard set title = '" + title + "', content ='"
 				+ content + "', age = '" + age + "', sex =" + sex + "";
 		stmt.executeUpdate(sql);
+		response.sendRedirect("content.jsp?id=" + id + "&page=" + pageNum);
 	} else {
 		%>
 		<script>
