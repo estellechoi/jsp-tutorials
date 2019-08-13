@@ -31,7 +31,7 @@
 		border-radius: 10px;
 	}
 	
-	#replyBox, #replyList {
+	#replyBox, #replyList, #delBox {
 		margin: auto;
 		width: 1000px;
 		border: 1px solid #eeeeee;
@@ -149,7 +149,7 @@
 	</script>
 	<div id="replyBox">
 		<form action="reply_ok.jsp" method="post" name="replyForm" onsubmit="return check()">
-			<input type="hidden" name="page" value="">
+			<input type="hidden" name="page" value="<%=pageNum%>">
 			<input type="hidden" name="rid" value="<%=id%>">
 			<!-- 글자수 제한 속성 : maxlength="" -->
 			이름 <input type="text" name="name" size="7" maxlength="30"> 
