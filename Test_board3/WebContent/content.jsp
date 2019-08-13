@@ -118,7 +118,7 @@
 	
 	<!-- 댓글 출력창 -->
 	<%	
-	sql = "select*from reply";
+	sql = "select*from reply where rid="+id;
 	ResultSet rs2 = stmt.executeQuery(sql);
 	%>
 	<div id="replyList">
