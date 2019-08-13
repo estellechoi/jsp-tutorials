@@ -100,7 +100,7 @@
 			성별 <input type="radio" name="sex" value="0"> 남자
 			   <input type="radio" name="sex" value="1"> 여자
 			<p></p>
-			<a href="update.jsp?id=<%=id%>">수정</a>
+			<a href="update.jsp?id=<%=id%>&page=<%=pageNum%>">수정</a>
 <%-- 			<a href="del.jsp?id=<%=rs.getString("id")%>">삭제</a> --%>
 			<a href="javascript:del()">삭제</a>
 			<a href="list.jsp?page=<%=pageNum%>">목록</a>
@@ -116,7 +116,8 @@
 		}
 	</script>
 	<div id="delBox" style="display:none">
-		<form method="post" action="delete_ok.jsp">
+		<form method="post" action="del.jsp">
+			<input type="hidden" name="page" value="<%=pageNum%>">
       		<input type="hidden" name="id" value="<%=id%>">
          	비밀번호 <input type="password" name="pwd">
       		<input type="submit" value="삭제">
