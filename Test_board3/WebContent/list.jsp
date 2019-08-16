@@ -22,10 +22,10 @@
 		pageNum = 1;
 
 		// 1 페이지10 개씩
-		// 사용자가 선택값을 담는 get방식 변수 : page (임의설정)
+		// get method 변수 : page (임의설정)
 	} else {
 		pageNum = Integer.parseInt(request.getParameter("page"));
-		index = (pageNum - 1) * 10;
+		index = (pageNum - 1) * 10; // 데이터 조회 인덱스
 	}
 	
 	
@@ -38,6 +38,9 @@
 	String sql;
 	if (sField == null) {
 		sql = "select*from testboard order by id desc limit " + index + ", 10";
+		// * 검색창에 null 값을 표시하지 않기 위한 조치
+		sField = "";
+		sWord = "";
 	}
 	else if (sField.equals("0")) {
 		sql = "select*from testboard where title like '%"+sWord+"%' order by id desc limit " + index + ", 10";
@@ -99,20 +102,45 @@ td {
 }
 </style>
 <script>
-	 function movePage() {
-		 var y = document.all.movePage.value;
-		 location = "list.jsp?page="+y;
+	// * 검색창 선택값 보여주기
+	 function showSelected() {
+		 <%
+		 	// selected field, page 보여주기 (*사용자의 field 선택값이 있을 때만)
+		 	if( sField != "") {
+		 %>
+		 		document.getElementById("sField").value = <%=sField%>;
+		 		document.getElementById("movePage").selectedIndex = <%=pageNum-1%>;
+		 <%
+		 	}
+		 %>
 	 }
+	 
+	 // * <select> 태그로 페이지 이동하기
+	 function movePage(sel) {
+		 // * sel = this.value; (this == selected)
+		 location = "list.jsp?page="+sel+"&sField=<%=sField%>&sWord=<%=sWord%>";
+	 }
+	 
+	 // * 페이지 이동 <select> 값을 현재 페이지에 맞게 보여주기
+	 // ☆ showSelected() 와 따로 함수를 만든 이유는 ?
+	 function showInitialSelected() {
+		 document.getElementById("movePage").value = <%=pageNum%>;
+<%-- 	document.getElementById("movePage").selectedIndex = <%pageNum-1%>; --%>
+	 }
+	 
+	 showInitialSelected(); // ☆onload 호출과 뭐가 다르지 ?
+	 
 </script>
 
 </head>
-<body>
+<body onload="showSelected()">
 	<table>
 		<caption>게시판</caption>
 		<caption>
 			<a href="write.jsp">글쓰기</a> <a href="forceInput.jsp">강제 데이터 입력</a>
 		</caption>
 		<caption>
+			<!-- Search Box -->
 			<form action="list.jsp" method="post">
 				<!-- 필드 선택 -->
 				<select name="sField" id="sField">
@@ -149,21 +177,22 @@ td {
 			}
 		%>
 
+		<!-- 페이지 이동 링크 시작 -->
 		<tr>
 			<td colspan="5">
-				<a href="list.jsp?page=1">처음</a>
+				<a href="list.jsp?page=1&sField=<%=sField%>&sWord=<%=sWord%>">◀◀</a>
 				<%
 				if (pageNum > 10) {
 				%>
-					<a href="list.jsp?page=<%=pageNum - 10%>">이전-10</a>
+					<a href="list.jsp?page=<%=pageNum - 10%>&sField=<%=sField%>&sWord=<%=sWord%>">◀-10</a>
 				<%
 				}
 				if (pageNum !=1) {
 				%>
-					<a href="list.jsp?page=<%=pageNum - 1%>">이전</a>
+					<a href="list.jsp?page=<%=pageNum - 1%>&sField=<%=sField%>&sWord=<%=sWord%>">◀</a>
 				<%
 				}
-					// 페이지 링크 반복문
+					// 페이지 링크 반복문 시작
 
 					sql = "select*from testboard order by id desc";
 					rs = stmt.executeQuery(sql);
@@ -210,56 +239,68 @@ td {
 					}
 
 					// * 페이지 링크 반복문
+					// * 현재 페이지의 폰트색을 red 설정하기
+					String pageLinkColor = "";
+					
 					for (int i = p; i <= pend; i++) {
 						
-						// * 현재 페이지의 폰트색을 red 설정하기
-						
 						if (i != pageNum) {
-				%>
-							<a href="list.jsp?page=<%=i%>" id="pageLink"><%=i%></a> 
-				<%
- 						} else {
+							pageLinkColor = "style='color:red'";
+						} else {
+							pageLinkColor = "";
+						}
+						
+						// sField, sWord 값 carry -> 여기서 왜 ?
  				%>
- 							<a href="list.jsp?page=<%=i%>" id="pageLink" style="color: red"><%=i%></a>
- 				<%
- 						}
+ 						<a href="list.jsp?page=<%=i%>&sField=<%=sField%>&sWord=<%=sWord%>" id="pageLink" <%=pageLinkColor%>><%=i%></a>
+ 				<%	
 					}
 						
-						// * 다음 페이지링크 불러오기
-						
-						// 뭐야 이거
+						// * 다음페이지 링크 불러오기
+						// * 현재페이지가 마지막페이지인 경우 다음페이지 링크 비활성화
 						
 						if (pageNum != totalPage) {
  				%>
- 							<a href="list.jsp?page=<%=pageNum + 1%>">다음</a>
+ 							<a href="list.jsp?page=<%=pageNum + 1%>&sField=<%=sField%>&sWord=<%=sWord%>">▶</a>
  				<%
+						} else {			
+				%>
+							▶
+				<%
 						}
 					
-						// * 현재 페이지가 링크 반복문의 마지막 차례가 아니라면
+						// * 현재페이지가 마지막 링크반복 구역인 경우 다음구역 링크 비활성화
+						// ? if ( 여기 이해가 안댐 ) ?
 						
 						if (pageNum <= totalPage - 10) {
  				%>
- 							<a href="list.jsp?page=<%=pageNum + 10%>">다음+10</a>
+ 							<a href="list.jsp?page=<%=pageNum + 10%>&sField=<%=sField%>&sWord=<%=sWord%>">▶+10</a>
  				<%
+						} else {
+				%>
+							▶+10
+				<%
 						}
 						
 						// * 마지막 링크 반복분으로 바로 이동하기
  				%>					
-						<a href="list.jsp?page=<%=totalPage%>">마지막</a>
-						
+						<a href="list.jsp?page=<%=totalPage%>&sField=<%=sField%>&sWord=<%=sWord%>">▶▶</a>
+
 						<!-- select 로 페이지 이동하기 -->
-						<select name="movePage" id="movePage" onchange="movePage()">
+						<select name="movePage" id="movePage" onchange="movePage(this.value)">
 							<%
 							for (int i=1; i<=totalPage; i ++) {
-								String sel = "";
-								if (i == pageNum) {
-									sel = "selected";
-								}
-								else {
-									sel = "";
-								}
+								
+								// * <option> 속성을 이용해서 선택된 값 보여주기
+// 								String sel = ""; 
+// 								if (i == pageNum) {
+// 									sel = "selected";
+// 								}
+// 								else {
+// 									sel = "";
+// 								}
 							%>
-								<option value="<%=i%>" <%=sel%>><%=i%></option>
+								<option value="<%=i%>"><%=i%> page</option>
 							<%
 							}
 							%>
@@ -272,6 +313,7 @@ td {
 </html>
 
 <%
+	rs.close();
 	conn.close();
 	stmt.close();
 %>
