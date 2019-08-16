@@ -88,7 +88,7 @@
 			<p></p>
 			작성자 <span><%=rs.getString("user")%></span>
 			<p></p>
-			나이 
+			나이
 			<select name="age" id="age">
 				<option value="10대">10대</option>
 				<option value="20대">20대</option>
@@ -169,19 +169,75 @@
 	<div id="replyList">
 		<table>
 		<%
+		int reNum = 0; // 댓글 개수 체크
 		while(rs2.next()) {
+			String rName = rs2.getString("name");
+			String rContent = rs2.getString("content").replace("\r\n", "<br>");
+			String rId = rs2.getString("id");
 		%>
 			<tr>
-				<td><%=rs2.getString("name")%></td>
-				<td><%=rs2.getString("content")%></td>
+				<td><%=rName%></td>
+				<td><%=rContent%></td>
 				<td><%=rs2.getString("writeday")%></td>
-				<td><a href="">수정</a></td>
-				<td><a href="">삭제</a></td>
+				<td><a href="javascript:replyUpdate('<%=rName%>', '<%=rContent%>', '<%=rId%>')">수정</a></td>
+				<td><a href="javascript:replyDel('<%=reNum%>')">삭제</a></td>
 			</tr>
+			<!-- 이 form 왜 여기 따로있냐 ? -->
+			<form action="reply_del.jsp" method="post" id="replyDelBox">
+				<input type="hidden" name="id" value="<%=rId%>">
+				<input type="hidden" name="password" name="pwd" placeholder="비밀번호 입력" size="6">
+				<input type="submit" value="삭제">
+			</form>
 		<%
+			reNum ++;
 		}
 		%>
 		</table>
+		<!-- 댓글 수정창 스크립트 -->
+		<script>
+			function replyUpdate(rName, rContent, rId) {
+				
+				document.getElementById("replyUpdateBox").style.visibility = "visible";
+				document.replyUpdateBox.name.value = rName;
+				rContent = rContent.replace("\r\n", "<br>"); // 치환값 리턴
+				document.replyUpdateBox.content.value = rContent;
+				document.replyUpdateBox.id.value = rId;
+			}
+			
+			function replyUpdateHide() {
+				document.getElementById("replyUpdateBox").style.visibility = "hidden";
+			}
+			
+			function replyDel(reNum) {
+				document.getElementById("replyDelBox").style.display="block";
+			}
+			
+		    function replyDelHide() {
+		        document.getElementById("replyDelBox").style.display="none";
+		    }
+		</script>
+	</div>
+	<!-- 댓글 수정창 -->
+	<!-- 이 시점에서 rs2 는 마지막 레코드 -->
+		<form action="replyUpdate_ok.jsp" method="post" id="replyUpdateBox">
+			<input type="hidden" name="id">
+			<input type="hidden" name="page" value="<%=pageNum%>">
+			<input type="text" name="name" size="6">
+			<textarea name="content" id="content" cols="30" rows="1"></textarea>
+			<input type="password" name="pwd" placeholder="비밀번호 입력" size="6">
+			<input type="submit" value="수정">
+			<input type="button" value="취소" onclick="replyUpdateHide()">
+		</form>
+	
+	<!-- 댓글 삭제창 -->
+	<div id="replyDelBox" style="display: none">
+		<form action="replyDel_ok.jsp">
+			<input type="hidden" name="id" value="<%=rId%>">
+			<input type="hiddne" name="page" value="<%=pageNum%>">
+			<input type="password" name="pwd" placeholder="비밀번호 입력">
+			<input type="submit" value="삭제">
+			<input type="button" value="취소" onclick="replyDelHide()">
+		</form>
 	</div>
 
 </body>
