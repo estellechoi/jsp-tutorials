@@ -193,7 +193,7 @@
 		}
 		%>
 		</table>
-		<!-- 댓글 수정창 스크립트 -->
+		<!-- 댓글 수정창/삭제창 스크립트 -->
 		<script>
 			function replyUpdate(rName, rContent, rId) {
 				

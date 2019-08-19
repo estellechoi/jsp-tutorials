@@ -27,9 +27,9 @@
     start=(Page-1)*10; // 사용자가 원하는 페이지에 해당하는 인덱스값으로
    }
    
-    String sql="select * from qna order by id desc limit "+start+",10";
+    String sql="select * from qna order by ref desc, seq asc limit "+start+",10";
 
-    ResultSet rs=stmt.executeQuery(sql);
+    ResultSet rs = stmt.executeQuery(sql);
   
   // 많은 레코드를 한꺼번에 출력 => 가독성X
 %>    

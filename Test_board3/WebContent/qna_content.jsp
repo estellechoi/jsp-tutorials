@@ -12,7 +12,7 @@
 	Statement stmt = conn.createStatement();
 	// 읽어오고자 하는 레코드의 id값을 받기
 	String id = request.getParameter("id");
-	String Page = request.getParameter("page");
+	String pageNum = request.getParameter("page");
 
 	// 쿼리작성 => 하나의 레코드만 읽어오는 쿼리
 	String sql = "select * from qna where id=" + id;
@@ -85,14 +85,51 @@
 		<tr>
 			<td colspan=4 align=center><a href="qna_update.jsp?id=<%=id%>">
 					수정 </a> <a href="javascript:del()"> 삭제 </a> <a
-				href="qna_list.jsp?page=<%=Page%>"> 목록 </a></td>
+				href="qna_list.jsp?page=<%=pageNum%>"> 목록 </a></td>
+				<a href="javascript:qnaReply()"> 댓글달기 </a>
 		</tr>
 	</table>
-
+	<!-- 댓글 입력창 스크립트 -->
+	<script>
+		function qnaReply() {
+			document.getElementById("qnaReplyBox").style.display = "block";
+		}
+		function hideQnaReplyBox() {
+			document.getElementById("qnaReplyBox").style.display = "none";
+		}
+	</script>
+	<!-- 댓글 입력창 -->
+	<div id="qnaReplyBox" style="display: none">
+		<form action="qna_reply_ok.jsp" method="post">
+			<input type="hidden" name="id" value="<%=id%>">
+			<input type="hidden" name="page" value="<%=pageNum%>">
+			<input type="hidden" name="ref" value="<%=rs.getString("ref")%>">
+			<input type="hidden" name="depth" value="<%=rs.getString("depth")%>">
+			<input type="hidden" name="seq" value="<%=rs.getString("seq")%>">
+			<!-- 입력공간 -->
+			<input type="text" name="user" placeholder="작성자">
+			<input type="text" name="title" placeholder="제목">
+			<textarea name="content" id="content" cols="30" rows="1"></textarea>
+			<select name="age" id="age">
+				<option value="10대">10대</option>
+				<option value="20대">20대</option>
+				<option value="30대">30대</option>
+				<option value="40대">40대</option>
+				<option value="50대">50대</option>
+			</select>
+			<input type="radio" name="sex" value="0">남
+			<input type="radio" name="sex" value="1">여
+			<input type="password" name="pwd" placeholder="비밀번호">
+			<!-- 버튼 -->
+			<input type="submit" value="댓글달기">
+			<input type="button" value="취소" onclick="hideQnaReplyBox()">
+		</form>	
+	</div>
+	<!-- 질문 삭제창 -->
 	<div id=delete style="display: none">
 		<form method=post action=qna_del_ok.jsp>
 			<input type=hidden name=id value=<%=id%>> <input type=hidden
-				name=page value=<%=Page%>> 비밀번호 <input type=password
+				name=page value=<%=pageNum%>> 비밀번호 <input type=password
 				name=pwd> <input type=submit value=삭제> <input
 				type=button onclick=hide() value=취소>
 		</form>
@@ -119,6 +156,10 @@
 	background: white;
 }
 </style>
+<!-- 댓글 출력창 -->
+	<div>
+	
+	</div>
 </body>
 </html>
 
