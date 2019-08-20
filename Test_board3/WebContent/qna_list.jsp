@@ -30,8 +30,6 @@
     String sql="select * from qna order by ref desc, seq asc limit "+start+",10";
 
     ResultSet rs = stmt.executeQuery(sql);
-  
-  // 많은 레코드를 한꺼번에 출력 => 가독성X
 %>    
 <!DOCTYPE html>
 <html>
@@ -66,8 +64,24 @@
     {
    %>
    <tr height=20>
-     <td align=center> <%=rs.getString("user")%> </td>
-     <td> <a href="qna_content.jsp?id=<%=rs.getString("id")%>&page=<%=Page%>"> <%=rs.getString("title")%> </a> </td>
+     <td align=center> <%=rs.getString("user")%> </td>  
+     <td>
+     <!-- depth의 값만큼 공백 추가하기 (댓글 표시) -->
+     <%
+     for(int i=0; i<rs.getInt("depth"); i++) {
+     %>
+     	&nbsp; &nbsp;
+     <%
+     }
+     // 답글인 경우
+     if(rs.getInt("depth") != 1) {
+     %>
+     	 ↳
+     <%
+     }
+     %>
+     	<a href="qna_content.jsp?id=<%=rs.getString("id")%>&page=<%=Page%>"> <%=rs.getString("title")%> </a> 
+     </td>
      <td align=center> <%=rs.getString("readnum")%> </td>
      <td align=center> <%=rs.getString("writeday")%> </td>
      <td align=center> <%=rs.getString("ref")%> </td>
