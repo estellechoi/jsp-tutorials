@@ -82,10 +82,13 @@
 			<td>작성일</td>
 			<td colspan=3><%=rs.getString("writeday")%></td>
 		</tr>
+		<!-- 수정, 삭제, 목록 버튼-->
 		<tr>
-			<td colspan=4 align=center><a href="qna_update.jsp?id=<%=id%>">
-					수정 </a> <a href="javascript:del()"> 삭제 </a> <a
-				href="qna_list.jsp?page=<%=pageNum%>"> 목록 </a></td>
+			<td colspan=4 align=center>
+				<a href="qna_update.jsp?id=<%=id%>&page=<%=pageNum%>"> 수정 </a>
+				<a href="javascript:del()"> 삭제 </a>
+				<a href="qna_list.jsp?page=<%=pageNum%>"> 목록 </a>
+			</td>
 				<a href="javascript:qnaReply()"> 댓글달기 </a>
 		</tr>
 	</table>
@@ -98,7 +101,7 @@
 			document.getElementById("qnaReplyBox").style.display = "none";
 		}
 	</script>
-	<!-- 댓글 입력창 -->
+	<!-- 답글 입력창 -->
 	<div id="qnaReplyBox" style="display: none">
 		<form action="qna_reply_ok.jsp" method="post">
 			<input type="hidden" name="id" value="<%=id%>">
@@ -125,26 +128,38 @@
 			<input type="button" value="취소" onclick="hideQnaReplyBox()">
 		</form>	
 	</div>
-	<!-- 질문 삭제창 -->
-	<div id=delete style="display: none">
-		<form method=post action=qna_del_ok.jsp>
-			<input type=hidden name=id value=<%=id%>> <input type=hidden
-				name=page value=<%=pageNum%>> 비밀번호 <input type=password
-				name=pwd> <input type=submit value=삭제> <input
-				type=button onclick=hide() value=취소>
+	<!-- 글 삭제 스크립트 -->
+	<script>
+		function delCheck() {
+			if(qnaDelForm.pwd.value != "<%=rs.getString("pwd")%>") {
+				alert("비밀번호가 틀립니다.");
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
+	</script>
+	<!-- 글 삭제창 -->
+	<div id="qnaDelBox" style="display: none" onsubmit="return delCheck()">
+		<form method=post action="qna_del_ok.jsp" name="qnaDelForm">
+			<input type=hidden name=id value=<%=id%>>
+<%-- 			<input type=hidden name="page" value=<%=pageNum%>> --%>
+			<input type="hidden" name="ref" value="<%=rs.getString("ref")%>">
+			<input type="hidden" name="depth" value="<%=rs.getString("depth")%>">
+			<input type="hidden" name="seq" value="<%=rs.getString("seq")%>">
+			<input type=password name=pwd placeholder="비밀번호 입력">
+			<input type=button onclick="hide()" value=취소>
+			<input type=submit value=삭제>
 		</form>
 	</div>
 	<!-- 비밀번호 입력폼을 숨겼다가 위의 삭제를 클릭하면 보이기 -->
 	<script>
-		function del() // 비밀번호 입력폼을 보이게 하기
-		{
-			document.getElementById("delete").style.display = "block";
-			//document.all.delete.style.display="block";
+		function del() {
+			document.getElementById("qnaDelBox").style.display = "block";
 		}
-		function hide() // 비밀번호 입력폼을 숨기기
-		{
-			document.getElementById("delete").style.display = "none";
-			//document.all.delete.style.display="none";
+		function hide() {
+			document.getElementById("qnaDelBox").style.display = "none";
 		}
 	</script>
 	<style>
