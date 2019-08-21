@@ -14,5 +14,6 @@
 		<input type="file" name="fileName">
 		<input type="submit" value="전송">
 	</form>
+	<div id="uploadFileList"></div>
 </body>
 </html>
