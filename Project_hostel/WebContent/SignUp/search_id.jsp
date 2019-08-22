@@ -15,15 +15,16 @@
 	ResultSet rs = stmt.executeQuery(sql);
 
 	if (rs.next()) {
-		out.print(rs.getString("userid")); // AJAX 처리로 변경 예정
+		out.print("<b style='color:red'>"+rs.getString("userid")+"</b>"); // AJAX 처리로 변경 예정
 		
 	} else {
-		%>
-		<script>
-			alert("일치하는 회원정보가 없습니다");
-			history.back(); // 이전 페이지로 이동
-		</script>
-		<% 
+		out.println("<b style='color:red'>일치하는 회원정보가 없습니다.</b>");
+
+//		<script>
+// 			alert("일치하는 회원정보가 없습니다");
+// 			history.back(); // 이전 페이지로 이동
+//		</script>
+
 	}
 	
 	stmt.close();
