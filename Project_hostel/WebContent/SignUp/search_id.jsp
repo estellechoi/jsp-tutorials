@@ -11,11 +11,12 @@
 	String name = request.getParameter("name");
 	String email = request.getParameter("email");
 
-	String sql = "select*from member where email=" + email + " and name=" + name;
+	String sql = "select*from member where email='" + email + "' and name='" + name + "'";
 	ResultSet rs = stmt.executeQuery(sql);
 
 	if (rs.next()) {
-		response.sendRedirect("searchResult_id.jsp?userid="+rs.getString("userid")); // id 보여주는 페이지로 이동
+// 		response.sendRedirect("searchResult_id.jsp?userid="+rs.getString("userid")); // id 보여주는 페이지로 이동
+		out.print(rs.getString("userid"));
 		
 	} else {
 		%>
@@ -25,14 +26,7 @@
 		</script>
 		<% 
 	}
+	
+	stmt.close();
+	conn.close();
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
