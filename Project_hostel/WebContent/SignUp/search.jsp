@@ -33,7 +33,7 @@
 						<td><input type="text" name="email"></td>
 					</tr>
 					<tr>
-						<td colspan="2"><input type="submit" value="비밀번호 찾기"></td>
+						<td colspan="2"><input type="submit" value="아이디 찾기"></td>
 					</tr>
 				</table>
 			</form>
