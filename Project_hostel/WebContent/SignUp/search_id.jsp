@@ -15,8 +15,7 @@
 	ResultSet rs = stmt.executeQuery(sql);
 
 	if (rs.next()) {
-// 		response.sendRedirect("searchResult_id.jsp?userid="+rs.getString("userid")); // id 보여주는 페이지로 이동
-		out.print(rs.getString("userid"));
+		out.print(rs.getString("userid")); // AJAX 처리로 변경 예정
 		
 	} else {
 		%>
