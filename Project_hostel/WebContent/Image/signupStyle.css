@@ -15,22 +15,45 @@ section article:nth-child(2) {
 
 table {
 	border: 1px solid lightgrey;
+	border-radius: 10px;
 	margin: auto;
 	height: 500px;
 	text-align: center;
 	width: 600px;
 }
 
-tr {
+td {
 	height: 50px;
 	font-size: 13px;
 	text-align: center;
 }
 
-tr input[type=submit] {
-	border: 1px solid red;
-	background: red;
-	color: white;
+#submitButtonBox {
+	text-align: center;
+}
+
+td:nth-child(1) {
+	text-align: left;
+	font-weight: bold;
+	padding: 10px;
+	weight: 150px;
+}
+
+tr input[type=text], [type=password] {
+	height: 20px;
+	border: 1px solid lightgrey;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+tr input[type=button],[type=submit] {
+	border: 1px solid #eeeeee;
+	border-radius: 10px;
+	background: #F0C0FF;
+	color: #555555;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 5px;
 }
 
 #useridx, #namex, #passwordx, #confirmPasswordx, #emailx {
