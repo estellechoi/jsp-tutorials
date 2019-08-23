@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../Image/structure.css">
-<link rel="stylesheet" href="../Image/signupStyle.css">
+<link rel="stylesheet" href="../Image/signupStyle.css?ver=4">
 <script>
 	function check() {
 		var email = document.all.email.value;
@@ -131,7 +131,7 @@
 						<td id="emailx"></td>
 					</tr>
 					<tr>
-						<td colspan="4"><input type="submit" value="가입하기"></td>
+						<td colspan="4" id="submitButtonBox"><input type="submit" value="가입하기"></td>
 					</tr>
 				</table>
 			</form>
