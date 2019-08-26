@@ -21,10 +21,11 @@
 	}
 	
 	// * Ajax에서 서버로부터 전달받은 데이터 확인하기
-	// * xml.responseText; 서버에 요청하여 응답으로 받은 데이터를 문자열로 반환
-	// * xml.responseXML; 서버에 요청하여 응답으로 받은 데이터를 XML DOM 객체로 반환
+	// * xml.responseText; 서버에 요청하여 응답받은 데이터를 문자열로 반환, 모든 HTML 태그의 "혼합(soup)"을 포함
+	// * xml.responseXML; 서버에 요청하여 응답받은 데이터를 XML DOM 객체로 반환 (HTML 파싱)
 	// 1) out.print 출력값만 존재하는 경우 : out.print() 출력값
 	// 2) <html> 태그 존재하는 경우 : out.print() 출력값 및 태그 전체
+	
 </script>
 </head>
 <body>
