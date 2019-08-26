@@ -14,12 +14,15 @@ section article:nth-child(2) {
 table {
 	margin: auto;
 	width: 1000px;
-	border: 1px solid lightgrey;
-	border-collapse: collapse;
-	margin-bottom: 50px;
 }
 
-table>caption:nth-child(1) {
+#announceContentTable {
+	border: 1px solid lightgrey;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+}
+
+#announceContentTable>caption:nth-child(1) {
 	font-weight: bold;
 	font-size: 25px;
 	padding-top: 50px;
@@ -27,53 +30,73 @@ table>caption:nth-child(1) {
 	text-align: left;
 }
 
-table>caption:nth-child(2) {
+#announceContentTable>caption:nth-child(2) {
 	font-weight: bold;
 	font-size: 13px;
 	padding: 20px;
 	text-align: right;
 }
 
-table>caption:nth-child(2) a {
+#announceContentTable>caption:nth-child(2) a {
 	margin-left: 30px;
 }
 
-table #fields {
+#announceContentTable #fields {
 	font-weight: bold;
 	background: #F6F4F1;
 	height: 20px;
 }
 
-table .contentInfo {
+#announceContentTable .contentInfo {
 	height: 60px;
 }
 
-table #content td {
+#announceContentTable #content td {
 	text-align: center;
 	vertical-align: top;
 	height: 300px;
 }
 
-table tr, td {
+#announceContentTable tr, td {
 	border: 1px solid lightgrey;
 	padding: 10px;
 	text-align: center;
 	font-size: 13px;
 }
 
-table tr, td a {
+#announceContentTable tr, td a {
 	text-decoration: none;
 	color: black;
 }
 
-table td:nth-child(1) {
+#announceContentTable td:nth-child(1) {
 	width: 60%;
 }
 
-table td:nth-child(2) {
+#announceContentTable td:nth-child(2) {
 	width: 20%;
 }
 
-table td:nth-child(3) {
+#announceContentTable td:nth-child(3) {
 	width: 20%;
 }
+
+/* 댓글 부분 */
+
+#replyContentTable .showReplies td {
+	border-radius: 10px;
+	margin-bottom: 10px;
+}
+
+#replyContentTable .inputReplies td {
+	border: 1px solid #040404;
+	border-radius: 10px;
+	background: #040404;
+}
+
+#replyContentTable .inputReplies td input, textarea {
+	background: #040404;
+	border: 1px solid #040404;
+	color: white;
+}
+
