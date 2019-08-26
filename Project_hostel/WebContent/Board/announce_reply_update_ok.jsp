@@ -5,7 +5,8 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%
 	Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/hostel?useSSL=false", "root", "1234");
-	
+
+	// ○ 댓글 수정
 	request.setCharacterEncoding("UTF-8");
 	String id_reply = request.getParameter("rid");
 // 	String userid = request.getParameter("userid");
@@ -24,6 +25,7 @@
 	pstmt.setString(3, id_reply);
 	pstmt.executeUpdate(); // 쿼리실행
 	
+	// ○ content 페이지 복귀
 	// * 댓글 수정 후 페이지 복귀를 위한 rid 값 가져오기 (rid : 댓글이 등록되는 게시글의 id)
 	// * id_reply 값 전송을 위해 getParameter("rid") 값 사용 불가하므로 select문을 가져오자
 	
