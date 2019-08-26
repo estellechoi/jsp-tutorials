@@ -21,7 +21,6 @@
 	// 쿼리
 	String sql = "insert into announce_reply(rid, userid, name, content, writeday)";
 	sql = sql + " values("+rid+", '"+userid+"', '"+name+"', '"+content+"', '"+writeday+"')";
-	
 	stmt.executeUpdate(sql);
 	
 	response.sendRedirect("announce_content.jsp?id="+rid);
