@@ -4,8 +4,9 @@
 	border-right: 1px solid lightgrey;
 }
 
-li {
+#categories li {
 	margin: 30px;
 	list-style: none;
 	font-weight: bold;
+	text-decoration: none;
 }
