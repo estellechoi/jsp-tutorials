@@ -90,7 +90,7 @@
 					// 댓글 등록(id 없는 경우) 때와 같은 form 공유하기 위해 .. ?
 					document.replyWriteForm.rid.value = id_reply;
 					
-					// * 댓글 입력 버튼을 수정 버튼으로 바꿔주기
+					// * 댓글 입력 버튼을 수정 버튼으로 바꿔주기 (post 방식 유지)
 					document.replyWriteForm.action = "announce_reply_update_ok.jsp";
 					document.replyWriteForm.sub.value= "수정";
 				}
