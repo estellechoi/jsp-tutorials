@@ -41,7 +41,7 @@ table {
 	margin-left: 30px;
 }
 
-#announceContentTable #fields {
+#announceContentTable .fields {
 	font-weight: bold;
 	background: #F6F4F1;
 	height: 20px;
