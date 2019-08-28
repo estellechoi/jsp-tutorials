@@ -13,7 +13,7 @@
 	
 	stmt.executeUpdate(sql);
 	
-	response.sendRedirect("review_content.jsp?id="+id);
+	response.sendRedirect("review_content_r.jsp?id="+id);
 	
 	stmt.close();
 	conn.close();
