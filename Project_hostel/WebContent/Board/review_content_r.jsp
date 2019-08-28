@@ -19,8 +19,23 @@
 	table {
 		margin: auto;
 		width: 1000px;
-		border: 1px solid #eeeeee;
-		
+		border: 1px solid grey;
+		border-collapse: collapse;
+	}
+	
+	table tr, td {
+		border: 1px solid grey;
+		text-align: center;
+		font-size: 13px;
+		height: 30px;
+	}
+	
+	table #contentBox {
+		height: 300px;
+	}
+	
+	table #imgBox {
+		height: 200px;
 	}
 </style>
 </head>
@@ -42,9 +57,15 @@
 						<td>조회수</td>
 						<td><%=rs.getString("readnum")%></td>
 					</tr>
-					<tr>
+					<tr id="contentBox">
 						<td>내용</td>
 						<td colspan="3"><%=rs.getString("content")%></td>
+					</tr>
+					<tr>
+						<td id="imgBox">사진</td>
+						<td colspan="3">
+							<img src="../Image/<%=rs.getString("filename")%>" width="400">
+						</td>
 					</tr>
 					<tr>
 						<td>작성일</td>
