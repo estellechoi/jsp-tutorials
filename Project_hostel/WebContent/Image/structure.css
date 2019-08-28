@@ -144,6 +144,18 @@ section #reserve {
 	background: orange;
 }
 
+section article:nth-child(1) {
+	height: 150px;
+	background-image: url(../Image/arizona.jpg);
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
+section article:nth-child(2) {
+	height: 1000px;
+}
+
+
 footer {
 	height: 100px;
 	background: #1C1F22;
