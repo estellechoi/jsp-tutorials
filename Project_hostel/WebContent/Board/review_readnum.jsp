@@ -4,7 +4,7 @@
 <%
 	Connection conn = DriverManager.getConnection(
 			"jdbc:mysql://localhost:3307/hostel?useSSL=false", "root",
-			"1324");
+			"1234");
 	Statement stmt = conn.createStatement();
 
 	String id = request.getParameter("id");
