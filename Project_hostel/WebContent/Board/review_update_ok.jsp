@@ -27,13 +27,19 @@
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	String writeday = sdf.format(today);
 
+	String sql;
+	
 	if (filename != null) {
-
+		sql = "update review set title='" + title + "', content='"
+				+ content + "', filename='" + filename + "', writeday='"
+				+ writeday + "'";
+	}
+	else {
+		sql = "update review set title='" + title + "', content='"
+				+ content + "', writeday='"
+				+ writeday + "'";		
 	}
 
-	String sql = "update review set title='" + title + "', content='"
-			+ content + "', filename='" + filename + "', writeday='"
-			+ writeday + "'";
 	sql = sql + " where id=" + id;
 	stmt.executeUpdate(sql);
 
