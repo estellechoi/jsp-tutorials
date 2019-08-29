@@ -94,7 +94,15 @@
 			<option value="6">6</option>
 		</select>
 		
-		금액 합계 : <span id="amount"></span> 원
+		숙박 금액 : <span id="amount"></span> 원
+		<p></p>
+		
+		서비스 추가 <br>
+		<input type="checkbox"> 조식 30,000 원 <br>
+		<input type="checkbox"> 스파 50,000 원 <br>
+		<input type="checkbox"> 가이드투어 20,000 원 <p></p>
+		서비스 금액 : <span id="amountService">0</span> 원<p></p>
+		총 결제 금액 : <span id="amountTotal">0</span> 원<p></p>
 	</form>
 </body>
 </html>
