@@ -9,11 +9,21 @@
 	String pw = "1234";
 	Connection conn = DriverManager.getConnection(db, user, pw);
 	Statement stmt = conn.createStatement();
-
-	// 현재날짜
- 	LocalDate xday = LocalDate.now();
-	int yy = xday.getYear();
-	int mm = xday.getMonthValue();
+	
+	// 날짜 표시
+	int yy;
+	int mm;
+	// 1) 선택된 날짜 있는 경우
+	if (request.getParameter("yy") != null && request.getParameter("mm") != null) {
+		yy = Integer.parseInt(request.getParameter("yy"));
+		mm = Integer.parseInt(request.getParameter("mm"));
+	}
+	// 2) 디폴트 (현재날짜)
+	else {
+	 	LocalDate xday = LocalDate.now();
+		yy = xday.getYear();
+		mm = xday.getMonthValue();
+	}
 	
 	// 요일
 	LocalDate today = LocalDate.of(yy, mm, 1);
@@ -44,7 +54,7 @@
 	function moveCal() {
 		var yy = document.getElementById("year").value;
 		var mm = document.getElementById("month").value;;
-		location = "../Booking/cal.jsp?yy="+yy+"&mm="+mm;
+		location = "../Booking/callendar_now.jsp?yy="+yy+"&mm="+mm;
 	}
 </script>
 </head>
