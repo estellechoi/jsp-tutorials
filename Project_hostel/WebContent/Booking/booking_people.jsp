@@ -9,13 +9,13 @@
 	// 문서가 로드될 때 함수 실행
 	window.onload = function() {
 		// 디폴트 : 성인 2인
-		// document.people.adult.selectedIndex = 1; (form 과 select name으로 접근)
+		// document.select.adult.selectedIndex = 1; (form 과 select name으로 접근)
 		document.getElementById("adult").value = "2";
 		// 디폴트 금액 : 1박 가격
 		document.getElementById("amount").innerText = "150,000";
 	}
 	
-	// 선택값이 바뀔 때 실행 (onchange)
+	// * 숙박일수 및 인원수 선택값이 바뀔 때 실행 (onchange)
 	function cal() {
 		// 숙박일수
 		var nights = parseInt(document.getElementById("nights").value);
@@ -61,10 +61,32 @@
 		amount = amount.replace(/\B(?=(\d{3})+(?!\d))/g,",");
 		return amount;
 	}
+	
+	// * 추가서비스 금액 계산
+	function calService() {
+		// 서비스 가격 배열
+		var sv = new Array();
+		var amount = 0;
+		
+		// checked = false 일 때 가격 0 으로 설정
+		for (var i = 0; i <= 2; i++) {
+			if (document.select.service[i].checked) {
+				sv[i] = parseInt(document.select.service[i].value);
+			}
+			else {
+				sv[i] = 0;
+			}
+			// 금액 합산
+			amount = amount + sv[i];
+		}
+		// 콤마
+		amount = comma(amount);
+		document.getElementById("amountService").innerText = amount;
+	}
 </script>
 </head>
 <body>
-	<form action="" name="people">
+	<form action="" name="select">
 		방1 (2인실, 최대 6인 숙박 가능)
 		<select name="nights" id="nights" onchange="cal()">
 			<option value="1">1박</option>
@@ -98,9 +120,9 @@
 		<p></p>
 		
 		서비스 추가 <br>
-		<input type="checkbox"> 조식 30,000 원 <br>
-		<input type="checkbox"> 스파 50,000 원 <br>
-		<input type="checkbox"> 가이드투어 20,000 원 <p></p>
+		<input type="checkbox" name="service" onclick="calService()" value="30000"> 조식 30,000 원 <br>
+		<input type="checkbox" name="service" onclick="calService()" value="50000"> 스파 50,000 원 <br>
+		<input type="checkbox" name="service" onclick="calService()" value="20000"> 가이드투어 20,000 원 <p></p>
 		서비스 금액 : <span id="amountService">0</span> 원<p></p>
 		총 결제 금액 : <span id="amountTotal">0</span> 원<p></p>
 	</form>
