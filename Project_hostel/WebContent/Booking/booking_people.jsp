@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
+	var nightsAmount = 150000; // 숙박요금 초기값
+	var serviceAmount = 0; // 서비스요금 초기값
+
 	// 문서가 로드될 때 함수 실행
 	window.onload = function() {
 		// 디폴트 : 성인 2인
@@ -51,8 +54,9 @@
 		}
 		
 		// 금액 합산
-		amount = comma(amount + (adult * 10000));
-		document.getElementById("amount").innerText = amount + "";
+		amount = amount + (adult * 10000);
+		nightsAmount = amount; // 콤마 붙이기 전 추후 총 결제금액 합산을 위한 저장
+		document.getElementById("amount").innerText = comma(amount);
 	}
 	
 	// * 금액에 콤마 표시하기 (정규식 사용)
@@ -79,9 +83,10 @@
 			// 금액 합산
 			amount = amount + sv[i];
 		}
-		// 콤마
-		amount = comma(amount);
-		document.getElementById("amountService").innerText = amount;
+		
+		serviceAmount = amount;	// 콤마 붙이기 전 총 결제금액 합산을 위한 저장
+		document.getElementById("amountService").innerText = comma(amount);
+		document.getElementById("amountTotal").innerText = comma(nightsAmount + serviceAmount);
 	}
 </script>
 </head>
