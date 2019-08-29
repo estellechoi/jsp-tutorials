@@ -25,7 +25,25 @@
 		var adult = parseInt(document.getElementById("adult").value);
 		var child = parseInt(document.getElementById("child").value); // eval ?
 				
-		if(adult <= 1) {
+		// 최대 인원수 체크
+		if (adult + child > 6) {
+			alert("인원수 초과 !");
+			// 인원수 초과 안되도록 자동 지정
+			switch (adult) {
+				case 1: child = 5; break;
+				case 2: child = 4; break;
+				case 3: child = 3; break;
+				case 4: child = 2; break;
+				case 5: child = 1; break;
+				case 6: child = 0; break;
+			}
+		
+			document.getElementById("child").value = child + "";
+		}
+		
+		// else 노필요 !
+		
+		if (adult <= 1) {
 			adult = 0;
 		}
 		else {
@@ -33,8 +51,15 @@
 		}
 		
 		// 금액 합산
-		amount = adult * 10000;
+		amount = comma(amount + (adult * 10000));
 		document.getElementById("amount").innerText = amount + "";
+	}
+	
+	// * 금액에 콤마 표시하기 (정규식 사용)
+	function comma(amount) {
+		amount = amount + ""; // replace() 함수 사용을 위해 문자열로 변환
+		amount = amount.replace(/\B(?=(\d{3})+(?!\d))/g,",");
+		return amount;
 	}
 </script>
 </head>
