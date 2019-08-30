@@ -49,7 +49,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../Image/structure.css">
-<link rel="stylesheet" href="../Image/cal.css?ver=2">
+<link rel="stylesheet" href="../Image/cal.css?ver=3">
 <script>
 	function moveCal() {
 		var yy = document.getElementById("year").value;
@@ -61,6 +61,13 @@
 <body>
 	<%@ include file="../Common/header.jsp"%>
 	<section id="sectionCalBox">
+		<%
+		if(session.getAttribute("userid") == null) {
+		%>
+		<div id="alertSignIn">로그인 후 예약이 가능합니다 !</div>
+		<%
+		}
+		%>
 		<div id="calBox">
 			<table>
 				<caption>
@@ -135,7 +142,20 @@
 							<%
 								} else {
 							%>
-									<div class="rooms"><a href="booking_input.jsp?room=방1&yy=<%=yy%>&mm=<%=mm%>&dd=<%=date - day%>">room1</a></div>
+									<!-- 로그인 여부에 따라 버튼 활성/비활성화 -->
+									<div class="rooms">
+									<%
+									if(session.getAttribute("userid") != null) {
+									%>
+										<a href="booking_input.jsp?room=방1&yy=<%=yy%>&mm=<%=mm%>&dd=<%=date - day%>">room1</a>
+									<%
+									} else {
+									%>
+										room1
+									<%
+									}
+									%>
+									</div>
 							<%
 								}
 								sql = "select*from booking where checkinDate <= '"+nowday+"' and";
@@ -147,7 +167,20 @@
 							<%
 								} else {
 							%>
-									<div class="rooms"><a href="booking_input.jsp?room=방2&yy=<%=yy%>&mm=<%=mm%>&dd=<%=date - day%>">room2</a></div>
+									<!-- 로그인 여부에 따라 버튼 활성/비활성화 -->
+									<div class="rooms">
+									<%
+									if(session.getAttribute("userid") != null) {
+									%>
+										<a href="booking_input.jsp?room=방2&yy=<%=yy%>&mm=<%=mm%>&dd=<%=date - day%>">room2</a>
+									<%
+									} else {
+									%>
+										room2
+									<%
+									}
+									%>
+									</div>
 							<%
 								}
 								sql = "select*from booking where checkinDate <= '"+nowday+"' and";
@@ -159,7 +192,20 @@
 							<%
 								} else {
 							%>
-									<div class="rooms"><a href="booking_input.jsp?room=방3&yy=<%=yy%>&mm=<%=mm%>&dd=<%=date - day%>">room3</a></div>
+									<!-- 로그인 여부에 따라 버튼 활성/비활성화 -->
+									<div class="rooms">
+									<%
+									if(session.getAttribute("userid") != null) {
+									%>
+										<a href="booking_input.jsp?room=방3&yy=<%=yy%>&mm=<%=mm%>&dd=<%=date - day%>">room3</a>
+									<%
+									} else {
+									%>
+										room3
+									<%
+									}
+									%>
+									</div>
 							<%
 								}
 							%>					
