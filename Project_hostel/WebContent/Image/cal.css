@@ -18,6 +18,13 @@ body {
 	width: 1000px;
 }
 
+#alertSignIn {
+	width: 1000px;
+	font-style: italic;
+	display: flex;
+	justify-content: flex-end;
+}
+
 table {
 	margin: auto;
 	border: 1px solid #BEBEBE;
