@@ -9,6 +9,7 @@
 	String pw = "1234";
 	Connection conn = DriverManager.getConnection(db, user, pw);
 	Statement stmt = conn.createStatement();
+	Statement stmt2 = conn.createStatement();
 	
 	// 날짜 표시
 	int yy;
@@ -49,7 +50,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../Image/structure.css">
-<link rel="stylesheet" href="../Image/cal.css?ver=3">
+<link rel="stylesheet" href="../Image/cal.css?ver=1">
 <script>
 	function moveCal() {
 		var yy = document.getElementById("year").value;
@@ -64,7 +65,7 @@
 		<%
 		if(session.getAttribute("userid") == null) {
 		%>
-		<div id="alertSignIn">로그인 후 예약이 가능합니다 !</div>
+		<div id="alertSignIn"><a href="../SignUp/signin.jsp">로그인 후 예약이 가능합니다 !</a></div>
 		<%
 		}
 		%>
@@ -119,12 +120,13 @@
 				%>
 				<tr>
 					<%
+						// * 요일별 <td> 반복
 						for (int j = 0; j < 7; j++) {
-							switch (j) {
-								case 0: dateColor = "red"; break;
-								case 6: dateColor = "blue"; break;
-								default: dateColor = "black";
-							}
+								switch (j) {
+									case 0: dateColor = "red"; break;
+									case 6: dateColor = "blue"; break;
+									default: dateColor = "black";
+								}
 							if (date - day <= length && date - day >= 1) {
 							// if (date > length || (date <= j) && (i == 1)) { <td></td> }
 							// else { <td><%=date</td>}
@@ -132,91 +134,49 @@
 							<td>
 									<div class="date" style="color:<%=dateColor%>"><%=date - day%></div>
 							<%
-								String nowday = yy + "-" + mm + "-" + (date - day); // 1 ~ 31일 'yy-MM-dd'
-								String sql = "select*from booking where checkinDate <= '"+nowday+"' and";
-								sql = sql + " checkoutDate > '"+nowday+"' and room='방1'";
-								ResultSet rs = stmt.executeQuery(sql);			
-								if (rs.next()) { // 예약불가인 경우
+								// 방의 개수만큼  while문 실행
+								ResultSet rs, rs2;
+								// * 방 이름 변수
+								String room;
+								String sql = "select*from room order by price asc";
+								rs = stmt.executeQuery(sql);
+								while(rs.next()) {
+									room = rs.getString("name");
+									String nowday = yy + "-" + mm + "-" + (date - day); // 1 ~ 31일 'yy-MM-dd'
+									sql = "select*from booking where checkinDate <= '"+nowday+"' and";
+									sql = sql + " checkoutDate > '"+nowday+"' and room='" + room + "'";
+									rs2 = stmt2.executeQuery(sql);
+									// 해당 날짜에 데이터가 있다면 예약불가
+									if (rs2.next()) {
+	
 							%>
-									<div class="rooms" style="color: darkgrey">room1</div>
+										<div class="rooms" style="color: darkgrey"><%=room%></div>
 							<%
-								} else {
-							%>
-									<!-- 로그인 여부에 따라 버튼 활성/비활성화 -->
-									<div class="rooms">
-									<%
-									if(session.getAttribute("userid") != null) {
-									%>
-										<a href="booking_input.jsp?room=방1&yy=<%=yy%>&mm=<%=mm%>&dd=<%=date - day%>">room1</a>
-									<%
+									// * 데이터가 없으면 예약 가능
 									} else {
-									%>
-										room1
-									<%
+							%>
+										<!-- 로그인 여부에 따라 버튼 활성/비활성화 -->
+										<div class="rooms">
+										<%
+										if(session.getAttribute("userid") != null) {
+										%>
+											<a href="javascript:goToInput('<%=room%>', '<%=yy%>', '<%=mm%>', '<%=date - day%>')"><%=room%></a>
+										<%
+										} else {
+										%>
+											<%=room%>
+										<%
+										}
+										%>
+										</div>
+							<%
 									}
-									%>
-									</div>
-							<%
 								}
-								sql = "select*from booking where checkinDate <= '"+nowday+"' and";
-								sql = sql + " checkoutDate > '"+nowday+"' and room='방2'";
-								rs = stmt.executeQuery(sql);			
-								if (rs.next()) { // 예약불가인 경우
 							%>
-									<div class="rooms" style="color: darkgrey">room2</div>
-							<%
-								} else {
-							%>
-									<!-- 로그인 여부에 따라 버튼 활성/비활성화 -->
-									<div class="rooms">
-									<%
-									if(session.getAttribute("userid") != null) {
-									%>
-										<a href="booking_input.jsp?room=방2&yy=<%=yy%>&mm=<%=mm%>&dd=<%=date - day%>">room2</a>
-									<%
-									} else {
-									%>
-										room2
-									<%
-									}
-									%>
-									</div>
-							<%
-								}
-								sql = "select*from booking where checkinDate <= '"+nowday+"' and";
-								sql = sql + " checkoutDate > '"+nowday+"' and room='방3'";
-								rs = stmt.executeQuery(sql);			
-								if (rs.next()) { // 예약불가인 경우
-							%>
-									<div class="rooms" style="color: darkgrey">room3</div>
-							<%
-								} else {
-							%>
-									<!-- 로그인 여부에 따라 버튼 활성/비활성화 -->
-									<div class="rooms">
-									<%
-									if(session.getAttribute("userid") != null) {
-									%>
-										<a href="booking_input.jsp?room=방3&yy=<%=yy%>&mm=<%=mm%>&dd=<%=date - day%>">room3</a>
-									<%
-									} else {
-									%>
-										room3
-									<%
-									}
-									%>
-									</div>
-							<%
-								}
-							%>					
 							</td>
 					<%
-							} else {
-					%>
-							<td></td>
-					<%
-							}
 							date = date + 1;
+							}
 						}
 					%>
 				</tr>
@@ -224,6 +184,18 @@
 					}
 				%>
 			</table>
+			<!--
+			* 예약 페이지 링크 스크립트
+			(explorer 브라우저에서 get 전송시 방이름 한글 인코딩을 위해 / 크롬은 브라우저에서 자체 인코딩) 
+			* request.setCharacterEncoding("UTF-8"); 은 Java 사용을 위한 인코딩
+			* <script> encodeURIComponent(n); 은 웹 브라우저 JSP 값 전송을 위한 인코딩
+			-->
+			<script>
+			function goToInput(room, yy, mm, dd) {
+				room = encodeURIComponent(room);
+				location = "booking_input.jsp?room="+room+"&yy="+yy+"&mm="+mm+"&dd="+dd;
+			}
+			</script>
 		</div>
 	</section>
 	<%@ include file="../Common/footer.jsp"%>
