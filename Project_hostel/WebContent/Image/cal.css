@@ -50,26 +50,33 @@ table td, tr {
 	width: 100px;
 }
 
-table td div {
-	height: 15px;
-	padding: 5px;
-}
-
-table #field>td {
+table #field td {
 	font-weight: bold;
-	color: #FF8000;
 	text-align: center;
 }
 
-table td .rooms {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+table .roomlink {
+	height: 130px;
+	padding: 3px;
+	vertical-align: top;
+}
+
+table .roomlink .date {
+	margin-top: 0px;
+	height: 30px;
 }
 
 table td .rooms {
+	margin: auto;
+	border: 1px solid #eeeeee;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	color: #darkgrey;
 	font-size: 12px;
+	height: 17px;
+	width: 80px;
 }
 
 table td .rooms a {
