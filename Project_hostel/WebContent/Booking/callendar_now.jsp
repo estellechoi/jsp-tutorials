@@ -11,7 +11,7 @@
 	Statement stmt = conn.createStatement();
 	Statement stmt2 = conn.createStatement();
 	
-	// 날짜 표시
+	// * 날짜 표시
 	int yy;
 	int mm;
 	// 1) 선택된 날짜 있는 경우
@@ -26,9 +26,11 @@
 		mm = xday.getMonthValue();
 	}
 	
-	// 요일
+	// 월별 1일의 요일 구하기
 	LocalDate today = LocalDate.of(yy, mm, 1);
-	int day = today.getDayOfWeek().getValue(); // 월 ~ 일 : 1 ~ 7
+	int day = today.getDayOfWeek().getValue();
+	
+	// 월 ~ 일 : 1 ~ 7 (일요일의 값을 0으로 바꿔주기)
 	if (day == 7) {
 		day = 0;
 	}
@@ -50,7 +52,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../Image/structure.css">
-<link rel="stylesheet" href="../Image/cal.css?ver=1">
+<link rel="stylesheet" href="../Image/cal.css">
 <script>
 	function moveCal() {
 		var yy = document.getElementById("year").value;
@@ -104,16 +106,17 @@
 					</select>
 				</caption>
 				<tr id="field">
-					<td>일</td>
+					<td style="color: red">일</td>
 					<td>월</td>
 					<td>화</td>
 					<td>수</td>
 					<td>목</td>
 					<td>금</td>
-					<td>토</td>
+					<td style="color: blue">토</td>
 				</tr>
 				<!-- 1 ~ length 까지 일수 출력 -->
 				<%
+				// * 해당되는 주의 수만큼 <tr> 반복
 					int date = 1;
 					String dateColor;
 					for (int i = 0; i < week; i++) {
@@ -127,56 +130,75 @@
 									case 6: dateColor = "blue"; break;
 									default: dateColor = "black";
 								}
-							if (date - day <= length && date - day >= 1) {
+// 							if (date - day <= length && date - day >= 1) {
+								// 1 - 4 <= 31 && 1 - 4 >= 1
 							// if (date > length || (date <= j) && (i == 1)) { <td></td> }
 							// else { <td><%=date</td>}
+								
+								
+								
+								// * day = 해당 월 1일의 요일 인덱스 (일 0 ~ 토 6)
+							if (day > j && i == 0 || length < date) {
+								// j(행)가 1일의 요일보다 작고, 첫 주(i) || 날짜가 월의 총 일수를 초과
+								%>
+								<td class="roomlink"></td>
+								<%
+							}
+							else {
 					%>
-							<td>
-									<div class="date" style="color:<%=dateColor%>"><%=date - day%></div>
-							<%
-								// 방의 개수만큼  while문 실행
-								ResultSet rs, rs2;
-								// * 방 이름 변수
-								String room;
-								String sql = "select*from room order by price asc";
-								rs = stmt.executeQuery(sql);
-								while(rs.next()) {
-									room = rs.getString("name");
-									String nowday = yy + "-" + mm + "-" + (date - day); // 1 ~ 31일 'yy-MM-dd'
-									sql = "select*from booking where checkinDate <= '"+nowday+"' and";
-									sql = sql + " checkoutDate > '"+nowday+"' and room='" + room + "'";
-									rs2 = stmt2.executeQuery(sql);
-									// 해당 날짜에 데이터가 있다면 예약불가
-									if (rs2.next()) {
-	
-							%>
-										<div class="rooms" style="color: darkgrey"><%=room%></div>
-							<%
-									// * 데이터가 없으면 예약 가능
-									} else {
-							%>
-										<!-- 로그인 여부에 따라 버튼 활성/비활성화 -->
-										<div class="rooms">
-										<%
-										if(session.getAttribute("userid") != null) {
-										%>
-											<a href="javascript:goToInput('<%=room%>', '<%=yy%>', '<%=mm%>', '<%=date - day%>')"><%=room%></a>
-										<%
+								<td  class="roomlink">
+									<!-- 날짜 출력 -->
+										<div class="date" style="color:<%=dateColor%>"><%=date - day%></div>
+								<%
+								// * 오늘 날짜와 달력상의 날짜 비교하기 ! (오늘 날짜보다 이전이면 링크 비활성화)
+								LocalDate realDate = LocalDate.now();
+								LocalDate calDate = LocalDate.of(yy, mm, date - day);
+								if (realDate.compareTo(calDate) <= 0) { // realDate - calDate
+									// * 방의 개수만큼  while문 실행
+									ResultSet rs, rs2;
+									// * 방 이름 변수
+									String room;
+									String sql = "select*from room order by price asc";
+									rs = stmt.executeQuery(sql);
+									while(rs.next()) {
+										room = rs.getString("name");
+										String nowday = yy + "-" + mm + "-" + (date - day); // 1 ~ 31일 'yy-MM-dd'
+										sql = "select*from booking where checkinDate <= '"+nowday+"' and";
+										sql = sql + " checkoutDate > '"+nowday+"' and room='" + room + "'";
+										rs2 = stmt2.executeQuery(sql);
+										// * 해당 날짜에 데이터가 있다면 예약불가
+										if (rs2.next()) {
+		
+								%>
+										<!-- 방 예약링크 출력 -->
+											<div class="rooms" style="color: darkgrey"><%=room%></div>
+								<%
+										// * 데이터가 없으면 예약 가능
 										} else {
-										%>
-											<%=room%>
-										<%
+								%>
+											<!-- 로그인 여부에 따라 버튼 활성/비활성화 -->
+											<div class="rooms">
+											<%
+											if(session.getAttribute("userid") != null) {
+											%>
+												<a href="javascript:goToInput('<%=room%>', '<%=yy%>', '<%=mm%>', '<%=date - day%>')"><%=room%></a>
+											<%
+											} else {
+											%>
+												<%=room%>
+											<%
+											}
+											%>
+											</div>
+								<%
 										}
-										%>
-										</div>
-							<%
 									}
 								}
-							%>
-							</td>
+								%>
+								</td>
 					<%
-							date = date + 1;
 							}
+							date = date + 1;
 						}
 					%>
 				</tr>
