@@ -67,9 +67,15 @@ table td .rooms {
 	justify-content: center;
 }
 
+table td .rooms {
+	color: #darkgrey;
+	font-size: 12px;
+}
+
 table td .rooms a {
 	text-decoration: none;
 	color: #FF8000;
+	font-size: 12px;
 }
 
 table td .rooms a:hover {
