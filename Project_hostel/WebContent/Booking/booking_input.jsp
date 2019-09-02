@@ -70,7 +70,7 @@
 		if (adult + child > <%=rs.getInt("maxPeople")%>) {
 			alert("인원수 초과 !");
 			// 인원수 초과 안되도록 자동 지정
-// 			switch (adult) { // 이거 왜 안되누 ?
+// 			switch (adult) { // 이거 왜 안되누 ????
 <%-- 				for (var i = 1; i <= <%=rs.getInt("maxPeople")%>; i++) { --%>
 <%-- 					case i: child = <%=rs.getInt("maxPeople")%> - i; break; --%>
 // 				}
