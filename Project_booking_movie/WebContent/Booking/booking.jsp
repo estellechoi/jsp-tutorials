@@ -43,30 +43,33 @@
 </script>
 </head>
 <body>
-	<form action="booking_time.jsp" method="post">
-		<input type="hidden" name="movie" value="샘플">
-		<table>
-			<caption>영화 예약</caption>
-			<tr>
-				<td>이름</td>
-				<td><input type="text" name="name"></td>
-			</tr>
-			<tr>
-				<td>휴대폰</td>
-				<td><input type="text" name="cell"></td>
-			</tr>
-			<tr>
-				<td>이메일</td>
-				<td><input type="text" name="email"></td>
-			</tr>
-			<tr>
-				<td>비밀번호</td>
-				<td><input type="password" name="pwd"></td>
-			</tr>
-			<tr>
-				<td colspan="2"><input type="submit" value="예약"> <input type="button" value="취소" onclick="escapeBooking()"></td>
-			</tr>
-		</table>
-	</form>
+	<%@ include file="../Common/header.jsp" %>
+	<section>
+		<form action="booking_time.jsp" method="post">
+			<input type="hidden" name="movie" value="샘플">
+			<table>
+				<caption>영화 예약</caption>
+				<tr>
+					<td>이름</td>
+					<td><input type="text" name="name"></td>
+				</tr>
+				<tr>
+					<td>휴대폰</td>
+					<td><input type="text" name="cell"></td>
+				</tr>
+				<tr>
+					<td>이메일</td>
+					<td><input type="text" name="email"></td>
+				</tr>
+				<tr>
+					<td>비밀번호</td>
+					<td><input type="password" name="pwd"></td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="submit" value="예약"> <input type="button" value="취소" onclick="escapeBooking()"></td>
+				</tr>
+			</table>
+		</form>
+	</section>
 </body>
 </html>
