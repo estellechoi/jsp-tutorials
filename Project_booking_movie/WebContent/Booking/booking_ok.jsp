@@ -42,5 +42,5 @@
 	pstmt.close();
 	conn.close();
 	
-	response.sendRedirect("booking_view.jsp");
+	response.sendRedirect("signup.jsp");
 %>
