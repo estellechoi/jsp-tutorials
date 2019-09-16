@@ -77,60 +77,63 @@
 </script>
 </head>
 <body>
-	<form action="booking_seat.jsp" method="post" name="bookingBox">
-		<input type="hidden" name="movie" value="<%=movie%>">
-		<input type="hidden" name="name" value="<%=name%>">
-		<input type="hidden" name="cell" value="<%=cell%>">
-		<input type="hidden" name="email" value="<%=email%>">
-		<input type="hidden" name="pwd" value="<%=pwd%>">
-		<input type="hidden" name="people"> <!-- script 에서 값 부여 -->
-		<table>
-			<caption>날짜 및 시간 선택</caption>
-			<tr>
-				<td>
-					<select name="mm" id="mm">
-						<%
-						for (int i=1; i<=12; i++) {
-						%>
-						<option value="<%=i%>"><%=i%> 월</option>
-						<%
-						}
-						%>
-					</select>
-					<select name="dd" id="dd">
-						<%
-						for (int i=1; i<=31; i++) {
-						%>
-						<option value="<%=i%>"><%=i%> 일</option>
-						<%
-						}
-						%>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<select name="time" id="time">
-						<option value="0">시간 선택</option>
-						<option value="19:00">19:00</option>
-						<option value="20:00">20:00</option>
-						<option value="21:00">21:00</option>
-						<option value="22:00">22:00</option>
-						<option value="23:00">23:00</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					인원 <span id="countPeople">0</span>
-					<input class="numberController" type="button" value="-" onclick="removePeople()">
-					<input class="numberController" type="button" value="+" onclick="addPeople()">
-				</td>
-			</tr>
-			<tr>
-				<td><input type="submit" value="다음"></td>
-			</tr>
-		</table>
-	</form>
+	<%@ include file="../Common/header.jsp"%>
+	<section>
+		<form action="booking_seat.jsp" method="post" name="bookingBox">
+			<input type="hidden" name="movie" value="<%=movie%>">
+			<input type="hidden" name="name" value="<%=name%>">
+			<input type="hidden" name="cell" value="<%=cell%>">
+			<input type="hidden" name="email" value="<%=email%>">
+			<input type="hidden" name="pwd" value="<%=pwd%>">
+			<input type="hidden" name="people"> <!-- script 에서 값 부여 -->
+			<table>
+				<caption>날짜 및 시간 선택</caption>
+				<tr>
+					<td>
+						<select name="mm" id="mm">
+							<%
+							for (int i=1; i<=12; i++) {
+							%>
+							<option value="<%=i%>"><%=i%> 월</option>
+							<%
+							}
+							%>
+						</select>
+						<select name="dd" id="dd">
+							<%
+							for (int i=1; i<=31; i++) {
+							%>
+							<option value="<%=i%>"><%=i%> 일</option>
+							<%
+							}
+							%>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<select name="time" id="time">
+							<option value="0">시간 선택</option>
+							<option value="19:00">19:00</option>
+							<option value="20:00">20:00</option>
+							<option value="21:00">21:00</option>
+							<option value="22:00">22:00</option>
+							<option value="23:00">23:00</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						인원 <span id="countPeople">0</span>
+						<input class="numberController" type="button" value="-" onclick="removePeople()">
+						<input class="numberController" type="button" value="+" onclick="addPeople()">
+					</td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="다음"></td>
+				</tr>
+			</table>
+		</form>
+	</section>
 </body>
 </html>
