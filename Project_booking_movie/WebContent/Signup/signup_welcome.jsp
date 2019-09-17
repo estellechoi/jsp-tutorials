@@ -43,7 +43,7 @@
 <script>
 	$(function() {
 		$("#link input").click(function() {
-			location.href = "signup_form.jsp";
+			location.href = "signup_check.jsp";
 		});
 	});
 </script>
