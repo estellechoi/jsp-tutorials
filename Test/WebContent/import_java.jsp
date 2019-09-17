@@ -13,7 +13,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%!String name = "유진";
+	<%!
+	// 변수,메소드 선언시 ! 사용 ??
+	String name = "유진";
 	int kor = 100;
 
 	public int test(int a, int b) {
