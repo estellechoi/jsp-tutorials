@@ -84,7 +84,7 @@
 				</ul>
 			</div>
 			<div id="form">
-				<form action="signup_form_checked.jsp" method="post" name="form" onsubmit="return check()">
+				<form action="signup_check_ok.jsp" method="post" name="form" onsubmit="return check()">
 					<table>
 						<tr>
 							<td><input type="text" name="name" placeholder="이름" size="7"></td>
