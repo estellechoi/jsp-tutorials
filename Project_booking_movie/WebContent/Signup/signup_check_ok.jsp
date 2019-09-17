@@ -27,7 +27,7 @@
 		<script>
 		// * GET 값 전송시, 한글깨짐 방지를 위한 인코딩 처리
 		var name = encodeURIComponent("<%=name%>");
-		location="signup_form_checked_form.jsp?name="+name+"&birth=<%=birth%>&cell=<%=cell%>";
+		location="signup_form.jsp?name="+name+"&birth=<%=birth%>&cell=<%=cell%>";
 		</script>
 		<%
 		// * 자바에서 GET 값 전송시 인코딩 처리

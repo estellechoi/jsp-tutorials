@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+    request.setCharacterEncoding("UTF-8");
+    String name = request.getParameter("name");
+    String birth = request.getParameter("birth");
+    String cell = request.getParameter("cell");
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,24 +47,12 @@
 				alert("아이디를 입력해주세요.");
 				return false;
 			}
-			else if(form.name.value == "") {
-				alert("이름을 입력해주세요.");
-				return false;
-			}
 			else if(form.pwd.value == "") {
 				alert("비밀번호를 입력해주세요.");
 				return false;
 			}
 			else if(form.email.value == "") {
 				alert("이메일 주소를 입력해주세요.");
-				return false;
-			}
-			else if(form.birth.value.length != 6) {
-				alert("법정 생년월일 6자리를 올바르게 입력해주세요.");
-				return false;
-			}
-			else if(!(form.cell.value.length == 7 || form.cell.value.length == 8)) {
-				alert("휴대전화번호 뒷자리 7-8자리를 올바르게 입력해주세요.");
 				return false;
 			}
 			else if (sex == "f") {
@@ -80,13 +74,14 @@
 			통합 아이디로 브랜드 혜택도 받고 ! 포인트도 쌓고 !
 		</div>
 		<div id="formBox">
-			<form action="signup_form_checked_form_ok.jsp" method="post" name="form" onsubmit="return check()">
+			<form action="signup_form_ok.jsp" method="post" name="form" onsubmit="return check()">
 				<table>
 					<tr>
 						<td><input type="text" name="userid" placeholder="아이디"></td>
 					</tr>
 					<tr>
-						<td><input type="text" name="name" placeholder="이름" size="7"></td>
+						<td><input type="text" name="name" value="<%=name%>" readonly></td>
+						<!-- 한글이름 왜 표시 안되냐  URIEncoding("UTF-8")-->
 					</tr>
 					<tr>
 						<td><input type="text" name="pwd" placeholder="비밀번호"></td>
@@ -95,10 +90,10 @@
 						<td><input type="text" name="email" placeholder="이메일 주소"></td>
 					</tr>
 					<tr>
-						<td><input type="text" name="birth" placeholder="법정 생년월일 6자리"></td>
+						<td><input type="text" name="birth" value="<%=birth%>" readonly></td>
 					</tr>
 					<tr>
-						<td><input type="text" name="cell" placeholder="휴대전화번호 뒤 7~8자리 (01X 제외)"></td>
+						<td><input type="text" name="cell" value="<%=cell%>" readonly></td>
 					</tr>
 					<tr>
 						<td>
