@@ -11,3 +11,7 @@ public class test {
 	}
 
 }
+
+// 컴파일
+// test.java → test.class
+// test.jsp → test_jsp.class
