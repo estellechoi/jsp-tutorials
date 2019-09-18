@@ -46,9 +46,9 @@
 	// 4) getParameterMap() : key 값 (name의 이름) value 값 호출
 	//    ☆ Map.get("name") 메소드의 리턴값은 String[]
 	Map map = request.getParameterMap();
-	String map_name[] = (String[])map.get("name");
-	String map_address[] = (String[])map.get("address");
-	String map_hobby[] = (String[])map.get("hobby");
+	String map_name[] = (String[]) map.get("name");
+	String map_address[] = (String[]) map.get("address");
+	String map_hobby[] = (String[]) map.get("hobby");
 	
 	out.println(map_name[0]);
 	out.println(map_address[0]);
