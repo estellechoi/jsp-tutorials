@@ -11,7 +11,7 @@
 	function move() {
 		var name = "유진";
 		name = encodeURIComponent(name);
-		location = "Encoding_ok.jsp?name="+name+"";
+		location = "encode_javascript_ok.jsp?name="+name;
 	}
 </script>
 </head>
@@ -21,7 +21,7 @@
 	name = URLEncoder.encode(name);
 %>
 
-<a href="Encoding_ok.jsp?name=<%=name%>">JAVA 인코딩</a>
+<a href="encode_javascript_ok.jsp?name=<%=name%>">JAVA 인코딩</a>
 <button onclick="move()">Javascript 인코딩</button>
 </body>
 </html>
