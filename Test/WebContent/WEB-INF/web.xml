@@ -17,7 +17,7 @@
 	</context-param>
 	
 	<!--
-		* xml 파일로 예외 처리하기 (에러코드별 처리)	
+		* xml 파일로 예외 처리하기 ① 에러코드별 처리	
 	-->
 	<error-page>
 		<error-code>404</error-code> <!-- 에러코드 -->
@@ -27,6 +27,16 @@
 		<error-code>500</error-code>
 		<location> /exception_xml_500.jsp </location>
 	</error-page>
+	
+	<!--
+		* xml 파일로 예외 처리하기 ① 에러타입별 처리
+		- <error-code> 에서 처리하는 예외코드가 중복되는 경우 <exception-type> 처리 먼저 실행
+
+	-->
+		<error-page>
+			<exception-type>java.lang.ArithmeticException</exception-type>
+			<location>/exception_xml_exception-type.jsp</location>
+		</error-page>
 </web-app>
 
 <!-- 
