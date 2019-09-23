@@ -9,12 +9,13 @@
 </head>
 <body>
 	<!-- 500 에러 -->
-<%-- 	<%=10 / 0%> --%>
+	<!-- ArithmeticException 등 예외 타입별 처리 -->
+	<%=10 / 0%>
 	
 	<!-- 404 에러 -->
-	<%
-		response.sendRedirect("exist_false.jsp");
-	%>
-
+<%-- 	<% --%>
+// 		response.sendRedirect("exist_false.jsp");
+<%-- 	%> --%>
+	
 </body>
 </html>
