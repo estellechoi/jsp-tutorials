@@ -8,7 +8,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%=10 / 0%>
+	<!-- 500 에러 -->
+<%-- 	<%=10 / 0%> --%>
+	
+	<!-- 404 에러 -->
+	<%
+		response.sendRedirect("exist_false.jsp");
+	%>
 
 </body>
 </html>
