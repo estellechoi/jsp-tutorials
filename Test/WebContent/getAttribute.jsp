@@ -15,6 +15,12 @@
 		// session 값은 사라짐, application 값은 남아있음
 		out.print(session.getAttribute("name") + "<br>");
 		out.print(application.getAttribute("name") + "<br>");
+		
+		
+		// * 메소드
+		// setAttribute(); 변수 생성하기
+		// getAttribute(); 변수 값 가져오기
+		// removeAttribute(); 변수 삭제하기
 	%>
 </body>
 </html>
