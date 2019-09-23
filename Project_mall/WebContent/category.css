@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+body {
+	width: 1210px;
+}
+/* 전체 틀 */
+nav {
+	width: 300px;
+	height: 900px;
+	border: 1px solid red;
+	float: left;
+}
+
+#right {
+	float: left;
+	width: 910px;
+}
+
+section {
+	width: 900px;
+	background: blue;
+}
+
+footer {
+	width: 900px;
+	height: 250px;
+	background: red;
+}
+
+/* nav bar 스타일 */
+/* 전체 <li> 스타일  */
+nav li {
+	list-style-type: none;
+	font-size: 14px;
+}
+
+/* 상세항목 <ul> 스타일 */
+nav .sub { 
+	height: 25px;
+	margin-top: 15px;
+	padding-left: 15px;
+	display: none;
+}
+
+/* 하위메뉴 li */
+nav .sub li { 
+	height: 20px;
+}
