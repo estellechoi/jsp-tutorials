@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-파일명을 잘못 입력하였거나 없는 파일입니다.
+	파일명을 잘못 입력하였거나 없는 파일입니다.
 </body>
 </html>

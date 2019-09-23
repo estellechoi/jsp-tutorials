@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-페이지 관리자에게 문의 부탁드립니다.
+	페이지 관리자에게 문의 부탁드립니다.
 </body>
 </html>
