@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
@@ -17,6 +15,18 @@
 		<param-name>debugLevel</param-name>
 		<param-value>5</param-value>
 	</context-param>
+	
+	<!--
+		* xml 파일로 예외 처리하기 (에러코드별 처리)	
+	-->
+	<error-page>
+		<error-code>404</error-code> <!-- 에러코드 -->
+		<location> /exception_xml_404.jsp </location> <!-- 이동할 문서 주소 -->
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location> /exception_xml_500.jsp </location>
+	</error-page>
 </web-app>
 
 <!-- 
