@@ -1,28 +1,24 @@
 @charset "UTF-8";
 
-body {
-	width: 1210px;
-}
 /* 전체 틀 */
+body {
+	margin: 0;
+	display: grid;
+	grid-template-columns: 300px 1fr;
+}
+
 nav {
-	width: 300px;
 	height: 900px;
 	border: 1px solid red;
-	float: left;
 }
 
-#right {
-	float: left;
-	width: 910px;
+#grid_main {
+	border: 1px solid blue;
 }
 
-section {
-	width: 900px;
-	background: blue;
-}
+/* grid_main 내부 */
 
 footer {
-	width: 900px;
 	height: 250px;
 	background: red;
 }
@@ -35,7 +31,7 @@ nav li {
 }
 
 /* 상세항목 <ul> 스타일 */
-nav .sub { 
+nav .sub {
 	height: 25px;
 	margin-top: 15px;
 	padding-left: 15px;
@@ -43,6 +39,6 @@ nav .sub {
 }
 
 /* 하위메뉴 li */
-nav .sub li { 
+nav .sub li {
 	height: 20px;
 }

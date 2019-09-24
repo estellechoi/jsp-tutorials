@@ -1,0 +1,192 @@
+@charset "UTF-8";
+
+/* 로그인 */
+.signin_section {
+	height: 730px;
+	border: 1px solid brown;
+}
+
+.signin_section #signin_main {
+	width: 400px;
+	margin: auto;
+	border: 1px solid green;
+}
+
+/* 로그인 글자 */
+#signin_header {
+	height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+/* 로그인 폼 */
+#signin_form {
+	height: 100px;
+	display: grid;
+	grid-template-columns: 7fr 3fr;
+}
+
+#form_left {
+	padding: 10px;
+}
+
+/* form_left */
+#form_left #userid, #password {
+	border: 1px solid #cccccc;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #cccccc;
+	font-size: 13px;
+	margin: 3px;
+	height: 33px;
+}
+
+#userid input, #password input {
+	border: none;
+	margin-left: 10px;
+}
+
+/* form_right */
+#form_right {
+	display: flex;
+	align-items: center;
+	justify-content: center;	
+}
+#form_right input {
+	color: white;
+	background: #000000;
+	border: 1px solid #000000;
+	height: 70px;
+	width: 100px;
+}
+/* 키체인 설정, 아이디/비밀번호 찾기 */
+#signin_keychain, #signin_search {
+	height: 30px;
+	font-size: 12px;
+	padding-left: 10px;
+	color: grey;
+}
+
+#signin_search a {
+	color: grey;
+	text-decoration: none;
+}
+
+/* 카카오 계정으로 로그인하기 */
+#signin_kakao {
+	height: 80px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#signin_kakao div {
+	width: 100px;
+	height: 37px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 5px;
+	font-size: 11px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#naver {
+	background: #00C63B;
+	border: 1px solid #00C63B;
+	border-radius: 5px;
+	color: white;
+}
+#facebook {
+	background: #536FAC;
+	border: 1px solid #536FAC;
+	border-radius: 5px;
+	color: white;
+}
+#kakao {
+	background: #FDEB1D;
+	border: 1px solid #FDEB1D;
+	border-radius: 5px;
+	color: #97593E;
+}
+
+/* 회원가입 링크 */
+#signup_link {
+	height: 80px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-top: 1px solid #eeeeee;
+	border-bottom: 1px solid #eeeeee;
+}
+
+#signup_link div:nth-child(1) {
+	width: 250px;
+	font-size: 12px;
+	color: grey;
+	padding-left: 10px;
+}
+
+#signup_link div:nth-child(2) {
+	width: 150px;
+	display: flex;
+	justify-content: center;
+	align-items: center;	
+}
+
+#signup_link div:nth-child(2) a {
+	width: 90px;
+	height: 30px;
+	background: black;
+	color: white;
+	text-decoration: none;
+	font-size: 12px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* 비회원 로그인 */
+#nonmember div:nth-child(1) {
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 13px;
+	font-weight: bold;
+}
+
+#nonmember div:nth-child(2) {
+	height: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	color: grey;
+}
+
+#nonmember span {
+	font-size: 12px;
+	color: grey;
+	width: 200px;
+}
+
+#nonmember div:nth-child(6) {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	padding: 10px;
+}
+
+#nonmember div:nth-child(6) button {
+	border: 1px solid grey;
+	border-radius: 3px;
+	background: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 80px;
+	height: 27px;
+}

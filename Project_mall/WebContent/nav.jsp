@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="category.js"></script>
-<link rel="stylesheet" href="category.css">
+<script src="../Etc/category.js"></script>
+<link rel="stylesheet" href="../Etc/category.css?after">
 </head>
 <body>
 <nav>
