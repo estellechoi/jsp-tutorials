@@ -19,8 +19,7 @@
 	
 	단순히 생각해서 버퍼링 했으면 jsp:include 내용도 버퍼링 하면 되지 왜 복잡하게 하냐,
 	싶어도 구현 상의 문제와 여러 가지 정황을 따져 만든 기능입니다.
- 
-<%--  * 정적인 JSP include : <%@ include %> --%>
+
 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -29,15 +28,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../Etc/index.css">
 </head>
 <body>
 	<!-- 네비게이션 바 -->
 	<jsp:include page="../nav.jsp" flush="false"/>
-	<div id="grid_main">
-		<!-- 상품설명 -->
-		<section>상품</section>
-		<!-- footer -->
-		<jsp:include page="../footer.jsp" flush="false"/>
+	<div id="grid_container">
+		<!-- empty space for nav bar -->
+		<div id="grid_left"></div> 
+		<div id="grid_right">
+			<!-- 상품설명 -->
+			<section class="welcome_image">상품</section>
+			<!-- footer -->
+			<jsp:include page="../footer.jsp" flush="false"/>
+		</div>
 	</div>
 </body>
 </html>
