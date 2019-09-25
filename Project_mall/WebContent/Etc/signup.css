@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.signup_section {
+	height: 750px;
+}
+
+.signup_section #signup_main {
+	width: 800px;
+	margin: auto;
+}
+
+/* 회원가입 글자 */
+#signup_header {
+	height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+/* 	font-family: 'Gill Sans MT Std'; */
+	font-weight: 700;
+	letter-spacing: 2px;
+	font-size: 14px;
+	color: #353535;
+}
