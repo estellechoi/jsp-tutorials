@@ -5,54 +5,67 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="../Etc/category.js"></script>
-<link rel="stylesheet" href="../Etc/category.css?after">
+<script src="../Etc/nav.js?after"></script>
+<link rel="stylesheet" href="../Etc/nav.css">
 </head>
 <body>
 <nav>
-	<div id="logo">MALL</div>
-	<ul>
-		<li class="category" onclick="toggle(0, this, 200)">항목1
-			<ul class="sub">
-				<li>상세1</li>
-				<li>상세2</li>
-				<li>상세3</li>
-				<li>상세4</li>
-				<li>상세5</li>
-				<li>상세6</li>
+	<div id="top">
+		<a href="../Index/home.jsp">LOGO IMAGE</a>
+<!-- 		<!-- 크롬은 webm 만 지원 -->
+<!-- 		<video preload="auto" autoplay="true" loop="loop" volume="0"> -->
+<!-- 			<source src = "../Etc/bling.mp4" type ="video/mp4"> -->
+<!-- 			Sorry, your browser does not support HTML5 video. -->
+<!-- 		</video> -->
+	</div>
+	<div id="middle">
+		<ul>
+			<li onclick="toggle(0)">
+				bestseller
+				<ul class="sub">
+					<li>best 30</li>
+				</ul>
+			</li>
+			<li onclick="toggle(1)">
+				top
+				<ul class="sub">
+					<li>sleeveless</li>
+					<li>knit</li>
+					<li>blouse/shirt</li>
+					<li>tee</li>
+				</ul>
+			</li>
+			<li onclick="toggle(2)">
+				bottom
+				<ul class="sub">
+					<li>skirts</li>
+					<li>pants</li>
+				</ul>
+			</li>
+			<li onclick="toggle(3)">
+				dress
+				<ul class="sub">
+					<li>short</li>
+					<li>long</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<div id="bottom">
+		<div id="search_button">
+			<ul>
+				<li><a href="#"><img src="../Etc/search.png" alt="no image" width="20px"></a></li>
 			</ul>
-		</li>
-		<li class="category" onclick="toggle(1, this, 200)">항목2
-			<ul class="sub">
-				<li>상세1</li>
-				<li>상세2</li>
-				<li>상세3</li>
-				<li>상세4</li>
-				<li>상세5</li>
-				<li>상세6</li>
+		</div>
+		<div>
+			<ul>
+				<li><a href="../Member/signin.jsp">LOGIN</a></li>
+				<li><a href="">MY ACCOUNT</a></li>
+				<li><a href="">CART</a></li>
+				<li><a href="">Q&A / REVIEW</a></li>
 			</ul>
-		</li>
-		<li class="category" onclick="toggle(2, this, 200)">항목3
-			<ul class="sub">
-				<li>상세1</li>
-				<li>상세2</li>
-				<li>상세3</li>
-				<li>상세4</li>
-				<li>상세5</li>
-				<li>상세6</li>
-			</ul>
-		</li>
-		<li class="category" onclick="toggle(3, this, 200)">항목4
-			<ul class="sub">
-				<li>상세1</li>
-				<li>상세2</li>
-				<li>상세3</li>
-				<li>상세4</li>
-				<li>상세5</li>
-				<li>상세6</li>
-			</ul>
-		</li>
-	</ul>
+		</div>
+	</div>
 </nav>
 
 </body>
