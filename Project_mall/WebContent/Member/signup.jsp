@@ -20,6 +20,24 @@
 						<!-- 회원가입 글자 -->
 						<div id="signup_header">SIGN UP</div>
 						<!-- 회원가입 폼 grid -->
+						<div id="signup_form">
+							<form action="signup_ok.jsp">
+								<table>
+									<tr>
+										<th>이메일 * </th>
+										<td><input type="text" name="email"></td>
+									</tr>
+									<tr>
+										<th>이름 * </th>
+										<td><input type="text" name="name"></td>
+									</tr>
+									<tr>
+										<th>비밀번호 * </th>
+										<td><input type="password" name="pwd"></td>
+									</tr>
+								</table>
+							</form>
+						</div>
 				</div>
 			</section>
 			<!-- footer -->
