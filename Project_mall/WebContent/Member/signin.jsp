@@ -52,7 +52,7 @@
 						<!-- 회원가입 링크 -->
 						<div id="signup_link">
 						 	<div><img alt="no image" src="../Etc/link_icon.jpg" width="12px"> 회원가입을 하시면 다양하고 특별한 혜택이 준비되어 있습니다.</div>
-						 	<div><a href="#">회원가입  > </a></div>
+						 	<div><a href="signup.jsp">회원가입  > </a></div>
 						</div>
 						<!-- 비회원 로그인-->
 						<div id="nonmember">
