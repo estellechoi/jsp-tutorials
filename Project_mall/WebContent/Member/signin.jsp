@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/signin.css">
+<link rel="stylesheet" href="../Etc/signin.css?ver=1">
 </head>
 <body>
 	<!-- 네비게이션 바 <body> display: grid -->
@@ -39,9 +39,9 @@
 							<img alt="no image" src="../Etc/lock.png" width="12px"> 보안접속
 						</div>
 						<!-- 아이디/비밀번호 찾기 -->
-						<div id="signin_search">
-							<a href="#"><img alt="no image" src="../Etc/link_icon.jpg" width="12px"> 아이디 찾기</a>
-							<a href="#"><img alt="no image" src="../Etc/link_icon.jpg" width="12px"> 비밀번호 찾기</a>
+						<div id="signin_forgot">
+							<a href="forgot_id.jsp"><img alt="no image" src="../Etc/link_icon.jpg" width="12px"> 아이디 찾기</a>
+							<a href="forgot_pwd.jsp"><img alt="no image" src="../Etc/link_icon.jpg" width="12px"> 비밀번호 찾기</a>
 						</div>
 						<!-- 카카오 계정으로 로그인하기 -->
 						<div id="signin_kakao">
