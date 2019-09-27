@@ -58,8 +58,9 @@
 }
 #form_right input {
 	color: white;
-	background: #000000;
-	border: 1px solid #000000;
+	background: #3A4050;
+	border: 1px solid #3A4050;
+	border-radius: 5px;
 	height: 70px;
 	width: 100px;
 }
