@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .signup_section {
-	height: 750px;
+/* 	height: 750px; */
 }
 
 .signup_section #signup_main {
@@ -23,4 +23,67 @@
 }
 
 /* 회원가입 폼 */
+#signup_form table {
+	width: 700px;
+	margin: auto;
+	border: 1px solid #3A4050;
+	border-radius: 10px;
+	padding: 30px;
+}
+
+#signup_form table th,td {
+	padding: 10px;
+	font-size: 12px;
+}
+
+#signup_form table caption {
+	padding-top: 30px;
+	padding-bottom: 10px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #3A4050;
+}
+
+select {
+	font-size: 11px;
+}
+
+#zip_button {
+	border: 1px solid #3A4050;
+	border-radius: 5px;
+	color: #3A4050;
+	background: white;
+	font-size: 11px;
+	cursor: pointer;
+}
+
+#signup_form table textarea {
+	font-size: 11px;
+	color: grey;
+}
+
+#agree_master_td {
+	font-size: 15px;
+	font-weight: bold;
+}
+
+/* 회원가입 버튼 */
+#signup_form #submit_button {
+	width: 700px;
+	margin: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+#signup_form #submit_button input {
+	width: 100px;
+	height: 40px;
+	background: #3A4050;
+	color: white;
+	border: 1px solid #3A4050;
+	border-radius: 5px;
+}
 
