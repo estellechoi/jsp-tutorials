@@ -1,0 +1,76 @@
+@charset "UTF-8";
+
+/* 로그인 */
+.forgot_section {
+	height: 730px;
+}
+
+.forgot_section #forgot_main {
+	width: 800px;
+	margin: auto;
+}
+
+/* 로그인 글자 */
+#forgot_header {
+	height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+/* 	font-family: 'Gill Sans MT Std'; */
+	font-weight: 700;
+	letter-spacing: 2px;
+	font-size: 14px;
+	color: #353535;
+}
+
+#forgot_form table {
+	width: 700px;
+	margin: auto;
+	border: 1px solid #3A4050;
+	border-radius: 10px;
+	padding: 30px;
+}
+
+#forgot_form table caption {
+	width: 700px;
+	font-size: 12px;
+	color: #3A4050;
+	text-align: left;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#forgot_form table th,td {
+	padding: 10px;
+	font-size: 12px;
+}
+
+#forgot_form table th {
+	width: 100px;
+}
+
+select {
+	font-size: 11px;
+}
+
+/* submit 버튼 */
+#forgot_form #submit {
+	width: 700px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+#forgot_form #submit input {
+	color: white;
+	background: #3A4050;
+	border: 1px solid #3A4050;
+	border-radius: 5px;
+	height: 50px;
+	width: 100px;
+}
+
+
+
