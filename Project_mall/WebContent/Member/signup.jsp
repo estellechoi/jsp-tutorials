@@ -52,6 +52,13 @@
 								<table>
 									<caption>정보 입력</caption>
 									<tr>
+										<th>회원구분 * </th>
+										<td>
+											<input type="radio" name="type" value="0">개인회원
+											<input type="radio" name="type" value="1">사업자회원
+										</td>
+									</tr>
+									<tr>
 										<th>이메일 * </th>
 										<td>
 											<input type="text" name="email_id" size="7"> @
