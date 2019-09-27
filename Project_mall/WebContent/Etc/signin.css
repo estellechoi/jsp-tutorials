@@ -64,14 +64,14 @@
 	width: 100px;
 }
 /* 키체인 설정, 아이디/비밀번호 찾기 */
-#signin_keychain, #signin_search {
+#signin_keychain, #signin_forgot {
 	height: 30px;
 	font-size: 12px;
 	padding-left: 10px;
 	color: grey;
 }
 
-#signin_search a {
+#signin_forgot a {
 	color: grey;
 	text-decoration: none;
 }
