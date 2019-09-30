@@ -48,8 +48,8 @@
 		}
 		else {
 			// product_code
-			document.getElementById("product_code").innerText = "p" + category1 + category2 + country + maker;
 			document.form.product_code.value = "p" + category1 + category2 + country + maker;
+			document.getElementById("product_code").innerText = "p" + category1 + category2 + country + maker;
 		}
 	}
 </script>
