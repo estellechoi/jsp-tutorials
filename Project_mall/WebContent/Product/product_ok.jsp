@@ -85,4 +85,5 @@
 	rs.close();
 	conn.close();
 	
+	response.sendRedirect("product_list.jsp");
 %>
