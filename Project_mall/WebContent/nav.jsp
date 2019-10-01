@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="../Etc/nav.js?after"></script>
+<script src="../Etc/nav.js?ver=1"></script>
 <link rel="stylesheet" href="../Etc/nav.css">
 </head>
 <body>
@@ -20,13 +20,13 @@
 	</div>
 	<div id="middle">
 		<ul>
-			<li onclick="toggle(0)">
+			<li onclick="toggle(0, 'best')">
 				bestseller
 				<ul class="sub">
 					<li>best 30</li>
 				</ul>
 			</li>
-			<li onclick="toggle(1)">
+			<li onclick="toggle(1, 'top')">
 				top
 				<ul class="sub">
 					<li>sleeveless</li>
@@ -35,14 +35,14 @@
 					<li>tee</li>
 				</ul>
 			</li>
-			<li onclick="toggle(2)">
+			<li onclick="toggle(2, 'bottom')">
 				bottom
 				<ul class="sub">
 					<li>skirts</li>
 					<li>pants</li>
 				</ul>
 			</li>
-			<li onclick="toggle(3)">
+			<li onclick="toggle(3, 'dress')">
 				dress
 				<ul class="sub">
 					<li>short</li>
