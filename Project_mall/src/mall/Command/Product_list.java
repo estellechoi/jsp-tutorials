@@ -7,13 +7,13 @@ import mall.Jdbc.Connect;
 
 public class Product_list {
 
-	public ArrayList<Product> product() throws SQLException {
+	public ArrayList<Product> product(int c) throws SQLException {
 		
 		// 1) DB 연결
 		Connection conn = Connect.connection_static();
 		
 		// 2) 쿼리 작성
-		String sql = "select*from product where product_code like 'p03%' limit 0, 24";
+		String sql = "select*from product where product_code like 'p0" + c + "%' limit 0, 24";
 		
 		// 3) 쿼리 실행
 		PreparedStatement pstmt = conn.prepareStatement(sql);	
