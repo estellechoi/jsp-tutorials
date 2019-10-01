@@ -35,7 +35,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/product_list.css">
+<link rel="stylesheet" href="../Etc/product_list.css?ver=1">
 </head>
 <body>
 	<!-- 네비게이션 바 -->
@@ -69,7 +69,7 @@
 									</div>
 									<div id="text_box">
 										<%=product.get(i).getName()%> <br>
-										￦<%=product.get(i).getPrice()%>
+										￦ <%=product.get(i).getPrice()%>
 									</div>
 								</td>
 							<%
