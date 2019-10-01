@@ -17,7 +17,7 @@
 			document.form.category2.options[0].value = "01";
 			document.form.category2.options[1].value = "02";
 			document.form.category2.options[2].value = "03";
-			document.form.category2.options[3].value = "04";			
+			document.form.category2.options[3].value = "04";	
 		}
 		// bottom
 		else if (first == "02") {		
@@ -81,6 +81,7 @@
 <form action="product_ok.jsp" method="post" name="form" enctype="multipart/form-data" onsubmit="return check_form()">
 	<table>
 		<caption><h2>상품 등록</h2></caption>
+		<caption><a href="product_manage.jsp">전체상품 목록</a></caption>
 		<tr>
 			<th>상품분류</th>
 			<td>
