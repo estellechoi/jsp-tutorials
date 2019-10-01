@@ -48,22 +48,44 @@
 		}
 		else {
 			// product_code
-			document.form.product_code.value = "p" + category1 + category2 + country + maker;
-			document.getElementById("product_code").innerText = "p" + category1 + category2 + country + maker;
+			var code = "p" + category1 + category2 + country + maker;
+			document.form.product_code.value = code;
+			document.getElementById("print_code").innerText = code;
+		}
+	}
+
+	function check_form() {
+		if(form.product_code.value == "") {
+			return false;
+			alert("상품코드 저장 오류 !");
+		}
+		else if(form.name.value == "") {
+			return false;
+			alert("상품명을 입력하세요 !");
+		}
+		else if(form.price.value == "") {
+			return false;
+			alert("상품 가격을 입력하세요 !");
+		}
+		else if(form.quantity_order.value == "") {
+			return false;
+			alert("입고수량을 입력하세요 !");
+		}
+		else {
+			return true;
 		}
 	}
 </script>
 </head>
 <body>
-<form action="product_ok.jsp" method="post" name="form" enctype="multipart/form-data">
-	<input type="hidden" name="product_code">
+<form action="product_ok.jsp" method="post" name="form" enctype="multipart/form-data" onsubmit="return check_form()">
 	<table>
 		<caption><h2>상품 등록</h2></caption>
 		<tr>
 			<th>상품분류</th>
 			<td>
 					대분류
-					<select name="category1" id="" onchange="category_sub(this.value)">
+					<select name="category1" onchange="category_sub(this.value)">
 						<option value="선택">선택</option>
 						<option value="01">top</option>
 						<option value="02">bottom</option>
@@ -71,7 +93,7 @@
 					</select>
 				
 					중분류
-					<select name="category2" id="" onchange="">
+					<select name="category2">
 					</select>
 					
 					제조국
@@ -84,7 +106,7 @@
 					</select>
 					
 					제조사
-					<select name="maker" id="">
+					<select name="maker">
 						<option value="00">미확인</option>
 						<option value="01">삼성물산</option>
 						<option value="02">코오롱인더스트리</option>
@@ -161,7 +183,8 @@
 		</tr>
 		<tr>
 			<th><input type="button" value="상품코드 출력" onclick="code()"></th>
-			<td><span id="product_code"></span></td>
+			<td><span id="print_code"></span></td>
+			<input type="hidden" name="product_code">
 		</tr>
 		<tr>
 			<td colspan="2"><input type="submit" value="상품 등록"></td>
