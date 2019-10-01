@@ -9,15 +9,21 @@
 	Connection conn = Connect.connection_static(); // Connect 클래스 connection_static() 리턴함수
 	request.setCharacterEncoding("UTF-8");
 
-	// MultipartRequest 객체 생성
+	// * MultipartRequest 객체 생성
 	
 	// 그림파일 저장 경로
-	String path="C://users/alfo1-2/jspwork_git/Project_mall/WebContent/Product";
-	int max = 1024*1024*10;
-	MultipartRequest multi = new MultipartRequest(request, path, max, "UTF-8", new DefaultFileRenamePolicy());
+	String path="C://users/alfo1-2/jspwork_git/Project_mall/WebContent/Product/Image";
+// 	String savePath = request.getServletContext().getRealPath("Image"); ???
+		
+	// 파일 최대 크기
+	int max_size = 1024*1024*10;
+
+	// + 인코딩 / 동명 파일 업로드시 자동으로 파일명 변경 후 저장 처리
+	MultipartRequest multi = new MultipartRequest(request, path, max_size, "UTF-8", new DefaultFileRenamePolicy());
 	
+	// * 사용자 입력값 가져오기
 	// 상품코드 (대분류/중분류/제조국/제조사)
-	String product_code = request.getParameter("product_code");
+	String product_code = multi.getParameter("product_code");
 	
 	// DB 쿼리
 	// 4리수 상품 id 만들기
@@ -57,10 +63,10 @@
 	// 입고수량
 	String quantity_order = multi.getParameter("quantity_order");
 	
-	// 상품 이미지 (리스트, 메인, 상세)
-	String product_list = multi.getParameter("product_list");
-	String product_main = multi.getParameter("product_main");
-	String product_detail = multi.getParameter("product_detail");
+	// ** 전송받은 데이터가 파일일 경우 파일명 저장 → 상품 이미지 파일명 (리스트, 메인, 상세)
+	String product_list = multi.getFilesystemName("product_list");
+	String product_main = multi.getFilesystemName("product_main");
+	String product_detail = multi.getFilesystemName("product_detail");
 	
 	// DB 쿼리
 	sql = "insert into product(product_code, name, price, laundry, manufactured_date, quantity_order, quantity_sales, product_list, product_main, product_detail, product_recommend, writeday)";
@@ -85,5 +91,5 @@
 	rs.close();
 	conn.close();
 	
-	response.sendRedirect("product_list.jsp");
+	response.sendRedirect("product_manage.jsp");
 %>
