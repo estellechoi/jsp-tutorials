@@ -6,13 +6,13 @@
 	Connection conn = Connect.connection_static();
 	Statement stmt = conn.createStatement();
 
-	String id = request.getParameter("id");
+	String product_code = request.getParameter("id");
 	String size = request.getParameter("size");
 	String qty = request.getParameter("qty");
 	String userid = request.getParameter("userid");
 
-	String sql = "insert into cart(id,size,qty,userid)";
-	sql = sql + "values(" + id + ", '" + size + "', " + qty + ", '" + userid + "')";
+	String sql = "insert into cart(product_code,size,qty,userid)";
+	sql = sql + "values('" + product_code + "', " + size + ", " + qty + ", '" + userid + "')";
 	
 	stmt.executeUpdate(sql);
 	
