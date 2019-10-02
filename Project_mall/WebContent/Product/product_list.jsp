@@ -35,7 +35,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/product_list.css?ver=1">
+<link rel="stylesheet" href="../Etc/product_list.css?ver=2">
+<script src="../Etc/product_list.js"></script>
 </head>
 <body>
 	<!-- 네비게이션 바 -->
@@ -65,7 +66,7 @@
 							%>
 								<td align="center">
 									<div id="image_box">
-										<img src="Image/<%=product.get(i).getProduct_list()%>" alt="no image" width="250">
+										<img src="Image/<%=product.get(i).getProduct_list()%>" alt="no image" width="250" onclick="Content(<%=product.get(i).getId()%>)">
 									</div>
 									<div id="text_box">
 										<%=product.get(i).getName()%> <br>
