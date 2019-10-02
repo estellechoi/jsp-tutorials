@@ -36,6 +36,10 @@ table #image_box {
 	justify-content: center;
 }
 
+table #image_box img {
+	cursor: pointer;
+}
+
 table #text_box {
 	height: 60px;
 /* 	border: 1px solid red; */
