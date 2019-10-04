@@ -2,6 +2,8 @@
  * 
  */
 
+// 장바구니/위시리스트 이동
+
 function Close_cart() {
 	document.getElementById("layer_cart").display = "none";
 }
