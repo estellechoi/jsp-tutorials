@@ -1,0 +1,180 @@
+@charset "UTF-8";
+
+/* 로그인 */
+.product_buynow_section {
+	height: 1500px;
+	overflow: scroll;
+}
+
+.product_buynow_section #buynow_main {
+	width: 1200px;
+	margin: auto;
+}
+
+/* 주문서 작성 글자 */
+#buynow_header {
+	height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+/* 	font-family: 'Gill Sans MT Std'; */
+	font-weight: 700;
+	letter-spacing: 2px;
+	font-size: 14px;
+	color: #353535;
+}
+
+/* 주문 단계 표시 */
+#buynow_stage {
+	width: 1200px;
+	margin: auto;
+	padding: 0;
+	display: flex;
+	border: 1px solid #eeeeee;
+	border-radius: 5px;
+}
+
+#buynow_stage div {	
+	font-weight: bold;
+	font-style: italic;
+	width: 300px;
+	height: 60px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#buynow_stage div:nth-child(1) {
+	background: #B5B5B5;
+	color: white;
+}
+
+#buynow_stage div:nth-child(2) {
+	background: #495164;
+	color: white;
+}
+
+#buynow_stage div:nth-child(3) {
+	background: #FFF8F5;
+	color: #B5B5B5;
+}
+
+#buynow_stage div:nth-child(4) {
+	background: white;
+	color: #B5B5B5;
+}
+
+/* 국내배송 테이블 */
+#table_domestic, .table_userinformation, #payment, #payment_way {
+	width: 1200px;
+	margin: auto;
+	padding: 0;
+}
+
+#table_domestic table, .table_userinformation table {
+	width: 1200px;
+	border-collapse: collapse;
+	margin-top: 50px;
+}
+
+#table_domestic td, .table_userinformation th, td {
+	border: 1px solid #eeeeee;
+	height: 30px;
+	font-size: 12px;
+	color: #515151;
+	/* 주문정보 테이블은 별도 지정 */
+	text-align: center;
+	vertical-align: center;
+}
+
+/* 테이블 필드명 굵게 */
+#table_domestic table .field td {
+	font-weight: bold;
+}
+
+/* 국내배송 + 주문정보 테이블 헤드 */
+#table_domestic .table_head, .table_userinformation .table_head {
+	text-align: left;
+	padding-left: 10px;
+	font-weight: bold;
+}
+
+#table_domestic table .table_footer {
+	text-align: right;
+	padding-right: 10px;
+	font-weight: bold;
+	height: 50px;
+}
+
+/* 주문정보 테이블 텍스트 정렬 */
+.table_userinformation td {
+	text-align: left;
+	vertical-align: center;
+	padding-left: 10px;
+}
+/* 테이블 여백 */
+.space {
+	height: 80px;
+	border-left: none;
+	border-right: none;
+}
+
+/* 결제 금액 안내 박스 */
+#payment {
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+
+#payment_box {
+	border: 4px solid #C8C8C8;
+	height: 70px;
+	width: 800px;
+	margin: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 13px;
+	letter-spacing: 3px;
+}
+
+#payment .pay {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#payment_total {
+	color: #FF00FF;
+	font-size: 22px;
+}
+
+/* 결제수단 선택 박스 grid */
+#payment_way {
+	display: grid;
+	grid-template-columns: 8fr 2fr;
+	height: 200px;
+	border-collapse: collapse;
+}
+
+#payment_way div {
+	border: 1px solid #eeeeee;	
+}
+
+/* 버튼 공통 스타일 */
+.button {
+	height: 50px;
+	border: none;
+	padding-top: 20px;
+	padding-left: 10px;
+}
+
+.button input[type=button] {
+	width: 120px;
+	height: 30px;
+	background: #8C8C8C;
+	color: white;
+	border: 1px solid #8C8C8C;
+	border-radius: 5px;
+	font-size: 12px;
+	font-weight: bold;
+	cursor: pointer;
+}
