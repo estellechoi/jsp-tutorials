@@ -30,3 +30,44 @@ function Check_allbox(n) {
 		document.getElementById("checkbox_all").checked = false;
 	}
 }
+
+// 이메일 호스트 선택
+function Email(x) {
+	var host = x;
+	if ( x == "직접입력") {
+		document.getElementById("email_host").value = "";
+	} else {
+		document.getElementById("email_host").value = host;
+	}
+}
+
+// 배송지 선택
+function Recipient(x) {
+	var username = document.form.username.value;
+	var address = doucment.form.address.value;
+	var cell1 = document.form.cell1.value;
+	var cell2 = document.form.cell2.value;
+	var cell3 = document.form.cell3.value;
+	var zip = document.form.zip.value;
+	var address1 = document.form.address1.value;
+	var address2 = document.form.address2.value;
+	
+	if (x == 1) {
+		document.form.r_username.value = document.form.username.value;
+		document.form.r_zip.value = document.form.zip.value;
+		document.form.r_address1.value = document.form.address1.value;
+		document.form.r_address2.value = document.form.address2.value;
+		document.form.r_cell1.value = document.form.cell1.value;
+		document.form.r_cell2.value = document.form.cell2.value;
+		document.form.r_cell3.value = document.form.cell3.value;
+	}
+	else {
+		document.form.r_username.value = "";
+		document.form.r_zip.value = "";
+		document.form.r_address1.value = "";
+		document.form.r_address2.value = "";
+		document.form.r_cell1.value = "";
+		document.form.r_cell2.value = "";
+		document.form.r_cell3.value = "";
+	}
+}
