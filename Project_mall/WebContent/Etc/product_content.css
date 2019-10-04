@@ -46,12 +46,12 @@
 	color: #555555;
 }
 
-#head_right table #product_price {
+#head_right table #product_price, #buying_amount {
 	letter-spacing: 3px;
 	font-weight: bold;
 }
 
-#head_right table .product_size, #product_qty {
+#head_right table .product_size, #product_qty, #product_amount {
 	font-weight: bold;
 	font-size: 13px;
 }
@@ -76,7 +76,7 @@
 }
 
 /* 구매 버튼 */
-#head_right table #product_button button {
+#head_right table #product_button button, input[type=button] {
 	border: 1px solid #555555;
 	color: white;
 	font-weight: bold;
@@ -86,7 +86,7 @@
 	cursor: pointer;
 }
 
-#head_right table #product_button button:hover {
+#head_right table #product_button button:hover, input[type=button]:hover {
 	border: 3px solid #555555;
 	color: #555555;
 	background: none;
