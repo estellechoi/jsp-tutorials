@@ -48,19 +48,19 @@
 						<div id="signup_header">SIGN UP</div>
 						<!-- 회원가입 폼 grid -->
 						<div id="signup_form">
-							<form action="signup_ok.jsp" method="post">
+							<form action="signup_ok.jsp" method="post" onsubmit="return Check_form(this)">
 								<table>
 									<caption>정보 입력</caption>
 									<tr>
 										<th>회원구분 * </th>
 										<td>
-											<input type="radio" name="type" value="0">개인회원
-											<input type="radio" name="type" value="1">사업자회원
+											<input type="radio" name="usertype" value="0" checked onclick="BusinessForm(this.value)">개인회원
+											<input type="radio" name="usertype" value="1" onclick="BusinessForm(this.value)">사업자회원
 										</td>
 									</tr>
 									<tr>
-										<th>이메일 * </th>
-										<td>
+										<th id="business_no">이메일 * </th>
+										<td id="business_no_form">
 											<input type="text" name="email_id" size="7"> @
 											<input type="text" name="email_host" size="7" id="email_host">
 											<select name="email" id="email" onchange="Host()">
@@ -70,14 +70,13 @@
 												<option value="gmail.com">gmail.com</option>
 												<option value="yahoo.com">yahoo.com</option>
 											</select>
+											<!-- 사업자 번호 적을 때 ? -->
+											<input type="hidden" name="email">
 										</td>
-										<script>
-
-										</script>
 									</tr>
 									<tr>
-										<th>이름 * </th>
-										<td><input type="text" name="name"></td>
+										<th id="business_name">이름 * </th>
+										<td><input type="text" name="username"></td>
 									</tr>
 									<tr>
 										<th>비밀번호 * </th>
@@ -86,6 +85,10 @@
 									<tr>
 										<th>비밀번호 확인 * </th>
 										<td><input type="password" name="pwd_check"></td>
+									</tr>
+									<tr>
+										<th>휴대전화</th>
+										<td><input type="text" name="cell" placeholder="'-' 빼고 입력해주세요."></td>
 									</tr>
 									<tr>
 										<th>주소</th>
