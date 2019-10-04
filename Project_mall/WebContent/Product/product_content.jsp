@@ -38,7 +38,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <!-- javascript -->
-<script src="../Etc/product_content.js"></script>
+<script src="../Etc/product_content.js?after"></script>
 <script>
 	function basic() {
 		var code = "<%=rs.getString("product_code")%>";
@@ -68,7 +68,7 @@
 	}
 </script>
 <!-- stylesheet -->
-<link rel="stylesheet" href="../Etc/product_content.css?after">
+<link rel="stylesheet" href="../Etc/product_content.css?ver=2">
 </head>
 <body onload="basic()">
 	<!-- 네비게이션 바 -->
@@ -84,53 +84,78 @@
 						<img src="Image/<%=rs.getString("product_list")%>" alt="no image">
 					</div>
 					<div id="head_right">
-						<table>
-							<caption><%=rs.getString("name")%></caption>
-							<tr>
-								<td id="product_summary" colspan="2">상품설명</td>
-							</tr>
-							<tr>
-								<td id="product_price" colspan="2">￦  <%=df.format(rs.getInt("price"))%></td>
-							</tr>
-							<tr>
-								<td class="product_size">사이즈</td>
-								<td class="product_size">
-									<select name="size" id="size">
-										<option value="0">선택</option>
-										<option value="1">XS</option>
-										<option value="2">S</option>
-										<option value="3">M</option>
-										<option value="4">L</option>
-									</select>							
-								</td>
-							</tr>
-							<tr>
-								<td id="product_alert" colspan="2">위 옵션선택 박스를 선택하시면 아래에 상품이 추가됩니다.</td>
-							</tr>
-							<!-- jQuery 플러그인 spinner -->
-							<script>
-								$(function() {
-									$("#qty").spinner({
-										min:1,
-										max:100
+						<form action="product_buynow.jsp" method="post">
+							<!-- 
+							* 전송해야할 값
+							- 상품코드 (상품정보 불러오기 위한 코드)
+							- 수량
+							- 사이즈
+							 -->
+							<input type="hidden" name="product_code" value="<%=rs.getString("product_code")%>">
+							<table>
+								<caption><%=rs.getString("name")%></caption>
+								<tr>
+									<td id="product_summary" colspan="2">상품설명</td>
+								</tr>
+								<tr>
+									<td id="product_price" colspan="2">￦  <%=df.format(rs.getInt("price"))%></td>
+								</tr>
+								<tr>
+									<td class="product_size">사이즈</td>
+									<td class="product_size">
+										<!-- size 선택하지 않으면 구매 못하도록 장치 필요 -->
+										<select name="size" id="size">
+											<option value="0">선택</option>
+											<option value="1">XS</option>
+											<option value="2">S</option>
+											<option value="3">M</option>
+											<option value="4">L</option>
+										</select>							
+									</td>
+								</tr>
+								<tr>
+									<td id="product_alert" colspan="2">위 옵션선택 박스를 선택하시면 아래에 상품이 추가됩니다.</td>
+								</tr>
+								<!-- jQuery 플러그인 spinner -->
+								<script>
+									$(function() {
+										$("#qty").spinner({
+											min:1,
+											max:100
+										});
+										// spinner 값이 바뀔 때 이벤트 체크
+										$("#qty").on("spinstop", function() {
+											var qty = document.getElementById("qty").value;
+											var price = <%=rs.getInt("price")%>;
+											var am = qty * price;
+											am = comma(am); // comma(); 금액 콤마 표시
+											document.getElementById("product_amount").innerText = "￦ " + am;
+											document.getElementById("buying_amount").innerText = "￦ " + am;
+										});
 									});
-								});
-							</script>
-							<tr>
-								<td id="product_qty">수량</td>
-								<td>
-									<input type="text" name="qty" id="qty" value="1">
-								</td>
-							</tr>
-							<!-- 구매 버튼 -->
-							<tr>
-								<td id="product_button" colspan="2">
-									<button id="buynow">바로 구매</button>
-									<button id="cart" onclick="Cart(<%=id%>)">장바구니에 담기</button>
-									<button id="wishlist" onclick="Wishlist(<%=id%>)">위시리스트 추가</button>
-								</td>
-							</tr>
-						</table>
+								</script>
+								<tr>
+									<td id="product_qty">수량</td>
+									<td>
+										<input type="text" name="qty" id="qty" value="1">
+										<span id="product_amount">￦  <%=df.format(rs.getInt("price"))%></span>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" id="buying_amount">￦  <%=df.format(rs.getInt("price"))%></td>
+								</tr>
+								<!-- 구매 버튼 -->
+								<tr>
+									<td id="product_button" colspan="2">
+										<!-- <button> 태그는 form submit 기능 → post 전송 -->
+										<button id="buynow">바로 구매</button>
+										<!-- input:button 은 submit 기능 X → get 전송-->
+										<input type="button" id="cart" onclick="Cart(<%=id%>)" value="장바구니에 담기">
+										<input type="button" id="wishlist" onclick="Wishlist(<%=id%>)" value="위시리스트 추가">
+									</td>
+								</tr>
+							</table>
+						</form>
 					</div>
 				</article>
 				<!-- 상품 이미지 상세 -->
