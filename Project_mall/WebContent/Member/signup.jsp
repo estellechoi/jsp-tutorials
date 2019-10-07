@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../Etc/signup.css?ver=3">
-<script src="../Etc/signup.js"></script>
+<script src="../Etc/signup.js?ver=2"></script>
 <!-- daum 도로명주소검색 API 시작 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -53,14 +53,14 @@
 									<caption>정보 입력</caption>
 									<tr>
 										<th>회원구분 * </th>
-										<td>
+										<td colspan="2">
 											<input type="radio" name="usertype" value="0" checked onclick="BusinessForm(this.value)">개인회원
 											<input type="radio" name="usertype" value="1" onclick="BusinessForm(this.value)">사업자회원
 										</td>
 									</tr>
 									<tr>
-										<th id="business_no">이메일 * </th>
-										<td id="business_no_form">
+										<th>이메일 * </th>
+										<td>
 											<input type="text" name="email_id" size="7"> @
 											<input type="text" name="email_host" size="7" id="email_host">
 											<select name="email" id="email" onchange="Host()">
@@ -70,25 +70,28 @@
 												<option value="gmail.com">gmail.com</option>
 												<option value="yahoo.com">yahoo.com</option>
 											</select>
-											<!-- 사업자 번호 적을 때 ? -->
-											<input type="hidden" name="email">
 										</td>
+										<td id="email_x"></td>
 									</tr>
 									<tr>
 										<th id="business_name">이름 * </th>
 										<td><input type="text" name="username"></td>
+										<td id="username_x"></td>
 									</tr>
 									<tr>
 										<th>비밀번호 * </th>
 										<td><input type="password" name="pwd"></td>
+										<td id="pwd_x"></td>
 									</tr>
 									<tr>
 										<th>비밀번호 확인 * </th>
 										<td><input type="password" name="pwd_check"></td>
+										<td id="pwd_check_x"></td>
 									</tr>
 									<tr>
 										<th>휴대전화</th>
 										<td><input type="text" name="cell" placeholder="'-' 빼고 입력해주세요."></td>
+										<td id="cell_x"></td>
 									</tr>
 									<tr>
 										<th>주소</th>
@@ -98,15 +101,17 @@
 											<input type="text" name="address1" id="address1"> 기본주소 <p></p>
 											<input type="text" name="address2" id="address2"> 나머지 주소
 										</td>
+										<td id="zip_x"></td>
 									</tr>
 									<tr>
-										<th>성별</th>
-										<td>
-											<input type="radio" name="sex" value="0">남
+										<th id="business_no">성별</th>
+										<td id="business_no_form">
+											<input type="radio" name="sex" value="0" checked>남
 											<input type="radio" name="sex" value="1">여
 										</td>
+										<td  id="sex_x"></td>
 									</tr>
-									<tr>
+									<tr >
 										<th>생년월일</th>
 										<td>
 											<select name="birth_year" id="birth_year">
@@ -133,6 +138,7 @@
 												<option value="1">1</option>
 											</select> 일
 										</td>
+										<td id="birth_x"></td>
 									</tr>
 								</table>
 								<table>
@@ -146,30 +152,30 @@
 									<tr>
 										<td>
 											<b>[필수] 이용약관 동의</b> <p></p>
-											<textarea name="" id="" cols="80" rows="10">
+											<textarea cols="80" rows="10">
 												<jsp:include page="../Etc/agree1.txt"/>
 											</textarea> <p></p>
 											<!-- txt 파일 저장시 인코딩 : UTF-8 설정 필요 -->
-											이용약관에 동의하십니까? <input type="checkbox" name="agree1" id="" class="agree" onclick="Agree()">동의함
+											이용약관에 동의하십니까? <input type="checkbox" name="agree1" class="agree" value="Y" onclick="Agree()">동의함
 										</td>
 									</tr>
 									<tr>
 										<td>
 											<b>[필수] 개인정보 수집 및 이용 동의</b> <p></p>
-											<textarea name="" id="" cols="80" rows="10">
+											<textarea cols="80" rows="10">
 												<jsp:include page="../Etc/agree2.txt"/>
 											</textarea> <p></p>
-											개인정보 수집 및 이용에 동의하십니까? <input type="checkbox" name="agree2" id="" class="agree" onclick="Agree()">동의함
+											개인정보 수집 및 이용에 동의하십니까? <input type="checkbox" name="agree2" class="agree" value="Y" onclick="Agree()">동의함
 										</td>
 									</tr>
 									<tr>
 										<td>
 											<b>[선택] 쇼핑정보 수신 동의</b> <p></p>
-											<textarea name="" id="" cols="80" rows="10">
+											<textarea cols="80" rows="10">
 												<jsp:include page="../Etc/agree3.txt"/>
 											</textarea> <p></p>
-											SMS 수신을 동의하십니까? <input type="checkbox" name="agree3" id="" class="agree" onclick="Agree()">동의함 <p></p>
-											이메일 수신을 동의하십니까? <input type="checkbox" name="agree4" id="" class="agree" onclick="Agree()">동의함
+											SMS 수신을 동의하십니까? <input type="checkbox" name="agree3" class="agree" value="Y" onclick="Agree()">동의함 <p></p>
+											이메일 수신을 동의하십니까? <input type="checkbox" name="agree4" class="agree" value="Y" onclick="Agree()">동의함
 										</td>
 									</tr>
 								</table>
