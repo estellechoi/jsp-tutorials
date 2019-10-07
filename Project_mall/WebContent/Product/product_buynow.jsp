@@ -37,8 +37,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/product_buynow.css?ver=3">
-<script src="../Etc/product_buynow.js?ver=2"></script>
+<link rel="stylesheet" href="../Etc/product_buynow.css?ver=4">
+<script src="../Etc/product_buynow.js?ver=3"></script>
 <!-- daum 도로명주소검색 API 시작 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -180,7 +180,7 @@
 									<th>주소 * </th>
 									<td>
 										<input type="text" name="zip" id="zip">
-										<input type="button" value="우편번호 검색" id="zip_button" onclick="search_address_user()"> <p></p>
+										<input type="button" value="우편번호 검색" class="zip_button" onclick="search_address_user()"> <p></p>
 										<input type="text" name="address1" id="address1"> 기본주소 <p></p>
 										<input type="text" name="address2" id="address2"> 나머지 주소
 									</td>
@@ -228,6 +228,14 @@
 									<td>
 										<input type="radio" name="recipient" checked onclick="Recipient(1)">주문자 정보와 동일
 										<input type="radio" name="recipient" onclick="Recipient(2)">새로운 배송지
+										<!-- product_buynow_recipient.jsp // 로그인 회원만 가능 -->
+										<%
+										if (session.getAttribute("email") != null) {
+										%>
+										<input type="button" value=" > 즐겨찾기에서 선택" class="recipient_button" onclick="List_recipient(<%=session.getAttribute("email")%>)">
+										<%
+										}
+										%>
 									</td>
 								</tr>
 								<tr>
@@ -238,7 +246,7 @@
 									<th>주소 * </th>
 									<td>
 										<input type="text" name="r_zip" id="r_zip">
-										<input type="button" value="우편번호 검색" id="zip_button" onclick="search_address_recipient()"> <p></p>
+										<input type="button" value="우편번호 검색" class="zip_button" onclick="search_address_recipient()"> <p></p>
 										<input type="text" name="r_address1" id="r_address1"> 기본주소 <p></p>
 										<input type="text" name="r_address2" id="r_address2"> 나머지 주소
 									</td>
