@@ -20,24 +20,26 @@
 						<!-- 로그인 글자 -->
 						<div id="signin_header">LOGIN</div>
 						<!-- 로그인 폼 grid -->
-						<div id="signin_form">
-							<div id="form_left">
-								<div id="userid">
-									<label for="uid">아이디</label> <input type="text" name="uid" id="uid">
+						<form action="signin_ok.jsp" method="post">
+							<div id="signin_form">
+								<div id="form_left">
+									<div id="userid">
+										<label for="uid">이메일</label> <input type="text" name="email" id="email">
+									</div>
+									<div id="password">
+										<label for="pwd">패스워드</label> <input type="password" name="pwd" id="pwd">
+									</div>
 								</div>
-								<div id="password">
-									<label for="pwd">패스워드</label> <input type="password" name="pwd" id="pwd">
+								<div id="form_right">
+									<input type="submit" value="로그인" id="submit">
 								</div>
 							</div>
-							<div id="form_right">
-								<input type="submit" value="로그인" id="submit">
+							<!-- 키체인 설정 여부 -->
+							<div id="signin_keychain">
+								<input type="checkbox" name="keychain" id="keychain" value="Y"><label for="keychain">아이디 저장</label>
+								<img alt="no image" src="../Etc/lock.png" width="12px"> 보안접속
 							</div>
-						</div>
-						<!-- 키체인 설정 여부 -->
-						<div id="signin_keychain">
-							<input type="checkbox" name="keychain" id="keychain"><label for="keychain">아이디 저장</label>
-							<img alt="no image" src="../Etc/lock.png" width="12px"> 보안접속
-						</div>
+						</form>
 						<!-- 아이디/비밀번호 찾기 -->
 						<div id="signin_forgot">
 							<a href="forgot_id.jsp"><img alt="no image" src="../Etc/link_icon.jpg" width="12px"> 아이디 찾기</a>
