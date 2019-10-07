@@ -7,20 +7,14 @@ function BusinessForm(b) {
 	if (b == "1") {
 		document.getElementById("business_name").innerText = "상호명 * ";
 		document.getElementById("business_no").innerText = "사업자번호 * ";
-		document.getElementById("business_no_form").innerHTML = "<input type='text' name='email'>";
+		document.getElementById("business_no_form").innerHTML = "<input type='text' name='sex'>";
 	}
 	else {
 		document.getElementById("business_name").innerText = "이름 * ";
-		document.getElementById("business_no").innerText = "이메일 * ";
+		document.getElementById("business_no").innerText = "성별";
 		document.getElementById("business_no_form").innerHTML = 
-											"<input type='text' name='email_id' size='7'> @ <input type='text' name='email_host' size='7' id='email_host'>" +
-											"<select name='email' id='email' onchange='Host()'>" +
-												"<option value='직접입력'>직접 입력</option>" +
-												"<option value='naver.com'>naver.com</option>" +
-												"<option value='daum.net'>daum.net</option>" +
-												"<option value='gmail.com'>gmail.com</option>" +
-												"<option value='yahoo.com'>yahoo.com</option></select>" +
-												"<input type='hidden' name='email'>";
+											"<input type='radio' name='sex' value='0' checked>남" +
+											"<input type='radio' name='sex' value='1'>여";
 	}
 }
 
@@ -71,5 +65,37 @@ function Agree() {
 
 // 회원가입 폼 작성여부 검사
 function Check_form(form) {
+	var alert = "<span style='color:red; font-size:15px'>ⓧ</span>";
 	
+	if (form.email_id.value == "" || form.email_host.value == "") {
+		document.getElementById("email_x").innerHTML = alert;
+		return false;
+	}
+	else if (form.username.value == "") {
+		document.getElementById("username_x").innerHTML = alert;
+		return false;
+	}
+	else if (form.pwd.value == "") {
+		document.getElementById("pwd_x").innerHTML = alert;
+		return false;		
+	}
+	else if (form.pwd_check.value != form.pwd.value) {
+		document.getElementById("pwd_check_x").innerHTML = alert;
+		return false;		
+	}
+	// 이용약관 동의여부 체 크...... 왜안되 ??
+	else if (!(form.agree1.checked) || !(form.agree2.checked)) {
+		alert("필수 이용약관에 동의 후 회원가입 가능합니다.");
+		return false;
+	}
+	// 사업자등록번호 10자리 입력 여부	
+	else if (form.usertype.value == "1" && form.sex.value.length != 10) {
+		document.getElementById("sex_x").innerHTML = alert;
+		return false;
+	}
+	else {
+		return true;
+	}
 }
+
+
