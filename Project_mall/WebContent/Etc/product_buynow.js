@@ -31,6 +31,17 @@ function Check_allbox(n) {
 	}
 }
 
+// 휴대폰 번호 자리수 입력제한
+// 일단 미적용 ... class 쓰던지 수정해야할듯
+function Cell(cell2) {
+	if (cell2.value.length >= 4) {
+		$(function() {
+			$("cell2").next("input").focus();
+		});
+	}
+}
+
+
 // 이메일 호스트 선택
 function Email(x) {
 	var host = x;
@@ -42,17 +53,17 @@ function Email(x) {
 }
 
 // 배송지 선택
-function Recipient(x) {
-	var username = document.form.username.value;
-	var address = doucment.form.address.value;
-	var cell1 = document.form.cell1.value;
-	var cell2 = document.form.cell2.value;
-	var cell3 = document.form.cell3.value;
-	var zip = document.form.zip.value;
-	var address1 = document.form.address1.value;
-	var address2 = document.form.address2.value;
+document.form.username.value = "";
+document.form.zip.value = "";
+document.form.address1.value = "";
+document.form.address2.value = "";
+document.form.cell1.value = "";
+document.form.cell2.value = "";
+document.form.cell3.value = "";
+
+function Recipient(r) {
 	
-	if (x == 1) {
+	if (r == 1) {
 		document.form.r_username.value = document.form.username.value;
 		document.form.r_zip.value = document.form.zip.value;
 		document.form.r_address1.value = document.form.address1.value;
@@ -66,8 +77,15 @@ function Recipient(x) {
 		document.form.r_zip.value = "";
 		document.form.r_address1.value = "";
 		document.form.r_address2.value = "";
-		document.form.r_cell1.value = "";
+		document.form.r_cell1.value = "010";
 		document.form.r_cell2.value = "";
 		document.form.r_cell3.value = "";
 	}
+}
+
+// 새로운 배송지 등록
+function List_recipient(email) {
+	
+	// 새 창 열기
+	var rr = window.open("product_buynow_recipient.jsp?email="+email, "주소록 즐겨찾기", "width=500, height=300");
 }
