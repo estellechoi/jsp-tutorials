@@ -178,3 +178,24 @@
 	font-weight: bold;
 	cursor: pointer;
 }
+
+/* 주문정보/배송정보 테이블 내 버튼 공통 스타일 */
+.zip_button {
+	border: 1px solid #495164;
+	border-radius: 5px;
+	background: #495164;
+	color: white;
+	font-size: 12px;
+	cursor: pointer;
+}
+
+.recipient_button {
+	border: 1px solid #495164;
+	border-radius: 5px;
+	background: none;
+	color: #495164;
+	font-size: 11px;
+	font-weight: bold;
+	margin-left: 20px;
+	cursor: pointer;
+}
