@@ -7,8 +7,9 @@
 	
 	request.setCharacterEncoding("UTF-8");
 	String usertype = request.getParameter("usertype");
-	// userid = email
-	String email = request.getParameter("email");
+	String email_id = request.getParameter("email_id");
+	String email_host = request.getParameter("email_host");
+	String email = email_id + "@" + email_host;
 	String username = request.getParameter("username");
 	String pwd = request.getParameter("pwd");
 	String cell = request.getParameter("cell");
@@ -17,8 +18,17 @@
 	String address2 = request.getParameter("address2");
 	String sex = request.getParameter("sex");
 	String birth = request.getParameter("birth_year")+"-"+request.getParameter("birth_month")+"-"+request.getParameter("birth_date");
+	// 체크 안됐을 때의 값 ?
 	String agree_SMS = request.getParameter("agree3");
 	String agree_email = request.getParameter("agree4");
+	
+	if (agree_SMS == null) {
+		agree_SMS = "N";
+	}
+	
+	if (agree_email == null) {
+		agree_email = "N";
+	}
 	
 	
 	String sql = "insert into member(usertype, email, username, pwd, cell, zip, address1, address2, sex, birth, agree_SMS, agree_email, writeday)";
