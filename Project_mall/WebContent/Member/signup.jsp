@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../Etc/signup.css?ver=3">
+<!-- jQuery -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="../Etc/signup.js?ver=2"></script>
 <!-- daum 도로명주소검색 API 시작 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -48,7 +50,7 @@
 						<div id="signup_header">SIGN UP</div>
 						<!-- 회원가입 폼 grid -->
 						<div id="signup_form">
-							<form action="signup_ok.jsp" method="post" onsubmit="return Check_form(this)">
+							<form action="signup_ok.jsp" method="post" onsubmit="return Submit_form(this)">
 								<table>
 									<caption>정보 입력</caption>
 									<tr>
@@ -61,9 +63,10 @@
 									<tr>
 										<th>이메일 * </th>
 										<td>
+											<input type="hidden" name="email">
 											<input type="text" name="email_id" size="7"> @
 											<input type="text" name="email_host" size="7" id="email_host">
-											<select name="email" id="email" onchange="Host()">
+											<select name="email_host_selector" id="email_host_selector" onchange="Host()">
 												<option value="직접입력">직접 입력</option>
 												<option value="naver.com">naver.com</option>
 												<option value="daum.net">daum.net</option>
@@ -114,6 +117,7 @@
 									<tr >
 										<th>생년월일</th>
 										<td>
+											<input type="hidden" name="birth">
 											<select name="birth_year" id="birth_year">
 												<%
 													Date today = new Date();
