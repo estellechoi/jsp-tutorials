@@ -20,7 +20,7 @@ function BusinessForm(b) {
 
 // 이메일 입력 선택
 function Host() {
-	var host = document.getElementById("email").value;
+	var host = document.getElementById("email_host_selector").value;
 	if(host == "직접입력") {
 		document.getElementById("email_host").value = "";
 	}
@@ -64,7 +64,30 @@ function Agree() {
 }
 
 // 회원가입 폼 작성여부 검사
-function Check_form(form) {
+// 이메일, 생년월일을 하나의 값으로 넘기기
+
+function Submit_form(form) {
+	// 이메일, 생년월일을 하나의 값으로 넘기기
+	form.email.value = form.email_id.value + "@" + form.email_host.value;
+	form.birth.value = form.birth_year.value + "-" + form.birth_month.value + "-" + form.birth_date.value;
+	
+	// 필수 이용약관 체크여부 확인
+	var agree = document.getElementsByClassName("agree");	
+	var n = 0;
+	for (var i = 0; i < 2; i++) {
+		if (agree[i].checked) {
+			n++;	
+		}
+	}
+	
+	// 선택 이용약관 체크여부 확인 및 값 주기
+	for (var i = 2; i < 4; i++) {
+		if (!(agree[i].checked)) {
+			agree[i] = "N";			
+		}
+	}
+	
+	// 회원가입 폼 작성여부 검사
 	var alert = "<span style='color:red; font-size:15px'>ⓧ</span>";
 	
 	if (form.email_id.value == "" || form.email_host.value == "") {
@@ -83,9 +106,9 @@ function Check_form(form) {
 		document.getElementById("pwd_check_x").innerHTML = alert;
 		return false;		
 	}
-	// 이용약관 동의여부 체 크...... 왜안되 ??
-	else if (!(form.agree1.checked) || !(form.agree2.checked)) {
-		alert("필수 이용약관에 동의 후 회원가입 가능합니다.");
+	// 필수 이용약관 동의여부 체크...... 왜안되 ??
+	else if (n < 2) {
+		alert("필수 이용약관 동의 후 회원가입 가능합니다.");
 		return false;
 	}
 	// 사업자등록번호 10자리 입력 여부	
@@ -93,9 +116,6 @@ function Check_form(form) {
 		document.getElementById("sex_x").innerHTML = alert;
 		return false;
 	}
-	else {
+	else
 		return true;
-	}
 }
-
-
