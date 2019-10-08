@@ -65,7 +65,7 @@
 }
 
 /* 국내배송 테이블 */
-#table_domestic, .table_userinformation, #payment, #payment_way {
+#table_domestic, .table_userinformation, #payment, #process_payment {
 	width: 1200px;
 	margin: auto;
 	padding: 0;
@@ -125,38 +125,54 @@
 	padding-bottom: 100px;
 }
 
-#payment_box {
+#amount_box {
 	border: 4px solid #C8C8C8;
-	height: 70px;
-	width: 800px;
+/* 	height: 280px; */
+	width: 400px;
 	margin: auto;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 13px;
 	letter-spacing: 3px;
 }
 
-#payment .pay {
-	font-size: 20px;
-	font-weight: bold;
+#amount_box table {
+	width: 100%;
 }
 
-#payment_total {
+#amount_box table td {
+	font-size: 12px;
+	border: none;
+	height: 40px;
+}
+
+#payment .a {
+	font-size: 20px;
+/* 	font-weight: bold; */
+}
+
+#amount_total {
 	color: #FF00FF;
 	font-size: 22px;
 }
 
 /* 결제수단 선택 박스 grid */
-#payment_way {
+#process_payment {
 	display: grid;
 	grid-template-columns: 8fr 2fr;
 	height: 200px;
 	border-collapse: collapse;
 }
 
-#payment_way div {
-	border: 1px solid #eeeeee;	
+#process_payment div {
+	border: 1px solid #eeeeee;
+	font-size: 12px;
+}
+
+#radio_box {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+#radio_box input[type=radio] {
+	margin-left: 20px;
 }
 
 /* 버튼 공통 스타일 */
