@@ -59,8 +59,18 @@
 		</div>
 		<div>
 			<ul>
-				<li><a href="../Member/signin.jsp">LOGIN</a></li>
+				<%
+				if (session.getAttribute("email") != null) {
+				%>
+				<li><a href="../Member/signout.jsp">SIGN OUT</a></li>
 				<li><a href="">MY ACCOUNT</a></li>
+				<%
+				} else {
+				%>
+				<li><a href="../Member/signin.jsp">SIGN IN</a></li>		
+				<%
+				}
+				%>
 				<li><a href="">CART</a></li>
 				<li><a href="">Q&A / REVIEW</a></li>
 			</ul>
