@@ -90,9 +90,9 @@ function Address_book(email) {
 	var rr = window.open("product_buynow_address.jsp?email="+email, "주소록 즐겨찾기", "width=1000, height=500");
 }
 
-// 포인트 사용하기
-function Point(p) {
+// 보유포인트 모두사용
+function Exhaust() {
 	var point = parseInt(document.getElementById("point").value);
-	point = point - parseInt(p);
-	document.getElementById("point").value = point;
+	document.getElementById("use_point").value = point;
 }
+
