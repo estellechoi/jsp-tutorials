@@ -13,19 +13,19 @@
 	String sql = "select * from member where email='" + email + "'";
 	sql = sql + " and pwd='" + pwd + "'";
 	ResultSet rs = stmt.executeQuery(sql);
-	
+
 	if (rs.next()) {
-		session.setAttribute("email",rs.getString("email"));
-		session.setAttribute("name",rs.getString("name"));
-		response.sendRedirect("../Index/home.jsp");	
+		session.setAttribute("email", rs.getString("email"));
+		session.setAttribute("username", rs.getString("username"));
+		response.sendRedirect("../Index/home.jsp");
 	}
-	
+
 	else {
-		%>
-		<script>
-			alert("회원정보가 일치하지 않거나 회원이 아닙니다.");
-			history.back();
-		</script>
-		<%
+%>
+<script>
+	alert("회원정보가 일치하지 않거나 회원이 아닙니다.");
+	history.back();
+</script>
+<%
 	}
 %>
