@@ -37,8 +37,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/product_buynow.css?ver=8">
-<script src="../Etc/product_buynow.js?ver=5"></script>
+<link rel="stylesheet" href="../Etc/product_buynow.css?after">
+<script src="../Etc/product_buynow.js?after"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <!-- daum 도로명주소검색 API 시작 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -129,6 +130,7 @@
 								// 배송료
 								int delivery_int;
 								String delivery_str = "";
+								
 								// 반복문 시작 
 								amount = qty * rs.getInt("price");
 								total = total + amount;
@@ -271,60 +273,85 @@
 									<th>배송 메세지</th>
 									<td><textarea name="r_msg" cols="40" rows="3"></textarea></td>
 								</tr>
+								<!-- 여백 -->
+								<tr>
+									<td colspan="2" class="space"></td>
+								</tr>
+								<!-- 결제 정보 -->
+								<tr>
+									<td colspan="2" class="table_head">결제 정보</td>
+								</tr>
+								<tr>
+									<th>보유포인트</th>
+									<td>
+										￦ <input type="text" name="point" id="point" size="5" value="0" readonly>
+										 <input type="button" value="모두 사용" class="zip_button" onclick="Exhaust()">
+									</td>
+								</tr>
+								<tr>
+									<th>사용포인트</th>
+									<td>￦ <input type="text" id="use_point" size="5"></div></td>
+									<!-- 
+									text나 textarea의 경우에는 값을 적고 있을 때에는 onchange로는 값의 변경을 감지할 수 없습니다.
+									왜냐하면 onchange 이벤트가 걸리는 시점이 blur(focus와 반대로 오브젝트를 떠나는 시점)이기 때문입니다.
+									 -->
+								</tr>
+								<tr>
+									<th>합계 금액</th>
+									<td>￦ <%=df.format(total + delivery_int)%></td>
+								</tr>
+								<tr>
+									<!-- 이거 어떡하지 ? -->
+									<th>할인 금액</th>
+									<td>￦ </td>
+								</tr>
+								<tr>
+									<th>결제 금액</th>
+									<td>￦ <%=df.format(total + delivery_int)%></td>
+								</tr>
+								<!-- 여백 -->
+								<tr>
+									<td colspan="2" class="space"></td>
+								</tr>								
 							</table>
 						</div>
-						<!-- 비회원 구매시 이용약관 -->
-						<div>
-						</div>
-						<!-- 결제 예정 금액 안내 -->
-						<div id="payment">
-							<div id="amount_box">
-								<table>
-									<tr>
-										<td>보유포인트</td>
-										<td>￦ <input type="text" name="point" id="point" size="5" value="0" readonly></td>
-									</tr>
-									<tr>
-										<td>사용포인트</td>
-										<td>￦ <input type="text" id="use_point" size="5" onblur="Point(this.value)"></div></td>
-									</tr>
-									<tr>
-										<td>쿠폰</td>
-										<td>
-											<select name="coupon" id="coupon">
-												<option value="0">선택하세요.</option>
-												<option value="1">보유 쿠폰이 없습니다.	</option>
-											</select>										
-										</td>
-									</tr>
-									<tr>
-										<td>합계 금액</td>
-										<td>￦ <%=df.format(total + delivery_int)%></td>
-									</tr>
-									<tr>
-										<!-- 이거 어떡하지 ? -->
-										<td>할인 금액</td>
-										<td>￦ </td>
-									</tr>
-									<tr>
-										<td>결제 금액</td>
-										<td>￦ <%=df.format(total + delivery_int)%></td>
-									</tr>
-								</table>
-							</div>
-						</div>
-						<!-- 결제 수단 선택 및 결제 진행  grid -->
-						<div id="process_payment">
+					</div>
+					<!-- 결제 수단 선택 및 결제 진행  grid -->
+					<div id="process_payment">
 							<div>
 								<div id="radio_box">
-									<input type="radio" name="pay" value="0">무통장 입금
+									<input type="radio" name="pay" value="0" checked>무통장 입금
 									<input type="radio" name="pay" value="1">계좌이체
 									<input type="radio" name="pay" value="2">카카오페이
 									<input type="radio" name="pay" value="3">카드결제
 								</div>
-								<div></div>
+								<div id="selected_pay_form">
+									<table>
+										<tr>
+											<td>입금자명</td>
+											<td><input type="text" name="sender"></td>
+										</tr>
+										<tr>
+											<td>입금은행</td>
+											<td>
+												<select name="bank" id="bank">
+													<option value="0">우리은행</option>
+													<option value="1">국민은행</option>
+												</select>
+											</td>
+										</tr>
+									</table>
+								</div>
 							</div>
-							<div></div>
+							<div>
+								<div><span id="selected_pay">무통장 입금</span> 최종결제 금액</div>
+								<div>결제 금액</div>
+								<div>
+									<input type="checkbox" name="confirm" value="1">
+									결제정보를 확인하였으며, 구매 진행에 동의합니다.
+								</div>
+								<div><input type="submit" value="결제하기"></div>
+							</div>
 						</div>
 					</form>
 				</div>
