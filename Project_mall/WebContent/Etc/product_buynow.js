@@ -84,8 +84,15 @@ function Recipient(r) {
 }
 
 // 새로운 배송지 등록
-function List_recipient(email) {
+function Address_book(email) {
 	
 	// 새 창 열기
-	var rr = window.open("product_buynow_recipient.jsp?email="+email, "주소록 즐겨찾기", "width=500, height=300");
+	var rr = window.open("product_buynow_address.jsp?email="+email, "주소록 즐겨찾기", "width=1000, height=500");
+}
+
+// 포인트 사용하기
+function Point(p) {
+	var point = parseInt(document.getElementById("point").value);
+	point = point - parseInt(p);
+	document.getElementById("point").value = point;
 }
