@@ -41,7 +41,7 @@ public class Product {
 	
 	// 생성자
 	public Product(ResultSet rs) throws SQLException {
-		super();
+		super(); // 부모클래스 생성자 호출 ?
 		DecimalFormat df = new DecimalFormat("#,###"); // 금액 콤마
 		
 		this.id = rs.getInt("id");
