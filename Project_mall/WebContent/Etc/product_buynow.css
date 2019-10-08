@@ -2,7 +2,7 @@
 
 /* 로그인 */
 .product_buynow_section {
-	height: 1500px;
+	height: 2000px;
 	overflow: scroll;
 }
 
@@ -120,33 +120,6 @@
 }
 
 /* 결제 금액 안내 박스 */
-#payment {
-	padding-top: 100px;
-	padding-bottom: 100px;
-}
-
-#amount_box {
-	border: 4px solid #C8C8C8;
-/* 	height: 280px; */
-	width: 400px;
-	margin: auto;
-	letter-spacing: 3px;
-}
-
-#amount_box table {
-	width: 100%;
-}
-
-#amount_box table td {
-	font-size: 12px;
-	border: none;
-	height: 40px;
-}
-
-#payment .a {
-	font-size: 20px;
-/* 	font-weight: bold; */
-}
 
 #amount_total {
 	color: #FF00FF;
