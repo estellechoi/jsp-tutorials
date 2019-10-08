@@ -37,8 +37,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/product_buynow.css?ver=4">
-<script src="../Etc/product_buynow.js?ver=3"></script>
+<link rel="stylesheet" href="../Etc/product_buynow.css?ver=8">
+<script src="../Etc/product_buynow.js?ver=5"></script>
 <!-- daum 도로명주소검색 API 시작 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -115,7 +115,7 @@
 									<td>상품정보</td>
 									<td>판매가</td>
 									<td>수량</td>
-									<td>포인트/할인</td>
+									<td>적립포인트</td>
 									<td>배송구분</td>
 									<td>배송비</td>
 									<td>합계</td>
@@ -139,7 +139,8 @@
 									<td><%=rs.getString("name")%> <p></p> [옵션 : 사이즈 <%=size%>]</td>
 									<td><%=df.format(rs.getInt("price"))%></td>
 									<td><%=qty%></td>
-									<td>-</td>
+									<!-- 포인트 적립 처리 어떻게 할거 ? -->
+									<td><%=df.format(rs.getInt("price")*rs.getInt("point")/100)%></td>
 									<td>일반배송</td>
 									<td> <!-- 배송비 -->
 									<%									
@@ -232,7 +233,7 @@
 										<%
 										if (session.getAttribute("email") != null) {
 										%>
-										<input type="button" value=" > 즐겨찾기에서 선택" class="recipient_button" onclick="List_recipient(<%=session.getAttribute("email")%>)">
+										<input type="button" value=" > 즐겨찾기에서 선택" class="recipient_button" onclick="Address_book('<%=session.getAttribute("email")%>')">
 										<%
 										}
 										%>
@@ -277,15 +278,52 @@
 						</div>
 						<!-- 결제 예정 금액 안내 -->
 						<div id="payment">
-							<div id="payment_box">
-								총 주문금액 <span class="pay"> <%=df.format(total)%> </span> 원 + 
-								할인 - <span class="pay"> 0 </span> 원 = 
-								총 결제금액 <span class="pay" id="payment_total"> <%=df.format(total)%> </span> 원
+							<div id="amount_box">
+								<table>
+									<tr>
+										<td>보유포인트</td>
+										<td>￦ <input type="text" name="point" id="point" size="5" value="0" readonly></td>
+									</tr>
+									<tr>
+										<td>사용포인트</td>
+										<td>￦ <input type="text" id="use_point" size="5" onblur="Point(this.value)"></div></td>
+									</tr>
+									<tr>
+										<td>쿠폰</td>
+										<td>
+											<select name="coupon" id="coupon">
+												<option value="0">선택하세요.</option>
+												<option value="1">보유 쿠폰이 없습니다.	</option>
+											</select>										
+										</td>
+									</tr>
+									<tr>
+										<td>합계 금액</td>
+										<td>￦ <%=df.format(total + delivery_int)%></td>
+									</tr>
+									<tr>
+										<!-- 이거 어떡하지 ? -->
+										<td>할인 금액</td>
+										<td>￦ </td>
+									</tr>
+									<tr>
+										<td>결제 금액</td>
+										<td>￦ <%=df.format(total + delivery_int)%></td>
+									</tr>
+								</table>
 							</div>
 						</div>
-						<!-- 결제 수단 선택 및 결제 진행 -->
-						<div id="payment_way">
-							<div></div>
+						<!-- 결제 수단 선택 및 결제 진행  grid -->
+						<div id="process_payment">
+							<div>
+								<div id="radio_box">
+									<input type="radio" name="pay" value="0">무통장 입금
+									<input type="radio" name="pay" value="1">계좌이체
+									<input type="radio" name="pay" value="2">카카오페이
+									<input type="radio" name="pay" value="3">카드결제
+								</div>
+								<div></div>
+							</div>
 							<div></div>
 						</div>
 					</form>
