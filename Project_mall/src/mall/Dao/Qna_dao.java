@@ -4,12 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql. SQLException;
 
-import mall.Dto.Qna;
+import mall.Dto.Qna_dto;
 
-public class Qna_insert {
+public class Qna_dao {
 
 	// 쿼리실행 메소드 (디비 연결 객체, 변수를 저장한 dto 객체)
-	public void insert(Connection conn, Qna dto) throws SQLException {
+	public void insert(Connection conn, Qna_dto dto) throws SQLException {
 		
 		String sql = "insert into qna(email, username, title, content, writeday)";
 		sql = sql + " values(?,?,?,?,now())";
