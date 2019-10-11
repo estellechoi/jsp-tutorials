@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/qna_write.css">
+<link rel="stylesheet" href="../Etc/qna_write.css?after">
 </head>
 <body>
 	<!-- 네비게이션 바 -->
@@ -24,7 +24,7 @@
 					</div>
 					<form action="qna_write_ok.jsp" method="post">
 						<table>
-							<caption><input type="text" name="title"></caption>
+							<caption><input type="text" name="title" placeholder="제목을 입력하세요"></caption>
 							<tr>
 								<td>이름</td>
 								<td><input type="text" name="username"></td>
@@ -34,15 +34,11 @@
 								<td><input type="text" name="email"></td>
 							</tr>
 							<tr>
-								<td>제목</td>
-								<td><input type="text" name="title"></td>
-							</tr>
-							<tr>
 								<td>내용</td>
 								<td><textarea name="content" id="" cols="30" rows="4"></textarea></td>
 							</tr>
 							<tr>
-								<td colspan="2"><input type="submit" value="저장"></td>
+								<td colspan="2" class="submit_space"><input type="submit" value="저장"></td>
 							</tr>
 						</table>
 					</form>
