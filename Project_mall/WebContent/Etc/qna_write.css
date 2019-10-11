@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+.board_section {
+	height: 700px;
+	overflow: scroll;
+}
+
+/* 게시판 종류 텍스트 */
+.board_header {
+	height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+/* 	font-family: 'Gill Sans MT Std'; */
+	font-weight: 700;
+	letter-spacing: 2px;
+	font-size: 14px;
+	color: #353535;	
+}
+
+/* 테이블 */
+.board_table table, .board_link {
+	width: 800px;
+	margin: auto;
+	border: 1px solid red;
+}
+
+/* 목록 링크 */
+.board_table .board_link {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-right: 10px;
+	text-align: right;
+	vertical-align: center;
+}
