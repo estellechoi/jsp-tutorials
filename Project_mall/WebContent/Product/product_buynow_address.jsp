@@ -94,7 +94,7 @@
 		cursor: pointer;
 	}
 </style>
-<script src="../Etc/product_buynow_address.js?ver=1"></script>
+<script src="../Etc/product_buynow_address.js?ver=2"></script>
 </head>
 <body>
 	<form action="product_buynow_address_del.jsp" method="post">
@@ -122,7 +122,7 @@
 				<td>(<%=rs.getInt("zip")%>) <%=rs.getString("address1")%> <%=rs.getString("address2")%></td>
 				<td><%=rs.getString("writeday")%></td>
 				<td>
-					<input type="button" class="apply" value="적용" onclick="Opener(this, <%=n%>, '<%=rs.getString("recipient")%>', '<%=rs.getString("cell")%>', <%=rs.getInt("zip")%>, '<%=rs.getString("address1")%>', '<%=rs.getString("address2")%>')">
+					<input type="button" class="apply" value="적용" onclick="Opener(this, <%=n%>, <%=rs.getInt("id")%>,'<%=rs.getString("recipient")%>', '<%=rs.getString("cell")%>', <%=rs.getInt("zip")%>, '<%=rs.getString("address1")%>', '<%=rs.getString("address2")%>')">
 				</td>
 				<td>-</td>
 			</tr>
