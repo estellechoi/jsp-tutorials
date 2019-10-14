@@ -54,7 +54,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/product_buynow.css?ver=2">
+<link rel="stylesheet" href="../Etc/product_buynow.css?ver=3">
 <script src="../Etc/product_buynow.js?ver=3"></script>
 <script>
 	function Member() {
@@ -444,37 +444,18 @@
 							<div>
 								<div id="radio_box">
 									<input type="radio" name="pay" value="0" checked>무통장 입금
-									<input type="radio" name="pay" value="1" onclick="Pay_transfer()">계좌이체
+									<input type="radio" name="pay" value="1">계좌이체
 									<input type="radio" name="pay" value="2">카카오페이
 									<input type="radio" name="pay" value="3">카드결제
-								</div>
-								<div id="selected_pay_form">
-									<table>
-										<tr>
-											<td>입금자명</td>
-											<td><input type="text" name="sender"></td>
-										</tr>
-										<tr>
-											<td>입금은행</td>
-											<td>
-												<select name="bank" id="bank">
-													<option value="0">우리은행</option>
-													<option value="1">국민은행</option>
-												</select>
-											</td>
-										</tr>
-									</table>
-									<div><input type="checkbox" name="pay_keychain" value="1">상기 결제정보를 저장하고 다음 결제시 사용합니다.</div>
-								</div>
-							</div>
-							<div>
-								<div><span id="selected_pay">무통장 입금</span> 최종결제 금액</div>
-								<div id="amount_pay_emphasis">￦ </div>
-								<div>
+								</div>	
+								<div id="confirm_box">
 									<input type="checkbox" name="confirm" value="1">
 									결제정보를 확인하였으며, 구매 진행에 동의합니다.
 								</div>
-								<div><input type="submit" value="결제하기"></div>
+							</div>
+							<div id="submit_button_box">
+								<div id="amount_pay_emphasis">￦ <%=df.format(total + delivery_int)%></div>
+								<input type="submit" value="결제하기">
 							</div>
 						</div>
 					</form>
