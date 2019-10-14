@@ -129,7 +129,7 @@
 /* 결제수단 선택 박스 grid */
 #process_payment {
 	display: grid;
-	grid-template-columns: 8fr 2fr;
+	grid-template-columns: 7fr 3fr;
 	height: 200px;
 	border-collapse: collapse;
 }
@@ -139,6 +139,18 @@
 	font-size: 12px;
 }
 
+/* 금액 안내 박스 */
+.amount_box {
+	border: none;
+	background: none;
+}
+
+input:focus {
+	outline: none;
+}
+
+/* 결제수단 선택 */
+
 #radio_box {
 	padding-top: 20px;
 	padding-bottom: 20px;
@@ -146,6 +158,18 @@
 
 #radio_box input[type=radio] {
 	margin-left: 20px;
+}
+
+/* 최종 결제 버튼 구간 */
+#process_payment #amount_pay_emphasis {
+	height: 70px;
+	font-size: 30px;
+	color: #FF8080;
+	font-weight: bold;
+	letter-spacing: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 /* 버튼 공통 스타일 */
