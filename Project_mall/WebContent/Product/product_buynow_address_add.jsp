@@ -9,6 +9,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	input {
+		font-size: 12px;
+	}
+</style>
 <!-- daum 도로명주소검색 API 시작 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -59,11 +64,11 @@
 			</tr>
 			<tr>
 				<th>휴대전화</th>
-				<td><input type="text" name="cell"></td>
+				<td><input type="text" name="cell" placeholder="000-0000-0000"></td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="checkbox" name="isdefault" value="1"> 기본 배송지로 지정하기 <p></p>
+					<input type="checkbox" name="change_member" value="1"> 기본 배송지로 지정하기 <p></p>
 					<input type="submit" value="저장">
 				</td>
 			</tr>
