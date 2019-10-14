@@ -33,7 +33,7 @@ function Check_Master(n) {
 }
 
 // 부모창에 값 전달하기
-function Opener(x, n, recipient, cell, zip, address1, address2) {
+function Opener(x, n, id, recipient, cell, zip, address1, address2) {
 	
 	var e = cell.indexOf("-");
 	var ee = cell.lastIndexOf("-");
@@ -42,6 +42,7 @@ function Opener(x, n, recipient, cell, zip, address1, address2) {
 	var cell3 = cell.substring(ee+1);
 
 	opener.form.r_username.value = recipient;
+	opener.form.r_id_address.value = id + "";
 	opener.form.r_cell1.value = cell1; // select 태그 왜 안되지 ?
 	opener.form.r_cell2.value = cell2;
 	opener.form.r_cell3.value = cell3;
