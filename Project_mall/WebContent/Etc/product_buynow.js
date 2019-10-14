@@ -1,6 +1,15 @@
 /**
  * 
  */
+// 이전 페이지 이동
+function Back() {
+	history.back();
+}
+
+// 선택상품 삭제
+function Drop_product() {
+	
+}
 
 // 전체선택 체크박스
 function Check_all(x, n) {
@@ -30,6 +39,9 @@ function Check_allbox(n) {
 		document.getElementById("checkbox_all").checked = false;
 	}
 }
+
+
+
 
 // 휴대폰 번호 자리수 입력제한
 // 일단 미적용 ... class 쓰던지 수정해야할듯
@@ -90,9 +102,8 @@ function Address_book(email) {
 	var rr = window.open("product_buynow_address.jsp?email="+email, "주소록 즐겨찾기", "width=1000, height=500");
 }
 
-// 보유포인트 모두사용
-function Exhaust() {
-	var point = parseInt(document.getElementById("point").value);
-	document.getElementById("use_point").value = point;
-}
 
+// submit
+function Submit() {
+	// 이메일 완성
+}
