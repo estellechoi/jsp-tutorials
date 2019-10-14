@@ -35,12 +35,14 @@ function Check_Master(n) {
 // 부모창에 값 전달하기
 function Opener(x, n, recipient, cell, zip, address1, address2) {
 	
-	var cell1 = cell.substring(0, 3);
-	var cell2 = cell.substring(3,7);
-	var cell3 = cell.substring(7, 11);
+	var e = cell.indexOf("-");
+	var ee = cell.lastIndexOf("-");
+	var cell1 = cell.substring(0, e);
+	var cell2 = cell.substring(e+1,ee);
+	var cell3 = cell.substring(ee+1);
 
 	opener.form.r_username.value = recipient;
-	opener.form.r_cell1.value = cell1;
+	opener.form.r_cell1.value = cell1; // select 태그 왜 안되지 ?
 	opener.form.r_cell2.value = cell2;
 	opener.form.r_cell3.value = cell3;
 	opener.form.r_zip.value = zip;
