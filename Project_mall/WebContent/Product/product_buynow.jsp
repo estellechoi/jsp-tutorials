@@ -317,8 +317,8 @@
 								<tr>
 									<th>배송지 선택</th>
 									<td>
-										<input type="radio" name="recipient" onclick="Recipient(1)">주문자 정보와 동일
-										<input type="radio" name="recipient" checked onclick="Recipient(2)">새로운 배송지
+										<input type="radio" name="recipient" value="0" onclick="Recipient(1)">주문자 정보와 동일
+										<input type="radio" name="recipient" value="1" checked onclick="Recipient(2)">새로운 배송지
 										<input type="button" value=" > 즐겨찾기에서 선택" class="recipient_button" onclick="Address_book('<%=session.getAttribute("email")%>')">
 									</td>
 								</tr>
@@ -329,6 +329,7 @@
 								<tr>
 									<th>주소 * </th>
 									<td>
+										<input type="hidden" name="r_id_address">
 										<input type="text" name="r_zip" id="r_zip">
 										<input type="button" value="우편번호 검색" class="zip_button" onclick="search_address_recipient()"> <p></p>
 										<input type="text" name="r_address1" id="r_address1"> 기본주소 <p></p>
@@ -447,7 +448,7 @@
 									<input type="radio" name="pay" value="1">계좌이체
 									<input type="radio" name="pay" value="2">카카오페이
 									<input type="radio" name="pay" value="3">카드결제
-								</div>	
+								</div>
 								<div id="confirm_box">
 									<input type="checkbox" name="confirm" value="1">
 									결제정보를 확인하였으며, 구매 진행에 동의합니다.
