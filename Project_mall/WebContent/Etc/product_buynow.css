@@ -2,8 +2,7 @@
 
 /* 로그인 */
 .product_buynow_section {
-	height: 2000px;
-	overflow: scroll;
+	margin-bottom: 150px;
 }
 
 .product_buynow_section #buynow_main {
@@ -129,13 +128,13 @@
 /* 결제수단 선택 박스 grid */
 #process_payment {
 	display: grid;
-	grid-template-columns: 7fr 3fr;
-	height: 200px;
-	border-collapse: collapse;
+	grid-template-columns: 4fr 6fr;
+	border: 1px solid #eeeeee;
+	margin-top: 10px;
 }
 
 #process_payment div {
-	border: 1px solid #eeeeee;
+/* 	border: 1px solid #eeeeee; */
 	font-size: 12px;
 }
 
@@ -156,11 +155,11 @@ input:focus {
 	padding-bottom: 20px;
 }
 
-#radio_box input[type=radio] {
+#radio_box input[type=radio], #confirm_box {
 	margin-left: 20px;
 }
 
-/* 최종 결제 버튼 구간 */
+/* 최종 결제 금액 강조 구간 */
 #process_payment #amount_pay_emphasis {
 	height: 70px;
 	font-size: 30px;
@@ -170,6 +169,32 @@ input:focus {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+/* 구매 컨펌 */
+#confirm_box {
+	height: 30px;
+}
+
+/* 최종 submit 버튼 구간 */
+#submit_button_box {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+#submit_button_box input[type=submit] {
+	width: 200px;
+	height: 70px;
+	border: 1px solid #495164;
+	border-radius: 5px;
+	background: #495164;
+	color: white;
+	font-size: 25px;
+	font-weight: bold;
+	cursor: pointer;
+	margin-left: 70px;
+	margin-right: 30px;
 }
 
 /* 버튼 공통 스타일 */
