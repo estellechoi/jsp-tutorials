@@ -94,7 +94,7 @@
 		cursor: pointer;
 	}
 </style>
-<script src="../Etc/product_buynow_address.js"></script>
+<script src="../Etc/product_buynow_address.js?ver=1"></script>
 </head>
 <body>
 	<form action="product_buynow_address_del.jsp" method="post">
