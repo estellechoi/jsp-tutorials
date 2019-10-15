@@ -46,7 +46,7 @@
 	if (change_member.equals("1")) {
 		String sql_m = "update member set zip="+zip+", address1='"+address1+"', address2='"+address2+"' ";
 		sql_m = sql_m + " where email='" + email + "'";
-		stmt.executeUpdate(sql_m);	
+		stmt.executeUpdate(sql_m);
 	}
 	stmt.close();
 	conn.close();
