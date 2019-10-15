@@ -158,7 +158,20 @@ input:focus {
 #radio_box input[type=radio], #confirm_box {
 	margin-left: 20px;
 }
+/* 결제수단 선택에 따른 레이어 */
+#layer_box .pay_form {
+	height: 100px;
+	display: none;
+}
 
+#layer_box .pay_form:nth-child(1) {
+	display: block;
+}
+
+#layer_box .pay_form>table, .pay_form>div {
+	width: 300px;
+	margin: auto;
+}
 /* 최종 결제 금액 강조 구간 */
 #process_payment #amount_pay_emphasis {
 	height: 70px;
@@ -173,7 +186,7 @@ input:focus {
 
 /* 구매 컨펌 */
 #confirm_box {
-	height: 30px;
+	height: 60px;
 }
 
 /* 최종 submit 버튼 구간 */
