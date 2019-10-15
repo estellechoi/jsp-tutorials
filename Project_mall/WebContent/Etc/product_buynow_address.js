@@ -34,18 +34,13 @@ function Check_Master(n) {
 
 // 부모창에 값 전달하기
 function Opener(x, n, id, recipient, cell, zip, address1, address2) {
-	
-	var e = cell.indexOf("-");
-	var ee = cell.lastIndexOf("-");
-	var cell1 = cell.substring(0, e);
-	var cell2 = cell.substring(e+1,ee);
-	var cell3 = cell.substring(ee+1);
 
+	var cellSplit = cell.split("-");
 	opener.form.r_username.value = recipient;
-	opener.form.r_id_address.value = id + "";
-	opener.form.r_cell1.value = cell1; // select 태그 왜 안되지 ?
-	opener.form.r_cell2.value = cell2;
-	opener.form.r_cell3.value = cell3;
+	opener.form.id_address.value = id + "";
+	opener.form.r_cell1.value = cellSplit[0]; // select 태그 왜 안되지 ?
+	opener.form.r_cell2.value = cellSplit[1];
+	opener.form.r_cell3.value = cellSplit[2];
 	opener.form.r_zip.value = zip;
 	opener.form.r_address1.value = address1;
 	opener.form.r_address2.value = address2;
