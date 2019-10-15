@@ -102,8 +102,24 @@ function Address_book(email) {
 	var rr = window.open("product_buynow_address.jsp?email="+email, "주소록 즐겨찾기", "width=1000, height=500");
 }
 
+// 결제수단 선택에 따른 레이어 표시
+function Pay_form(n) {
+	for(var i=0; i<3; i++) {
+		document.getElementsByClassName("pay_form")[i].style.display = "none";
+	}
+	document.getElementsByClassName("pay_form")[n].style.display = "block";
+}
+
 
 // submit
-function Submit() {
-	// 이메일 완성
+function Submit() {	
+	// 구매진행 동의여부
+	if (form.confirm.value != "1") {
+		alert("구매 진행에 동의해야 결제 가능합니다.");
+		return false;
+	}
+	else {
+		return true;
+	}
+	
 }
