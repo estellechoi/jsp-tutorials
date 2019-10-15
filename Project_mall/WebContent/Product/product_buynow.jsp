@@ -12,13 +12,7 @@
 	int qty = Integer.parseInt(request.getParameter("qty"));
 	
 	if (session.getAttribute("email") != null) {
-		
-		// 이메일
-		String email = session.getAttribute("email") + "";
-		int e = email.indexOf("@");
-		String email_id = email.substring(0, e);
-		String email_host = email.substring(e + 1);
-		
+			
 		Connection conn = Connect.connection_static();
 		Statement stmt = conn.createStatement();
 		
@@ -42,30 +36,14 @@
 			case "3": size = "M"; break;
 			case "4": size = "L"; break;
 		}
-		
-		// 휴대폰 번호
-		String cell1 = "010";
-		String cell2 = "";
-		String cell3 = "";
-
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/product_buynow.css?ver=3">
-<script src="../Etc/product_buynow.js?ver=3"></script>
-<script>
-	function Member() {
-		document.getElementById("cell1").value = "<%=cell1%>";
-		document.getElementById("email_id").value = "<%=email_id%>";
-		document.getElementById("email_host").value = "<%=email_host%>";
-		document.getElementById("email_host_select").value = "<%=email_host%>";	
-	}
-	
-
-</script>
+<link rel="stylesheet" href="../Etc/product_buynow.css?ver=4">
+<script src="../Etc/product_buynow.js?ver=5"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <!-- daum 도로명주소검색 API 시작 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -156,7 +134,7 @@
 								<!-- 구매상품 반복문 -->
 								<%
 								
-								// 상품 금액 / 총계
+								// total 총계 (모든 상품들의 금액 합), amount 상품금액 (상품수 * 가격)
 								int total = 0;
 								int amount = 0;
 								
@@ -164,7 +142,7 @@
 								int delivery_int;
 								String delivery_str = "";
 								
-								// 반복문 시작 
+								// 장바구니에서 선택한 상품들 반복문 시작 
 								amount = qty * rs.getInt("price");
 								total = total + amount;
 								%>
@@ -174,7 +152,7 @@
 									<td><%=rs.getString("name")%> <p></p> [옵션 : 사이즈 <%=size%>]</td>
 									<td><%=df.format(rs.getInt("price"))%></td>
 									<td><%=qty%></td>
-									<!-- 포인트 적립 처리 어떻게 할거 ? -->
+									<!-- 포인트 적립 처리 어떻게 할거 ? input hidden 으로 값 전송-->
 									<td><%=df.format(rs.getInt("price")*rs.getInt("point")/100)%></td>
 									<td>일반배송</td>
 									<td> <!-- 배송비 -->
@@ -206,10 +184,10 @@
 						<!-- 주문자 정보 -->
 						<!-- 로그인 회원정보 가져와서 표시하기 해야함 -->
 						<%
-						// member table
-						String sql_m = "select*from member where email='" + session.getAttribute("email") + "'";
-						ResultSet rs_m = stmt.executeQuery(sql_m);
-						rs_m.next();
+							// member table
+							String sql_m = "select*from member where email='" + session.getAttribute("email") + "'";
+							ResultSet rs_m = stmt.executeQuery(sql_m);
+							rs_m.next();
 						%>
 						<div class="table_userinformation">
 							<table>	
@@ -218,9 +196,10 @@
 								</tr>
 								<tr>
 									<th>주문자명 * </th>
-									<td><input type="text" name="username" value="<%=rs_m.getString("username")%>" readonly></td>
+									<td><input type="text" name="username" value="<%=session.getAttribute("username")%>" readonly></td>
 								</tr>
 								<%
+								// 1) 주소 정보가 있는 회원의 경우
 								if (rs_m.getInt("zip") != 0) {
 								%>
 								<tr>
@@ -233,6 +212,7 @@
 									</td>
 								</tr>
 								<%
+								// 2) 주소 정보가 없는 회원
 								} else {
 								%>
 								<tr>
@@ -249,12 +229,11 @@
 								
 								if (rs_m.getString("cell") != null) {
 									String cell = rs_m.getString("cell");
-									int i = cell.indexOf("-");
-									int ii = cell.lastIndexOf("-");
-									cell1 = cell.substring(0, i);
-									cell2 = cell.substring(i+1,ii);
-									cell3 = cell.substring(ii+1);
+									String cellSplit[] = cell.split("-");
 								%>
+								<script>
+									document.getElementById("cell1").value = "<%=cellSplit[0]%>";
+								</script>
 								<tr>
 									<th>휴대전화 * </th>
 									<td>
@@ -266,8 +245,8 @@
 											<option value="018">018</option>
 											<option value="019">019</option>
 										</select>-
-										<input type="text" name="cell2" size="5" value="<%=cell2%>">-
-										<input type="text" name="cell3" size="5" value="<%=cell3%>">
+										<input type="text" name="cell2" size="5" value="<%=cellSplit[1]%>">-
+										<input type="text" name="cell3" size="5" value="<%=cellSplit[2]%>">
 									</td>
 								</tr>
 								<%
@@ -290,12 +269,19 @@
 								</tr>								
 								<%
 								}
+								
+								// 이메일
+								String email = session.getAttribute("email") + "";
+								String emailSplit[] = email.split("@");
 								%>
+								<script>
+									document.getElementById("email_host_select").value = "<%=emailSplit[1]%>";
+								</script>
 								<tr>
 									<th>이메일 * </th>
 									<td>
-										<input type="text" name="email_id" id="email_id" size="7">@
-										<input type="text" name="email_host" id="email_host" size="7">
+										<input type="text" name="email_id" id="email_id" size="7" value="<%=emailSplit[0]%>">@
+										<input type="text" name="email_host" id="email_host" size="7" value="<%=emailSplit[1]%>">
 										<select name="email_host_select" id="email_host_select" onchange="Email(this.value)">
 											<option value="직접입력">직접입력</option>
 											<option value="naver.com">naver.com</option>
@@ -317,8 +303,9 @@
 								<tr>
 									<th>배송지 선택</th>
 									<td>
+										<input type="hidden" name="id_address"><!-- address table 에 레코드가 있다면 그 id 값을 부여 -->
 										<input type="radio" name="recipient" value="0" onclick="Recipient(1)">주문자 정보와 동일
-										<input type="radio" name="recipient" value="1" checked onclick="Recipient(2)">새로운 배송지
+										<input type="radio" name="recipient" value="1" onclick="Recipient(2)" checked>새로운 배송지
 										<input type="button" value=" > 즐겨찾기에서 선택" class="recipient_button" onclick="Address_book('<%=session.getAttribute("email")%>')">
 									</td>
 								</tr>
@@ -329,7 +316,6 @@
 								<tr>
 									<th>주소 * </th>
 									<td>
-										<input type="hidden" name="r_id_address">
 										<input type="text" name="r_zip" id="r_zip">
 										<input type="button" value="우편번호 검색" class="zip_button" onclick="search_address_recipient()"> <p></p>
 										<input type="text" name="r_address1" id="r_address1"> 기본주소 <p></p>
@@ -375,9 +361,11 @@
 									document.getElementById("point").value = "0";
 									document.getElementById("use_point").value = "<%=df.format(rs_m.getInt("point"))%>";
 									document.form.amount_discount.value = "<%=df.format(rs_m.getInt("point"))%>";
+									document.form.amount_discount_hidden.value = "<%=rs_m.getInt("point")%>";
 									
 									// 최종 결제금액 !!
 									document.form.amount_pay.value = "<%=df.format(total + delivery_int - rs_m.getInt("point"))%>";
+									document.form.amount_pay_hidden.value = "<%=total + delivery_int - rs_m.getInt("point")%>";
 									document.getElementById("amount_pay_emphasis").innerHTML = "￦ "+"<%=df.format(total + delivery_int - rs_m.getInt("point"))%>";
 								}
 								
@@ -396,11 +384,13 @@
 										document.getElementById("point").value = comma(point); // 콤마표시
 										
 										// 할인 금액 = 사용 포인트
-										document.form.amount_discount.value = use + "";
+										document.form.amount_discount.value = comma(use);
+										document.form.amount_discount_hidden.value = use + "";
 										
 										// 최종 결제금액 !!
 										var x = <%=total + delivery_int%> - use;
 										document.form.amount_pay.value = comma(x);
+										document.form.amount_pay_hidden.value = x;
 										document.getElementById("amount_pay_emphasis").innerHTML = "￦ "+ comma(x);
 									}
 								}
@@ -422,16 +412,25 @@
 								</tr>
 								<tr>
 									<th>합계 금액</th>
-									<td>￦ <input class="amount_box" type="text" name="amount_buy" readonly value="<%=df.format(total + delivery_int)%>"></td>
+									<td>
+										￦ <input type="hidden" name="amount_buy_hidden" value="<%=total + delivery_int%>">
+										<input class="amount_box" type="text" name="amount_buy" readonly value="<%=df.format(total + delivery_int)%>">
+									</td>
 								</tr>
 								<tr>
 									<!-- 이거 어떡하지 ? -->
 									<th>할인 금액</th>
-									<td>￦ <input class="amount_box" type="text" name="amount_discount" readonly value="0"></td>
+									<td>
+										￦ <input type="hidden" name="amount_discount_hidden" value="0">
+										<input class="amount_box" type="text" name="amount_discount" readonly value="0">
+									</td>
 								</tr>
 								<tr>
 									<th>결제 금액</th>
-									<td>￦ <input class="amount_box" type="text" name="amount_pay" readonly value="<%=df.format(total + delivery_int)%>"></td>
+									<td>
+										￦ <input type="hidden" name="amount_pay_hidden" value="<%=total + delivery_int%>">
+										<input class="amount_box" type="text" name="amount_pay" readonly value="<%=df.format(total + delivery_int)%>">
+									</td>
 								</tr>
 								<!-- 여백 -->
 								<tr>
@@ -444,12 +443,37 @@
 					<div id="process_payment">
 							<div>
 								<div id="radio_box">
-									<input type="radio" name="pay" value="0" checked>무통장 입금
-									<input type="radio" name="pay" value="1">계좌이체
-									<input type="radio" name="pay" value="2">카카오페이
-									<input type="radio" name="pay" value="3">카드결제
+									<input type="radio" name="pay" value="0" onclick="Pay_form(0)" checked>무통장 입금/계좌이체
+									<input type="radio" name="pay" value="2" onclick="Pay_form(1)">카카오페이
+									<input type="radio" name="pay" value="3" onclick="Pay_form(2)">카드결제
+								</div>
+								<div id="layer_box">
+											<!-- 무통장입금/계좌이체 -->
+											<div class="pay_form">
+												<table>
+												 <tr>
+												 	<td>입금자명</td>
+												 	<td><input type="text" name="sender"></td>
+												 </tr>
+												 <tr>
+												 	<td>입금 계좌</td>
+												 	<td>우리은행 1005-003-000000</td>
+												 </tr>
+												</table>
+											</div>
+											<!-- 카카오페이 -->
+											<div class="pay_form">
+												<div>카카오 송금 서비스를 이용합니다.</div>
+											</div>
+											<!-- 카드결제 -->
+											<div class="pay_form">
+												<div>무이자할부를 원하시는 경우 장바구니에서 무이자할부 상품만 선택하여 주문하여 주시기 바랍니다.</div>
+											</div>
 								</div>
 								<div id="confirm_box">
+									<input type="checkbox" name="pay_keychain" value="1">
+									결제수단과 입력정보를 저장하고 다음에도 사용합니다.
+									<p></p>
 									<input type="checkbox" name="confirm" value="1">
 									결제정보를 확인하였으며, 구매 진행에 동의합니다.
 								</div>
