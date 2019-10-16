@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+#account_edit_header {
+	height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+/* 	font-family: 'Gill Sans MT Std'; */
+	font-weight: 700;
+	letter-spacing: 2px;
+	font-size: 14px;
+	color: #353535;
+}
+
+/* 정보 테이블 */
+.account_edit_section table, .submit {
+	width: 800px;
+	margin: auto;
+	border-collapse: collapse;
+}
+
+.account_edit_section table {
+	border: 1px solid #BABABA;
+	border-radius: 10px;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+.account_edit_section table td {
+	height: 50px;
+	padding-left: 10px;
+	font-size: 14px;
+}
+
+.account_edit_section table caption {
+	font-size: 20px;
+	font-weight: bold;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	padding-left: 100px;
+	color: #495164;
+	text-align: left;
+}
+
+.account_edit_section table td input, select {
+	height: 30px;
+	font-size: 14px;
+	padding-left: 10px;
+	margin: 1px;
+}
+
+/* 제출 버튼 */
+.submit {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 50px;
+}
+
+/* 버튼 공통 */
+input[type=submit] {
+	border: 1px solid #495164;
+	border-radius: 5px;
+	background: #495164;
+	color: white;
+	font-size: 12px;
+	width: 120px;
+	height: 30px;
+	cursor: pointer;
+}
+
+input[type=button] {
+	border: 1px solid #495164;
+	border-radius: 5px;
+	background: #495164;
+	color: white;
+	font-size: 12px;
+	width: 120px;
+	height: 30px;
+	cursor: pointer;	
+}
+
+a {
+	color: #3897F0;
+	font-weight: bold;
+	font-size: 14px;
+	text-decoration: none;
+}
+
+/**/
