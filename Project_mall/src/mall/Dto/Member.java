@@ -6,11 +6,12 @@ package mall.Dto;
 public class Member {
 	
 	// 자바빈 객체 property="*" 통해 같은 이름을 갖는 파라미터 값을 부여하였음 
+	private int id;
 	private int usertype;
 	private String email;
 	private String username;
 	private String pwd;
-	private int cell;
+	private String cell;
 	private int zip;
 	private String address1;
 	private String address2;
@@ -20,8 +21,16 @@ public class Member {
 	private String agree_email;
 	
 	// getters and setters
+	
+	
 	public int getUsertype() {
 		return usertype;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public void setUsertype(int usertype) {
 		this.usertype = usertype;
@@ -44,10 +53,10 @@ public class Member {
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
-	public int getCell() {
+	public String getCell() {
 		return cell;
 	}
-	public void setCell(int cell) {
+	public void setCell(String cell) {
 		this.cell = cell;
 	}
 	public int getZip() {
