@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+#myorder_header {
+	height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+/* 	font-family: 'Gill Sans MT Std'; */
+	font-weight: 700;
+	letter-spacing: 2px;
+	font-size: 14px;
+	color: #353535;
+}
+
+.myorder_section table {
+	border: 1px solid #495164;
+	width: 800px;
+	margin: auto;
+}
+
+.myorder_section table caption {
+	text-align: left;
+	padding-left: 10px;
+	font-size: 15px;
+	font-weight: bold;
+	color: #495164;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.myorder_section table td {
+	color: #555555;
+}
+
+.myorder_section table td:nth-child(1) {
+	width: 20%;
+	text-align: center;
+}
+
+.myorder_section table td:nth-child(2) {
+	width: 50%;
+	text-align: left;
+}
+
+.myorder_section table td:nth-child(3) {
+	width: 30%;
+	text-align: center;
+}
+
+a {
+	color: #3897F0;
+	font-weight: bold;
+	font-size: 18px;
+	text-decoration: none;	
+}
