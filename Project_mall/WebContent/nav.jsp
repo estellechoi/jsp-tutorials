@@ -63,7 +63,7 @@
 				if (session.getAttribute("email") != null) {
 				%>
 				<li><a href="../Member/signout.jsp">SIGN OUT</a></li>
-				<li><a href="">MY ACCOUNT</a></li>
+				<li><a href="../Member/account.jsp">MY ACCOUNT</a></li>
 				<%
 				} else {
 				%>
