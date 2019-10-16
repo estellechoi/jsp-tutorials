@@ -16,9 +16,10 @@
 	String product_code = request.getParameter("product_code");
 	String size = request.getParameter("size");
 	String qty = request.getParameter("qty");
+	String delivery_fee = request.getParameter("delivery_fee");
 	String get_point = request.getParameter("get_point"); // 적립 포인트
 	String r_msg = ""; // 배송 메세지
-		if (request.getParameter("r_msg") != null) {
+		if (!(request.getParameter("r_msg").equals(""))) {
 			r_msg = request.getParameter("r_msg");
 		}
 	
@@ -36,7 +37,7 @@
 	
 	// 무통장입금/계좌이체의 경우
 	String sender = "";
-	if (request.getParameter("sender") != null) {
+	if (request.getParameter("sender") != "" && request.getParameter("sender") != null) {
 		sender = request.getParameter("sender");
 	}
 	else {
@@ -77,6 +78,7 @@
 	}
 	else {
 		// input text 의 값이 없으면 null 이 아닌 "" 값이 넘어온다 !!!!
+		// 여기서 equals() 로 하지 않아도 되는 이유는 ?
 		if (request.getParameter("id_address") != "") {
 			id_address = request.getParameter("id_address");
 			// product_buynow.jsp 에서 script로 값 부여
@@ -92,35 +94,36 @@
 	}
 
 	
-// 	String sql = "insert into ordered(username, email, product_code, size, qty, id_address, get_point, amount_buy, amount_discount, amount_pay, pay, pay_keychain, sender, confirm, r_msg)";
-// 	sql = sql + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-// 	PreparedStatement pstmt = conn.prepareStatement(sql);
-// 	pstmt.setString(1, username);
-// 	pstmt.setString(2, email);
-// 	pstmt.setString(3, product_code);
-// 	pstmt.setString(4, size);	
-// 	pstmt.setString(5, qty);
-// 	pstmt.setString(6, id_address);
-// 	pstmt.setString(7, get_point);
-// 	pstmt.setString(8, amount_buy);
-// 	pstmt.setString(9, amount_discount);
-// 	pstmt.setString(10, amount_pay);
-// 	pstmt.setString(11, pay);
-// 	pstmt.setString(12, pay_keychain);
-// 	pstmt.setString(13, sender);
-// 	pstmt.setString(14, confirm);
-// 	pstmt.setString(15, r_msg);
-// 	pstmt.executeUpdate();
+	String sql = "insert into ordered(username, email, product_code, size, qty, delivery_fee, id_address, get_point, amount_buy, amount_discount, amount_pay, pay, pay_keychain, sender, confirm, r_msg)";
+	sql = sql + " values(?,?,?,?,?,?,?,?, ?, ?,?,?,?,?,?,?)";
+	PreparedStatement pstmt = conn.prepareStatement(sql);
+	pstmt.setString(1, username);
+	pstmt.setString(2, email);
+	pstmt.setString(3, product_code);
+	pstmt.setString(4, size);	
+	pstmt.setString(5, qty);
+	pstmt.setString(6, delivery_fee);
+	pstmt.setString(7, id_address);
+	pstmt.setString(8, get_point);
+	pstmt.setString(9, amount_buy);
+	pstmt.setString(10, amount_discount);
+	pstmt.setString(11, amount_pay);
+	pstmt.setString(12, pay);
+	pstmt.setString(13, pay_keychain);
+	pstmt.setString(14, sender);
+	pstmt.setString(15, confirm);
+	pstmt.setString(16, r_msg);
+	pstmt.executeUpdate();
 	
-// 	// table ordered 추가 후 방금 추가한 레코드의 id 값 가져가자 !
-// 	sql = "select max(id) as id from ordered where email='"+email+"'";
-// 	ResultSet rs = stmt.executeQuery(sql);
-// 	rs.next();
+	// table ordered 추가 후 방금 추가한 레코드의 id 값 가져가자 !
+	sql = "select max(id) as id from ordered where email='"+email+"'";
+	ResultSet rs = stmt.executeQuery(sql);
+	rs.next();
 	
-// 	// 페이지 이동 (마이오더 페이지)
-// 	response.sendRedirect("../Member/order.jsp?id=" + rs.getInt("id"));
+	// 페이지 이동 (마이오더 페이지)
+	response.sendRedirect("../Member/product_buynow_view.jsp?id=" + rs.getInt("id"));
 	
-// 	// 종료
-// 	pstmt.close();
-// 	conn.close();
+	// 종료
+	pstmt.close();
+	conn.close();
 %>
