@@ -156,8 +156,9 @@
 									<td><%=df.format(rs.getInt("price")*rs.getInt("point")/100)%></td>
 									<td>일반배송</td>
 									<td> <!-- 배송비 -->
-									<%									
-										if (amount >= 70000) {
+									<%			
+									// 전체 상품 구매 금액 합계에 따라 배송비가 결정되는데, 각 상품 반복문 내에서 어떻게 배송비를 표시하지 ?
+										if (total >= 70000) {
 											delivery_int = 0;
 											delivery_str = "무료";
 										} else {
@@ -169,8 +170,10 @@
 									</td>
 									<td><%=df.format(amount)%></td>
 								</tr>
+								<!-- 반복문 종료 -->
 								<!-- 선택상품 전체 + 배송비 합계 -->
 								<tr>
+									<input type="hidden" name="delivery_fee" value="<%=delivery_int%>">
 									<td colspan="9" class="table_footer">상품 금액  <%=df.format(total) %> + 배송비 <%=df.format(delivery_int)%> = 합계 <%=df.format(total + delivery_int)%></td>
 								</tr>
 							</table>
