@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+.account_section #account_header {
+	height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+/* 	font-family: 'Gill Sans MT Std'; */
+	font-weight: 700;
+	letter-spacing: 2px;
+	font-size: 14px;
+	color: #353535;
+}
+
+/* ACCOUNT 본문 grid display */
+.account_section .account_grid_container {
+	display: grid;
+	grid-template-columns: 8fr 2fr;
+}
+
+.account_section table {
+	width: 1000px;
+	margin: auto;
+}
+
+.account_section table caption {
+	text-align: left;
+	font-weight: bold;
+	font-size: 15px;
+	padding-top: 50px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+}
+
+.account_section table td {
+	border: 1px solid #eeeeee;
+	font-size: 13px;
+	height: 30px;
+	text-align: center;
+}
