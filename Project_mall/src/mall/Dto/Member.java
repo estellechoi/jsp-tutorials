@@ -12,25 +12,26 @@ public class Member {
 	private String username;
 	private String pwd;
 	private String cell;
-	private int zip;
+	private String zip;
 	private String address1;
 	private String address2;
+	private int id_address;
 	private int sex;
 	private String birth;
 	private String agree_SMS;
 	private String agree_email;
+	private int point;
+	private String writeday;
 	
 	// getters and setters
-	
-	
-	public int getUsertype() {
-		return usertype;
-	}
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public int getUsertype() {
+		return usertype;
 	}
 	public void setUsertype(int usertype) {
 		this.usertype = usertype;
@@ -59,10 +60,10 @@ public class Member {
 	public void setCell(String cell) {
 		this.cell = cell;
 	}
-	public int getZip() {
+	public String getZip() {
 		return zip;
 	}
-	public void setZip(int zip) {
+	public void setZip(String zip) {
 		this.zip = zip;
 	}
 	public String getAddress1() {
@@ -76,6 +77,12 @@ public class Member {
 	}
 	public void setAddress2(String address2) {
 		this.address2 = address2;
+	}
+	public int getId_address() {
+		return id_address;
+	}
+	public void setId_address(int id_address) {
+		this.id_address = id_address;
 	}
 	public int getSex() {
 		return sex;
@@ -101,15 +108,20 @@ public class Member {
 	public void setAgree_email(String agree_email) {
 		this.agree_email = agree_email;
 	}
-	
-	// 모든 값을 출력하고싶을 때 ..? 
-	@Override
-	public String toString() {
-		return "Member [usertype=" + usertype + ", email=" + email
-				+ ", username=" + username + ", pwd=" + pwd + ", cell=" + cell
-				+ ", zip=" + zip + ", address1=" + address1 + ", address2="
-				+ address2 + ", sex=" + sex + ", birth=" + birth
-				+ ", agree_SMS=" + agree_SMS + ", agree_email=" + agree_email
-				+ "]";
+	public int getPoint() {
+		return point;
 	}
+	public void setPoint(int point) {
+		this.point = point;
+	}
+	public String getWriteday() {
+		return writeday;
+	}
+	public void setWriteday(String writeday) {
+		this.writeday = writeday;
+	}
+	
+	
+
+
 }
