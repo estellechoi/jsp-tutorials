@@ -88,30 +88,6 @@
 		document.getElementsByName("cell")[0].value = cell1 + "-" + cell2 + "-" + cell3;
 	}
 </script>
-<!-- daum 도로명주소검색 API 시작 -->
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-// 우편번호 검색 버튼 클릭하여 함수 호출
-function search_address() {
-    new daum.Postcode({
-        oncomplete: function(data) {
-        	// 사용자가 도로명 주소를 선택했을 경우
-            if (data.userSelectedType === 'R') { 
-                addr = data.roadAddress;
-                
-            // 사용자가 지번 주소를 선택했을 경우(J)
-            } else { 
-                addr = data.jibunAddress;
-            }
-            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById("zip").value = data.zonecode; // 우편번호
-            document.getElementById("address1").value = addr;  // 주소
-            // 커서를 상세주소 필드로 이동한다.
-            document.getElementById("address2").focus();
-        }
-    }).open();	
-}
-</script>
 </head>
 <body onload="Filled()">
 	<!-- 네비게이션 바 -->
@@ -122,129 +98,137 @@ function search_address() {
 		<div id="grid_right">
 			<section class="account_edit_section">
 				<div id="account_edit_header">정보 수정</div>
-				<form action="account_edit_ok.jsp" method="post">
-					<!-- table member 레코드 id 값 -->
-					<input type="hidden" name="id" value="<%=rs.getInt("id")%>">
-					<input type="hidden" name="birth" value="<%=rs.getString("birth")%>">
-					<input type="hidden" name="cell" value="<%=rs.getString("cell")%>">
-					<table>
-						<tr>
-							<th>회원구분</th>
-							<td><%=usertype%></td>
-						</tr>
-						<tr>
-							<th>이름</th>
-							<td>
-								<input type="text" name="username" value="<%=session.getAttribute("username")%>">
-							</td>
-						</tr>
-						<tr>
-							<th>이메일</th>
-							<td>
-								<input type="text" name="email" value="<%=session.getAttribute("email")%>">
-							</td>
-						</tr>
-						<tr>
-							<th>주소</th>
-							<%
-								if (rs.getString("zip") != null) {
-							%>
-							<td>
-								<input type="text" name="zip" id="zip" value="<%=rs.getInt("zip")%>" size="5">
-								<input type="button" value="우편번호 찾기" onclick="search_address()">
-								<br>
-								<input type="text" name="address1" id="address1" value="<%=rs.getString("address1")%>"><br>
-								<input type="text" name="address2" id="address2" value="<%=rs.getString("address2")%>">
-							</td>
-							<%
-								} else {
-							%>
-							<td>
-								<input type="text" name="zip" id="zip" size="5">
-								<input type="button" value="우편번호 찾기" onclick="search_address()">
-								<br>
-								<input type="text" name="address1" id="address1"><br>
-								<input type="text" name="address2" id="address2">
-							</td>		
-							<%
-								}
-							%>
-						</tr>
-						<tr>
-							<th>휴대전화</th>
-							<%
-								if (rs.getString("cell") != null) {
-								String cell = rs.getString("cell");
-								String cellSplit[] = cell.split("-");
-							%>
-							<td>
-								<input type="text" name="cell1" value="<%=cellSplit[0]%>" size="5" onblur="Cell()">-
-								<input type="text" name="cell2" value="<%=cellSplit[1]%>" size="5" onblur="Cell()">-
-								<input type="text" name="cell3" value="<%=cellSplit[2]%>" size="5" onblur="Cell()">
-							</td>
-							<%
-								} else {
-							%>
-							<td>
-								<input type="text" name="cell1" size="5" onblur="Cell()">-
-								<input type="text" name="cell2" size="5" onblur="Cell()">-
-								<input type="text" name="cell3" size="5" onblur="Cell()">
-							</td>							
-							<%
-								}
-							%>
-						</tr>
-						<tr>
-							<th>성별</th>
-							<td><%=sex%></td>
-						</tr>
-						<tr>
-							<th>생년월일</th>
-							<%
-
-							%>
-							<td>
-								<select name="birth_yy" onchange="Birth()">
+				<div class="account_grid_container">	
+					<div class="account_grid_left">
+						<form action="account_edit_ok.jsp" method="post">
+							<!-- table member 레코드 id 값 -->
+							<input type="hidden" name="id" value="<%=rs.getInt("id")%>">
+							<input type="hidden" name="birth" value="<%=rs.getString("birth")%>">
+							<input type="hidden" name="cell" value="<%=rs.getString("cell")%>">
+							<table>
+								<tr>
+									<th>회원구분</th>
+									<td><%=usertype%></td>
+								</tr>
+								<tr>
+									<th>이름</th>
+									<td>
+										<input type="text" name="username" value="<%=session.getAttribute("username")%>">
+									</td>
+								</tr>
+								<tr>
+									<th>이메일</th>
+									<td>
+										<input type="text" name="email" value="<%=session.getAttribute("email")%>">
+									</td>
+								</tr>
+								<tr>
+									<th>주소</th>
 									<%
-									for (int i = toyear; i>=1950; i--) {
+										if (rs.getString("zip") != null) {
 									%>
-									<option value="<%=i%>"><%=i%></option>
+									<td>
+										<input type="text" name="zip" id="zip" value="<%=rs.getInt("zip")%>" size="5" readonly>
+										<input type="button" value="주소록 열기" onclick="Address_book('<%=session.getAttribute("email")%>')">
+										<br> <!-- 주소록 기능을 하는 address.jsp 페이지 별도로 생성해서 개인정보수정/구매시 다시 연결해야할듯 -->
+										<input type="text" name="address1" id="address1" value="<%=rs.getString("address1")%>" readonly><br>
+										<input type="text" name="address2" id="address2" value="<%=rs.getString("address2")%>" readonly>
+									</td>
 									<%
-									}
+										} else {
 									%>
-								</select>
-								<select name="birth_mm" onchange="Birth()">
+									<td>
+										<input type="text" name="zip" id="zip" size="5">
+										<input type="button" value="우편번호 찾기" onclick="search_address()">
+										<br>
+										<input type="text" name="address1" id="address1"><br>
+										<input type="text" name="address2" id="address2">
+									</td>		
 									<%
-									for (int i=1; i<=12; i++) {
+										}
 									%>
-									<option value="<%=i%>"><%=i%></option>
+								</tr>
+								<tr>
+									<th>휴대전화</th>
 									<%
-									}
+										if (rs.getString("cell") != null) {
+										String cell = rs.getString("cell");
+										String cellSplit[] = cell.split("-");
 									%>
-								</select>
-								<select name="birth_dd" onchange="Birth()">
+									<td>
+										<input type="text" name="cell1" value="<%=cellSplit[0]%>" size="5" onblur="Cell()">-
+										<input type="text" name="cell2" value="<%=cellSplit[1]%>" size="5" onblur="Cell()">-
+										<input type="text" name="cell3" value="<%=cellSplit[2]%>" size="5" onblur="Cell()">
+									</td>
 									<%
-									for (int i=1; i<=31; i++) {
+										} else {
 									%>
-									<option value="<%=i%>"><%=i%></option>
+									<td>
+										<input type="text" name="cell1" size="5" onblur="Cell()">-
+										<input type="text" name="cell2" size="5" onblur="Cell()">-
+										<input type="text" name="cell3" size="5" onblur="Cell()">
+									</td>							
 									<%
-									}
+										}
 									%>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<th>수신 동의</th>
-							<td>
-								<!-- 체크하면 1 , 체크 해제하면 null -->
-								<input type="checkbox" name="agree_SMS" value="1"> SMS 수신 동의
-								<input type="checkbox" name="agree_email" value="1"> 이메일 수신 동의
-							</td>
-						</tr>
-					</table>
-					<div class="submit"><input type="submit" value="수정"></div>
-					
-				</form>
+								</tr>
+								<tr>
+									<th>성별</th>
+									<td><%=sex%></td>
+								</tr>
+								<tr>
+									<th>생년월일</th>
+									<%
+		
+									%>
+									<td>
+										<select name="birth_yy" onchange="Birth()">
+											<%
+											for (int i = toyear; i>=1950; i--) {
+											%>
+											<option value="<%=i%>"><%=i%></option>
+											<%
+											}
+											%>
+										</select>
+										<select name="birth_mm" onchange="Birth()">
+											<%
+											for (int i=1; i<=12; i++) {
+											%>
+											<option value="<%=i%>"><%=i%></option>
+											<%
+											}
+											%>
+										</select>
+										<select name="birth_dd" onchange="Birth()">
+											<%
+											for (int i=1; i<=31; i++) {
+											%>
+											<option value="<%=i%>"><%=i%></option>
+											<%
+											}
+											%>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<th>수신 동의</th>
+									<td>
+										<!-- 체크하면 1 , 체크 해제하면 null -->
+										<input type="checkbox" name="agree_SMS" value="1"> SMS 수신 동의
+										<input type="checkbox" name="agree_email" value="1"> 이메일 수신 동의
+									</td>
+								</tr>
+							</table>
+							<div class="submit"><input type="submit" value="수정"></div>
+						</form>
+					</div>
+					<!-- ACCOUNT 페이지 메뉴 네비게이션바 -->
+					<div class="account_grid_right">
+						<jsp:include page="account_nav.jsp" flush="false"/>
+					</div>
+				</div>
+				
 			</section>
 		</div>
 	</div>
