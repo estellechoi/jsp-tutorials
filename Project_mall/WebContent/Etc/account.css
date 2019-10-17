@@ -12,12 +12,6 @@
 	color: #353535;
 }
 
-/* ACCOUNT 본문 grid display */
-.account_section .account_grid_container {
-	display: grid;
-	grid-template-columns: 8fr 2fr;
-}
-
 .account_section table {
 	width: 1000px;
 	margin: auto;
