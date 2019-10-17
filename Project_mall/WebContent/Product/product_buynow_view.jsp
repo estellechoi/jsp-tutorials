@@ -91,6 +91,8 @@
 						</tr>
 					</table>
 					<%
+						// 주문자 정보와 동일한 배송지를 선택한 경우, 주소록에 주소 자동 추가되도록 설정하지 않으면 아래 쿼리문의 rs 값은 비어 있다.
+						// 주문시, ordered table 의 id_address 값도 부여돼야한다.
 						sql = "select*from ordered, address where ordered.id=" + id + " and address.id = ordered.id_address";
 						rs = stmt.executeQuery(sql);
 						rs.next();
