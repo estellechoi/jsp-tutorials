@@ -99,7 +99,7 @@ function Recipient(r) {
 function Address_book(email) {
 	
 	// 새 창 열기
-	var rr = window.open("product_buynow_address.jsp?email="+email, "주소록 즐겨찾기", "width=1000, height=500");
+	var rr = window.open("../Product/product_buynow_address.jsp?email="+email, "주소록 즐겨찾기", "width=1000, height=500");
 }
 
 // 결제수단 선택에 따른 레이어 표시
