@@ -93,7 +93,9 @@
 									</tr>
 									<tr>
 										<th>휴대전화</th>
-										<td><input type="text" name="cell" placeholder="'-' 빼고 입력해주세요."></td>
+										<td>
+											<input type="text" name="cell" placeholder="'-' 포함하여 입력해주세요.">
+										</td>
 										<td id="cell_x"></td>
 									</tr>
 									<tr>
