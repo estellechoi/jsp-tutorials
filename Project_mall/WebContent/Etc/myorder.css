@@ -12,6 +12,39 @@
 	color: #353535;
 }
 
+/* ACCOUNT 본문 grid display */
+.myorder_section .account_grid_container {
+	display: grid;
+	grid-template-columns: 8fr 2fr;
+}
+/* 조회기간 */
+.account_grid_left ul {
+	width: 800px;
+	margin: auto;
+	display: flex;
+	justify-content: center;
+}
+
+.account_grid_left ul li {
+	list-style-type: none;
+	margin: 35px;
+	cursor: pointer;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.account_grid_left ul li:hover {
+	color: #FF8000;
+}
+
+
+#period_controller {
+	width: 800px;
+	margin: auto;
+	text-align: center;
+}
+
+/* 주문내역마다 테이블 */
 .myorder_section table {
 	border: 1px solid #495164;
 	width: 800px;
