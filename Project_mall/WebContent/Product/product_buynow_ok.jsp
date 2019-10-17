@@ -77,6 +77,7 @@
 		id_address = rs.getString("id_address");
 	}
 	else {
+		// 배송지 즐겨찾기에서 선택한 경우
 		// input text 의 값이 없으면 null 이 아닌 "" 값이 넘어온다 !!!!
 		// 여기서 equals() 로 하지 않아도 되는 이유는 ?
 		if (request.getParameter("id_address") != "") {
@@ -84,8 +85,10 @@
 			// product_buynow.jsp 에서 script로 값 부여
 
 		}
+		// 주문자 정보와 동일
 		else {
-			// member 테이블 id_address 값 가져와야 한다 ! (주문자 정보와 동일)
+			// member 테이블 id_address 값 가져와야 한다 !
+			// 회원가입시 주소정보를 입력하면 id_address 값, table address에도 레코드 등록돼야 함
 			String sql = "select * from member where email='" + email + "'";
 			ResultSet rs = stmt.executeQuery(sql);
 			rs.next();
@@ -121,7 +124,7 @@
 	rs.next();
 	
 	// 페이지 이동 (마이오더 페이지)
-	response.sendRedirect("../Member/product_buynow_view.jsp?id=" + rs.getInt("id"));
+	response.sendRedirect("../Product/product_buynow_view.jsp?id=" + rs.getInt("id"));
 	
 	// 종료
 	pstmt.close();
