@@ -130,7 +130,8 @@
 									<td>
 										<input type="text" name="zip" id="zip" value="<%=rs.getInt("zip")%>" size="5" readonly>
 										<input type="button" value="주소록 열기" onclick="Address_book('<%=session.getAttribute("email")%>')">
-										<br> <!-- 주소록 기능을 하는 address.jsp 페이지 별도로 생성해서 개인정보수정/구매시 다시 연결해야할듯 -->
+										<br>
+										<!-- 주소록 기능을 하는 address.jsp 페이지 별도로 생성해서 개인정보수정/구매시 다시 연결해야할듯 -->
 										<input type="text" name="address1" id="address1" value="<%=rs.getString("address1")%>" readonly><br>
 										<input type="text" name="address2" id="address2" value="<%=rs.getString("address2")%>" readonly>
 									</td>
