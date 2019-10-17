@@ -5,6 +5,7 @@
 <%@ page import="java.sql.*"%>
 <%
 	Connection conn = Connect.connection_static();
+	Statement stmt = conn.createStatement();
 	request.setCharacterEncoding("UTF-8");
 %>
 
@@ -37,26 +38,50 @@
 %>
 
 <%
-	String sql = "insert into member(usertype, email, username, pwd, cell, zip, address1, address2, sex, birth, agree_SMS, agree_email, writeday)";
-	sql = sql + " values(?,?,?,?,?,?,?,?,?,?,?,?,now())";
+	// mem.getZip() 값이 null 이 아니면
+	String id_address;
+	
+	if (mem.getZip() != null) {
+		// address 테이블에 레코드 추가
+		String sql = "insert into address(email, recipient, zip, address1, address2, cell, destination, writeday)";
+		sql = sql + " values('" + mem.getEmail() + "', '" + mem.getUsername() + "', '" + mem.getZip() + "',";
+		sql = sql + " '"+mem.getAddress1()+"', '"+mem.getAddress2()+"', '"+mem.getCell()+"', '집', now())";
+		stmt.executeUpdate(sql);
+		
+		// member 테이블에 넣을 id_address 구하기
+		// 가장 최근 레코드의 id 값 (방금 추가한 레코드)
+		sql = "select max(id) as id_address from address";
+		ResultSet rs = stmt.executeQuery(sql);
+		rs.next();
+		id_address = rs.getString("id_address");
+	}
+	// mem.getZip() 값이 null (회원가입시 주소 미입력)
+	else {
+		id_address = null;
+	}
+
+	String sql = "insert into member(usertype, email, username, pwd, cell, zip, address1, address2, sex, birth, agree_SMS, agree_email, id_address,writeday)";
+	sql = sql + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,now())";
 	PreparedStatement pstmt = conn.prepareStatement(sql);
 	
 	pstmt.setInt(1, mem.getUsertype());
 	pstmt.setString(2, mem.getEmail());
 	pstmt.setString(3, mem.getUsername());
 	pstmt.setString(4, mem.getPwd());
-	pstmt.setInt(5, mem.getCell());
-	pstmt.setInt(6, mem.getZip());
+	pstmt.setString(5, mem.getCell());
+	pstmt.setString(6, mem.getZip());
 	pstmt.setString(7, mem.getAddress1());
 	pstmt.setString(8, mem.getAddress2());
 	pstmt.setInt(9, mem.getSex());
 	pstmt.setString(10, mem.getBirth());
 	pstmt.setString(11, mem.getAgree_SMS());
 	pstmt.setString(12, mem.getAgree_email());
+	pstmt.setString(13, id_address);
 	
 	pstmt.executeUpdate();
 	
 	pstmt.close();
+	stmt.close();
 	conn.close();
 	
 	response.sendRedirect("signin.jsp");
