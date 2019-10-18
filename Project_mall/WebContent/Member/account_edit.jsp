@@ -88,6 +88,7 @@
 		document.getElementsByName("cell")[0].value = cell1 + "-" + cell2 + "-" + cell3;
 	}
 </script>
+<script src="../Etc/common.js?after"></script>
 </head>
 <body onload="Filled()">
 	<!-- 네비게이션 바 -->
@@ -129,7 +130,7 @@
 									%>
 									<td>
 										<input type="text" name="zip" id="zip" value="<%=rs.getInt("zip")%>" size="5" readonly>
-										<input type="button" value="주소록 열기" onclick="Address_book('<%=session.getAttribute("email")%>')">
+										<input type="button" value="주소록 열기" onclick="Address()">
 										<br>
 										<!-- 주소록 기능을 하는 address.jsp 페이지 별도로 생성해서 개인정보수정/구매시 다시 연결해야할듯 -->
 										<input type="text" name="address1" id="address1" value="<%=rs.getString("address1")%>" readonly><br>
@@ -140,7 +141,7 @@
 									%>
 									<td>
 										<input type="text" name="zip" id="zip" size="5">
-										<input type="button" value="우편번호 찾기" onclick="search_address()">
+										<input type="button" value="주소록 열기" onclick="Address()">
 										<br>
 										<input type="text" name="address1" id="address1"><br>
 										<input type="text" name="address2" id="address2">
