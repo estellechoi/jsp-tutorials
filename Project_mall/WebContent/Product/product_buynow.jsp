@@ -43,13 +43,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../Etc/product_buynow.css?ver=4">
-<script src="../Etc/product_buynow.js?ver=5"></script>
+<script src="../Etc/product_buynow.js"></script>
+<script src="../Etc/common.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <!-- daum 도로명주소검색 API 시작 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	// 우편번호 검색 버튼 클릭하여 함수 호출
-	function search_address_user() {
+	function SearchAddress() {
 	    new daum.Postcode({
 	        oncomplete: function(data) {
 	        	// 사용자가 도로명 주소를 선택했을 경우
@@ -66,27 +67,7 @@
 	            // 커서를 상세주소 필드로 이동한다.
 	            document.getElementById("address2").focus();
 	        }
-	    }).open();	
-	}
-
-	function search_address_recipient() {
-	    new daum.Postcode({
-	        oncomplete: function(data) {
-	        	// 사용자가 도로명 주소를 선택했을 경우
-	            if (data.userSelectedType === 'R') { 
-	                addr = data.roadAddress;
-	                
-	            // 사용자가 지번 주소를 선택했을 경우(J)
-	            } else { 
-	                addr = data.jibunAddress;
-	            }
-	            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	            document.getElementById("r_zip").value = data.zonecode; // 우편번호
-	            document.getElementById("r_address1").value = addr;  // 주소
-	            // 커서를 상세주소 필드로 이동한다.
-	            document.getElementById("r_address2").focus();
-	        }
-	    }).open();	
+	    }).open();
 	}
 </script>
 </head>
@@ -208,10 +189,9 @@
 								<tr>
 									<th>주소 * </th>
 									<td>
-										<input type="text" name="zip" id="zip" value="<%=rs_m.getString("zip")%>">
-										<input type="button" value="우편번호 검색" class="zip_button" onclick="search_address_user()"> <p></p>
-										<input type="text" name="address1" id="address1" value="<%=rs_m.getString("address1")%>"> 기본주소 <p></p>
-										<input type="text" name="address2" id="address2" value="<%=rs_m.getString("address2")%>"> 나머지 주소
+										<input type="text" name="zip" value="<%=rs_m.getString("zip")%>"><p></p>
+										<input type="text" name="address1" value="<%=rs_m.getString("address1")%>"> 기본주소 <p></p>
+										<input type="text" name="address2" value="<%=rs_m.getString("address2")%>"> 나머지 주소
 									</td>
 								</tr>
 								<%
@@ -221,10 +201,10 @@
 								<tr>
 									<th>주소 * </th>
 									<td>
-										<input type="text" name="zip" id="zip">
-										<input type="button" value="우편번호 검색" class="zip_button" onclick="search_address_user()"> <p></p>
-										<input type="text" name="address1" id="address1"> 기본주소 <p></p>
-										<input type="text" name="address2" id="address2"> 나머지 주소
+										<input type="text" name="zip">
+										<input type="button" value="우편번호 검색" class="zip_button"> <p></p>
+										<input type="text" name="address1"> 기본주소 <p></p>
+										<input type="text" name="address2"> 나머지 주소
 									</td>
 								</tr>				
 								<%
@@ -309,7 +289,7 @@
 										<input type="hidden" name="id_address"><!-- address table 에 레코드가 있다면 그 id 값을 부여 -->
 										<input type="radio" name="recipient" value="0" onclick="Recipient(1)">주문자 정보와 동일
 										<input type="radio" name="recipient" value="1" onclick="Recipient(2)" checked>새로운 배송지
-										<input type="button" value=" > 즐겨찾기에서 선택" class="recipient_button" onclick="Address_book('<%=session.getAttribute("email")%>')">
+										<input type="button" value=" > 즐겨찾기에서 선택" class="recipient_button" onclick="Address()">
 									</td>
 								</tr>
 								<tr>
@@ -319,10 +299,10 @@
 								<tr>
 									<th>주소 * </th>
 									<td>
-										<input type="text" name="r_zip" id="r_zip">
-										<input type="button" value="우편번호 검색" class="zip_button" onclick="search_address_recipient()"> <p></p>
-										<input type="text" name="r_address1" id="r_address1"> 기본주소 <p></p>
-										<input type="text" name="r_address2" id="r_address2"> 나머지 주소
+										<input type="text" name="r_zip" id="zip">
+										<input type="button" value="우편번호 검색" class="zip_button" onclick="SearchAddress()"> <p></p>
+										<input type="text" name="r_address1" id="address1"> 기본주소 <p></p>
+										<input type="text" name="r_address2" id="address2"> 나머지 주소
 									</td>
 								</tr>
 								<tr>
