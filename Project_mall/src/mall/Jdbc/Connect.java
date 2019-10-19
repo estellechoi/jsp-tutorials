@@ -19,8 +19,7 @@ public class Connect {
 	public static Connection connection_static() throws SQLException {
 		String host = "jdbc:mysql://localhost:3307/mall?useSSL=false";
 		String id ="root";
-		String pw = "1234";
-		
+		String pw = "12345678";
 		Connection conn = DriverManager.getConnection(host, id, pw);
 		return conn;		
 	}
