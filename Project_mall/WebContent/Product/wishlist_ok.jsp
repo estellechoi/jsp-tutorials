@@ -6,11 +6,11 @@
 	Connection conn = Connect.connection_static();
 	Statement stmt = conn.createStatement();
 
-	String product_code = request.getParameter("id");
-	String userid = request.getParameter("userid");
+	String product_code = request.getParameter("product_code");
+	String email = request.getParameter("email");
 
-	String sql = "insert into cart(product_code, userid)";
-	sql = sql + "values('" + product_code + "', '" + userid + "')";
+	String sql = "insert into cart(product_code, email)";
+	sql = sql + " values('" + product_code + "', '" + email + "')";
 	
 	stmt.executeUpdate(sql);
 	
