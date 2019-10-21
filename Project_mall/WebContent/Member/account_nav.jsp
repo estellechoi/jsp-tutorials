@@ -34,7 +34,8 @@
 		<li><a href="account.jsp">내 프로필</a></li>
 		<li><a href="account_edit.jsp">정보 수정</a></li>
 		<li><a href="account_edit_pwd.jsp">비밀번호 변경</a></li>
-		<li><a href="myorder.jsp">마이 오더</a></li>
+		<li><a href="account_address.jsp">배송지 관리</a></li>
+		<li><a href="myorder.jsp">내 주문 조회</a></li>
 	</ul>
 </body>
 </html>
