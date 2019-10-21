@@ -3,6 +3,10 @@
 <%@ page import="mall.Jdbc.Connect"%>
 <%@ page import="java.sql.*"%>
 <%
+
+	// 인크루드 요청시 받는 파라미터값 (jsp:include - jsp:param)
+	String incld = request.getParameter("incld");
+	
 	Connection conn = Connect.connection_static();
 	Statement stmt = conn.createStatement();
 	
@@ -61,6 +65,18 @@
 		cursor: pointer;	
 	}
 	
+	
+	/* 하단 버튼 구간 */
+	#button_box {
+		display: grid;
+		grid-template-columns: 200px 1fr;
+	}
+	
+	#button_box #button_box_right {
+		display: flex;
+		justify-content: flex-end;
+	}
+	
 	#button_box input[type=submit] {
 		border: 1px solid #495164;
 		border-radius: 5px;
@@ -83,6 +99,7 @@
 		width: 100px;
 		height: 30px;
 		cursor: pointer;
+		margin-left: 10px;
 	}
 </style>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -109,7 +126,19 @@
 	}
 	
 	function AddressAdd() {
+		<%
+			// 팝업창일 때
+			if (incld == null) {
+		%>
 		location = "address_add.jsp";
+		<%
+			// 인클루드됐을 때
+			} else {
+		%>
+		location = "account_address_add.jsp";
+		<%
+			}
+		%>
 	}
 	
 	function Close() {
@@ -118,16 +147,23 @@
 </script>
 </head>
 <body>
-	<form action="address_del.jsp" method="post" name="form">
+	<form action="address_del.jsp?incld=<%=incld%>" method="post" name="form">
 		<table>
-			<caption>MY ADDRESS</caption>
+			<caption>나의 주소록</caption>
 			<tr id="field">
 				<td><input type="checkbox" name="delete_controller"></td>
 				<td>배송지</td>
 				<td>수령인</td>
 				<td>주소</td>
 				<td>휴대전화</td>
+				<%
+					// 팝업창일 때만 적용버튼 보이기(jsp:include 가 아닌, Javascript opener로 요청했을 때만)
+					if (incld == null) {
+				%>
 				<td>적용</td>
+				<%
+					}
+				%>
 			</tr>
 			<%
 				while (rs.next()) {
@@ -138,16 +174,34 @@
 				<td><%=rs.getString("recipient")%></td>
 				<td>(<%=rs.getString("zip")%>) <%=rs.getString("address1")%> <%=rs.getString("address2")%></td>
 				<td><%=rs.getString("cell")%></td>
+				<%
+					// 팝업창일 때만 적용버튼 보이기(jsp:include 가 아닌, Javascript opener로 요청했을 때만)
+					if (incld == null) {
+				%>
 				<td><input type="button" value="적용" class="apply" onclick="AddressApply(this, <%=rs.getInt("id")%>,'<%=rs.getString("zip")%>', '<%=rs.getString("address1")%>', '<%=rs.getString("address2")%>')"></td>
+				<%
+					}
+				%>
 			</tr>
 			<%
 				}
 			%>
 		</table>
 		<div id="button_box">
-			<input type="submit" value="선택한 배송지 삭제">
-			<input type="button" value="배송지 추가" onclick="AddressAdd()">
-			<input type="button" value="나가기" onclick="Close()">
+			<div>
+				<input type="submit" value="선택한 배송지 삭제">
+			</div>
+			<div id="button_box_right">
+				<input type="button" value="배송지 추가" onclick="AddressAdd()">
+				<%				
+				// 팝업창 나가기 버튼
+					if (incld == null) {
+				%>
+				<input type="button" value="나가기" onclick="Close()">
+				<%
+					}
+				%>
+			</div>
 		</div>
 	</form>
 </body>
