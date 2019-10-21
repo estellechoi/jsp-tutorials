@@ -25,7 +25,7 @@
 		<div id="grid_left"></div>
 		<div id="grid_right">
 			<section class="account_edit_section">
-				<div id="account_edit_header">비밀번호 변경</div>
+				<div id="account_edit_header">UPDATE PASSWORD</div>
 				<div class="account_grid_container">
 					<div class="account_grid_left">
 						<form action="account_edit_pwd_ok.jsp" method="post">
