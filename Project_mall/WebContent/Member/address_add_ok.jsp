@@ -4,6 +4,7 @@
 <%@ page import="mall.Dto.Address"%>
 <%
 	request.setCharacterEncoding("UTF-8");
+	String incld = request.getParameter("incld");
 %>
 <!-- Dto 변수에 파라미터값 전달 -->
 <jsp:useBean id="dto" class="mall.Dto.Address">
@@ -18,5 +19,11 @@
 	cmd.Add(dto);
 	
 	// 페이지 이동
-	response.sendRedirect("address.jsp");
+	if (incld == null) {
+		response.sendRedirect("address.jsp");
+	} 
+	else {
+		response.sendRedirect("account_address.jsp");
+	}
+	
 %>
