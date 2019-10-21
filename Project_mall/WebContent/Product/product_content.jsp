@@ -4,6 +4,9 @@
 <%@ page import="mall.Jdbc.Connect"%>
 <%@ page import="java.text.DecimalFormat"%>
 <%
+
+	String email = session.getAttribute("email").toString();
+
 	Connection conn = Connect.connection_static();
 	Statement stmt = conn.createStatement();
 	
@@ -27,6 +30,27 @@
 		default: laundry = "미확인";
 	}
 	
+	// 상품정보
+	String product_code = rs.getString("product_code");
+	String country = product_code.substring(5,7); // index 5,6
+	String maker = product_code.substring(7,9); // index 7,8
+	
+	switch(country) {
+	case "00": country = "미확인"; break;
+	case "01": country = "대한민국"; break;
+	case "02": country = "미국"; break;
+	case "03": country = "중국"; break;
+	case "04": country = "일본"; break;
+	default: country = "???";
+	}
+	switch(maker) {
+	case "00": maker = "미확인"; break;
+	case "01": maker = "삼성물산"; break;
+	case "02": maker = "코오롱인더스트리"; break;
+	case "03": maker = "세아상역"; break;
+	case "04": maker = "한솔섬유"; break;
+	default: maker = "???";		
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -37,50 +61,45 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!-- javascript -->
-<script src="../Etc/product_content.js?ver=3"></script>
+<!-- stylesheet -->
+<link rel="stylesheet" href="../Etc/product_content.css?ver=3">
+<!-- jQuery 플러그인 spinner -->
 <script>
-	function basic() {
-		var code = "<%=rs.getString("product_code")%>";
-		var country = code.substring(5,7); // index 5,6
-		var maker = code.substring(7,9); // index 7,8
-		
-		switch(country) {
-		case "00": country = "미확인"; break;
-		case "01": country = "대한민국"; break;
-		case "02": country = "미국"; break;
-		case "03": country = "중국"; break;
-		case "04": country = "일본"; break;
-		default: country = "???";
-		}
-		
-		switch(maker) {
-		case "00": maker = "미확인"; break;
-		case "01": maker = "삼성물산"; break;
-		case "02": maker = "코오롱인더스트리"; break;
-		case "03": maker = "세아상역"; break;
-		case "04": maker = "한솔섬유"; break;
-		default: maker = "???";		
-		}
-		
-		document.getElementById("country").innerText = country;
-		document.getElementById("maker").innerText = maker;
+	$(function() {
+		$("#qty").spinner({
+			min:1,
+			max:100
+		});
+// spinner 값이 바뀔 때 이벤트 체크
+		$("#qty").on("spinstop", function() {
+			var qty = document.getElementById("qty").value;
+			var price = <%=rs.getInt("price")%>;
+			var am = comma(qty * price); // comma(); 금액 콤마 표시
+			document.getElementById("product_amount").innerText = "￦ " + am;
+			document.getElementById("buying_amount").innerText = "￦ " + am;
+		});
+	});
+</script>
+<script>
+	// 콤마
+	function comma(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
 	
 	// 장바구니 담기, 위시리스트 담기 AJAX
-	// AJAX 에서 session, cookie 값은 null
-	// 매개변수로 값을 전송하는 방법 뿐인가 ?
+	// AJAX 에서 session, cookie 값은 null - 매개변수로 값을 전송하는 방법 뿐인가 ?
 	var cart = new XMLHttpRequest();
 	var wishlist = new XMLHttpRequest();
 	
 	function Cart(product_code) {
 		var size = parseInt(document.getElementById("size").value);
 		var qty = document.getElementById("qty").value;
+		var email = "<%=email%>";
 		if (size == 0) {
 			alert("사이즈를 선택하세요 !");
 		}
 		else {
-			url = "cart_ok.jsp?product_code=" + product_code + "&size=" + size + "&qty=" + qty+"&email=" + <%=session.getAttribute("email")%>;
+			url = "cart_ok.jsp?product_code=" + product_code + "&size=" + size + "&qty=" + qty+"&email=" + email;
 			cart.open("get", url);
 			cart.send();
 		}
@@ -90,13 +109,15 @@
 		if (cart.readyState == 4) {
 			if (cart.responseText.trim() == "ok") {
 				// JSP <html> 출력값이 "ok" 하나만 있어야 하며, 다른 값이 있을 경우 전달되지 않는다.
-				document.getElementById("layer_cart").display = "block";
+				document.getElementById("layer_cart").style.display = "block";
 			}
 		}
 	}
 	
+	// GET 매개변수로 값 전송시, <\%=%> 바로 사용할 수 없다 (문자로 인식하지 못하기 때문에 @ 같은 특수문자로 에러 발생 가능)
 	function Wishlist(product_code) {
-		url = "wishlist_ok.jsp?product_code=" + product_code + "&email=" + <%=session.getAttribute("email")%>;
+		var email = "<%=email%>";
+		url = "wishlist_ok.jsp?product_code=" + product_code + "&email=" + email;
 		wishlist.open("get", url);
 		wishlist.send();
 	}
@@ -104,16 +125,34 @@
 	wishlist.onreadystatechange = function() {
 		if (wishlist.readyState == 4) {
 			if (wishlist.responseText.trim() == "ok") {
-				document.getElementById("layer_wishlist").display = "block";
+				document.getElementById("layer_wishlist").style.display = "block";
+			}
+			else if (wishlist.responseText.trim() == "no"){
+				alert("이미 위시리스트에 담은 상품입니다.");
 			}
 		}
 	}
+	
+	// 장바구니/위시리스트 이동
+	function Close_cart() {
+		document.getElementById("layer_cart").display = "none";
+	}
+
+	function Move_cart() {
+		location = "../Member/cart.jsp";
+	}
+
+	function Close_wishlist() {
+		document.getElementById("layer_wishlist").display = "none";
+	}
+
+	function Move_wishlist() {
+		location = "../Member/wishlist.jsp";
+	}
 
 </script>
-<!-- stylesheet -->
-<link rel="stylesheet" href="../Etc/product_content.css?ver=3">
 </head>
-<body onload="basic()">
+<body>
 	<!-- 네비게이션 바 -->
 	<jsp:include page="../nav.jsp" flush="false"/>
 	<div id="grid_container">
@@ -159,24 +198,6 @@
 								<tr>
 									<td id="product_alert" colspan="2">위 옵션선택 박스를 선택하시면 아래에 상품이 추가됩니다.</td>
 								</tr>
-								<!-- jQuery 플러그인 spinner -->
-								<script>
-									$(function() {
-										$("#qty").spinner({
-											min:1,
-											max:100
-										});
-										// spinner 값이 바뀔 때 이벤트 체크
-										$("#qty").on("spinstop", function() {
-											var qty = document.getElementById("qty").value;
-											var price = <%=rs.getInt("price")%>;
-											var am = qty * price;
-											am = comma(am); // comma(); 금액 콤마 표시
-											document.getElementById("product_amount").innerText = "￦ " + am;
-											document.getElementById("buying_amount").innerText = "￦ " + am;
-										});
-									});
-								</script>
 								<tr>
 									<td id="product_qty">수량</td>
 									<td>
@@ -218,8 +239,8 @@
 						</tr>
 						<tr>
 							<td><%=laundry%></td>
-							<td id="country"></td>
-							<td id="maker"></td>
+							<td><%=country%></td>
+							<td><%=maker%></td>
 							<td><%=rs.getString("manufactured_date")%></td>
 							<td>구입 후 1년 이내</td>
 							<td>02-494-2344</td>
