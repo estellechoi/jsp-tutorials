@@ -8,7 +8,7 @@
 	Statement stmt = conn.createStatement();
 	
 	request.setCharacterEncoding("UTF-8");
-	String id = request.getParameter("id");
+	String id = request.getParameter("id"); // product table id
 	
 	String sql = "select*from product where id="+id;
 	ResultSet rs = stmt.executeQuery(sql);
@@ -38,7 +38,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <!-- javascript -->
-<script src="../Etc/product_content.js?after"></script>
+<script src="../Etc/product_content.js?ver=3"></script>
 <script>
 	function basic() {
 		var code = "<%=rs.getString("product_code")%>";
@@ -66,9 +66,52 @@
 		document.getElementById("country").innerText = country;
 		document.getElementById("maker").innerText = maker;
 	}
+	
+	// 장바구니 담기, 위시리스트 담기 AJAX
+	// AJAX 에서 session, cookie 값은 null
+	// 매개변수로 값을 전송하는 방법 뿐인가 ?
+	var cart = new XMLHttpRequest();
+	var wishlist = new XMLHttpRequest();
+	
+	function Cart(product_code) {
+		var size = parseInt(document.getElementById("size").value);
+		var qty = document.getElementById("qty").value;
+		if (size == 0) {
+			alert("사이즈를 선택하세요 !");
+		}
+		else {
+			url = "cart_ok.jsp?product_code=" + product_code + "&size=" + size + "&qty=" + qty+"&email=" + <%=session.getAttribute("email")%>;
+			cart.open("get", url);
+			cart.send();
+		}
+	}
+	
+	cart.onreadystatechange = function() {
+		if (cart.readyState == 4) {
+			if (cart.responseText.trim() == "ok") {
+				// JSP <html> 출력값이 "ok" 하나만 있어야 하며, 다른 값이 있을 경우 전달되지 않는다.
+				document.getElementById("layer_cart").display = "block";
+			}
+		}
+	}
+	
+	function Wishlist(product_code) {
+		url = "wishlist_ok.jsp?product_code=" + product_code + "&email=" + <%=session.getAttribute("email")%>;
+		wishlist.open("get", url);
+		wishlist.send();
+	}
+	
+	wishlist.onreadystatechange = function() {
+		if (wishlist.readyState == 4) {
+			if (wishlist.responseText.trim() == "ok") {
+				document.getElementById("layer_wishlist").display = "block";
+			}
+		}
+	}
+
 </script>
 <!-- stylesheet -->
-<link rel="stylesheet" href="../Etc/product_content.css?ver=2">
+<link rel="stylesheet" href="../Etc/product_content.css?ver=3">
 </head>
 <body onload="basic()">
 	<!-- 네비게이션 바 -->
@@ -150,8 +193,8 @@
 										<!-- <button> 태그는 form submit 기능 → post 전송 -->
 										<button id="buynow">바로 구매</button>
 										<!-- input:button 은 submit 기능 X → get 전송-->
-										<input type="button" id="cart" onclick="Cart(<%=id%>)" value="장바구니에 담기">
-										<input type="button" id="wishlist" onclick="Wishlist(<%=id%>)" value="위시리스트 추가">
+										<input type="button" onclick="Cart('<%=rs.getString("product_code")%>')" value="장바구니 담기">
+										<input type="button" onclick="Wishlist('<%=rs.getString("product_code")%>')" value="위시리스트 추가">
 									</td>
 								</tr>
 							</table>
