@@ -9,12 +9,20 @@
 	String product_code = request.getParameter("product_code");
 	String email = request.getParameter("email");
 
-	String sql = "insert into cart(product_code, email)";
-	sql = sql + " values('" + product_code + "', '" + email + "')";
+	String sql = "select*from wishlist where product_code='"+product_code+"'";
+	sql = sql + " and email='"+email+"'";
+	ResultSet rs = stmt.executeQuery(sql);
 	
-	stmt.executeUpdate(sql);
-	
-	stmt.close();
-	conn.close();
-	out.print("ok");
+	if (rs.next()) {
+		out.print("no");
+	}
+	else {		
+		sql = "insert into wishlist(product_code, email)";
+		sql = sql + " values('" + product_code + "', '" + email + "')";	
+		stmt.executeUpdate(sql);
+		rs.close();
+		stmt.close();
+		conn.close();
+		out.print("ok");		
+	}
 %>
