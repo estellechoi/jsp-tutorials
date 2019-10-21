@@ -45,7 +45,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/account_edit.css?ver=1">
+<link rel="stylesheet" href="../Etc/account_edit.css">
 <script>
 	// 문서 로드시
 	function Filled() {
@@ -86,6 +86,10 @@
 		var cell3 = document.getElementsByName("cell3")[0].value;
 		
 		document.getElementsByName("cell")[0].value = cell1 + "-" + cell2 + "-" + cell3;
+	}
+	
+	function Back() {
+		history.back();
 	}
 </script>
 <script src="../Etc/common.js?after"></script>
@@ -222,7 +226,10 @@
 									</td>
 								</tr>
 							</table>
-							<div class="submit"><input type="submit" value="수정"></div>
+							<div class="submit">
+								<input type="submit" value="수정">
+								<input type="button" value="취소" onclick="Back()">
+							</div>
 						</form>
 					</div>
 					<!-- ACCOUNT 페이지 메뉴 네비게이션바 -->
