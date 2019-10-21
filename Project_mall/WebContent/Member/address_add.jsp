@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	// jsp:include 됐을 때 호출되는 바로 이 페이지에 파라미터값을 주었다.
+	String incld = request.getParameter("incld");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,10 +95,10 @@
 </style>
 </head>
 <body>
-	<form action="address_add_ok.jsp" method="post" onsubmit="return SubmitAddress(this)">
+	<form action="address_add_ok.jsp?incld=<%=incld%>" method="post" onsubmit="return SubmitAddress(this)">
 		<input type="hidden" name="email" value="<%=session.getAttribute("email")%>">
 		<table>
-			<caption><%=session.getAttribute("username")%>의 배송지 추가</caption>
+			<caption><%=session.getAttribute("username")%>의 배송지 추가하기</caption>
 			<tr>
 				<th id="destination">배송지명</th>
 				<td><input type="text" name="destination" placeholder="집, 회사,.."></td>
