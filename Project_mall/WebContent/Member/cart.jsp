@@ -130,6 +130,13 @@ input[type=button], #button_buy {
 		}
 		location = "cart_del.jsp?code=" + code;
 	}
+	
+	// 이 상품만 바로 구매
+	function Buynow(product_code, size, qty) {
+		location = "../Product/product_buynow.jsp?product_code="+product_code+"&size="+size+"&qty="+qty;
+		
+		// cart 데이터 테이블에서 삭제는 구매 완료시에 ! 구매완료 전까지는 데이터 유지 !
+	}
 </script>
 <!-- jQuery -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -163,29 +170,31 @@ input[type=button], #button_buy {
 						<form action="cart_toBuy.jsp" method="post">
 							<table>
 								<caption>
-									<input type="checkbox" onclick="Checkbox_controller(this)" id="checkbox_master" checked> 모든 상품을 선택합니다.
+									<input type="checkbox" onclick="Checkbox_controller(this)" id="checkbox_master"> 모든 상품을 선택합니다.
 								</caption>
 								<%
 									while (rs.next()) {		
 										// 사이즈 텍스트 변환
-										String size = rs.getString("size");
-										switch(size) {
-											case "0": size = "선택"; break;
-											case "1": size = "XS"; break;
-											case "2": size = "S"; break;
-											case "3": size = "M"; break;
-											case "4": size = "L"; break;
+										int s = rs.getInt("size");
+										String size = "";
+										switch(s) {
+											case 0: size = "선택"; break;
+											case 1: size = "XS"; break;
+											case 2: size = "S"; break;
+											case 3: size = "M"; break;
+											case 4: size = "L"; break;
 										}
 								%>
 								<tr>
-									<td><input type="checkbox" name="product_code" value="<%=rs.getString("product_code")%>" onclick="Checkbox()" checked></td>
+									<td><input type="checkbox" name="product_code" value="<%=rs.getString("product_code")%>" onclick="Checkbox()"></td>
 									<td><img src="../Product/Image/<%=rs.getString("product_list")%>" alt="no image" width="80" height="80" onclick="Product_content(<%=rs.getInt("id")%>)"></td>
 									<td width="200px"><%=rs.getString("name")%></td>
 									<td>￦ <%=Util.comma(rs.getInt("price"))%></td>
 									<td><%=size%></td>
 									<td><input type="text" name="qty" class="qty" value="<%=rs.getInt("qty")%>" size="4"> 개</td>
+									<!-- 옵션 변경시, cart 데이터베이스 테이블도 바꿔줘야한다 ! 페이지 리로드 해야하나 ? -->
 									<td><input type="button" value="옵션 변경"></td>
-									<td><input type="button" value="이 상품만 바로 구매"></td>
+									<td><input type="button" value="이 상품만 바로 구매" onclick="Buynow('<%=rs.getString("product_code")%>', <%=s%>, <%=rs.getInt("qty")%>)"></td>
 								</tr>
 								<%
 									}
