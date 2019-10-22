@@ -2,13 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="mall.Jdbc.Connect"%>
-<%@ page import="java.text.DecimalFormat"%>
+<%@ page import="mall.Util.Util"%>
 <%
 
 	// **** 위시리스트나 장바구니에서 넘어온 상품의 경우, 구매 완료 후 해당 데이터베이스 테이블에서 레코드를 삭제해야 한다 !
-
+	// 필요한 정보 : product_code, size, qty
 	request.setCharacterEncoding("UTF-8");
-	// 바로 구매
 	String product_code = request.getParameter("product_code");
 	String size = request.getParameter("size");
 	int qty = Integer.parseInt(request.getParameter("qty"));
@@ -18,17 +17,10 @@
 		Connection conn = Connect.connection_static();
 		Statement stmt = conn.createStatement();
 		
-		// product table
-		// 바로 구매 버튼 클릭시 상품수
-		int n = 1;
-		
-		// 바로 구매 데이터 요청 쿼리
+		// 구매하는 상품 정보를 표시하기 위해 데이터 불러오기
 		String sql = "select*from product where product_code='" + product_code + "'";
 		ResultSet rs = stmt.executeQuery(sql);
 		rs.next();
-		
-		// 금액 표시 객체
-		DecimalFormat df = new DecimalFormat("#,###");
 		
 		// 사이즈 텍스트 변환
 		switch(size) {
@@ -38,6 +30,9 @@
 			case "3": size = "M"; break;
 			case "4": size = "L"; break;
 		}
+		
+		// 이 상품만 바로 구매 페이지 / 상품의 가짓수 = 1
+		int n = 1;
 %>
 <!DOCTYPE html>
 <html>
@@ -71,6 +66,31 @@
 	        }
 	    }).open();
 	}
+	
+	// 배송 정보 선택
+	function Delivery(n) {
+		if (n == 0) {
+			if (document.form.zip.value = "") {
+				alert("주문자의 저장된 주소가 없으므로 새로운 배송지를 입력해 주세요 !")
+			}
+			else {
+				document.form.r_zip.value = document.form.zip.value;
+				document.form.r_address1.value = document.form.address1.value;
+				document.form.r_address2.value = document.form.address2.value;
+				document.form.r_cell1.value = document.form.cell1.value;
+				document.form.r_cell2.value = document.form.cell2.value;
+				document.form.r_cell3.value = document.form.cell3.value;
+			}
+		}
+		else if (n == 1) {
+			document.form.r_zip.value = "";
+			document.form.r_address1.value = "";
+			document.form.r_address2.value = "";
+			document.form.r_cell1.value = "";
+			document.form.r_cell2.value = "";
+			document.form.r_cell3.value = "";		
+		}
+	}
 </script>
 </head>
 <body onload="Member()">
@@ -98,11 +118,8 @@
 							<input type="hidden" name="size" value="<%=size%>">
 							<input type="hidden" name="qty" value="<%=qty%>">
 							<input type="hidden" name="get_point" value="<%=rs.getInt("price")*rs.getInt("point")/100%>">
-							<input type="hidden" name="email" value="<%=session.getAttribute("email")%>">
 							<table>
-								<tr>
-									<td colspan="9" class="table_head">국내배송 상품 주문내역</td>
-								</tr>
+								<caption>상품 주문내역</caption>
 								<tr class="field">
 									<td><input type="checkbox" id="checkbox_all" onclick="Check_all(this, <%=n%>)"></td>
 									<td>이미지</td>
@@ -116,48 +133,39 @@
 								</tr>
 								<!-- 구매상품 반복문 -->
 								<%
-								
-								// total 총계 (모든 상품들의 금액 합), amount 상품금액 (상품수 * 가격)
-								int total = 0;
+
 								int amount = 0;
 								
 								// 배송료
 								int delivery_int;
-								String delivery_str = "";
-								
-								// 장바구니에서 선택한 상품들 반복문 시작 
+								String delivery_str = "";	
 								amount = qty * rs.getInt("price");
-								total = total + amount;
+								
+								// 상품 구매 금액 합계에 따라 배송비가 결정 (여러가지 상품을 선택 구매하는 페이지에서 달라져야..)
+								if (amount >= 70000) {
+									delivery_int = 0;
+									delivery_str = "무료";
+								} else {
+									delivery_int = 2500;
+									delivery_str = "차등";
+								}
 								%>
 								<tr>
 									<td><input type="checkbox" class="checkbox" onclick="Check_allbox(<%=n%>)"></td>
 									<td><img src="Image/<%=rs.getString("product_list")%>" alt="no img" width="100"></td>
 									<td><%=rs.getString("name")%> <p></p> [옵션 : 사이즈 <%=size%>]</td>
-									<td><%=df.format(rs.getInt("price"))%></td>
+									<td><%=Util.comma(rs.getInt("price"))%></td>
 									<td><%=qty%></td>
 									<!-- 포인트 적립 처리 어떻게 할거 ? input hidden 으로 값 전송-->
-									<td><%=df.format(rs.getInt("price")*rs.getInt("point")/100)%></td>
-									<td>일반배송</td>
-									<td> <!-- 배송비 -->
-									<%			
-									// 전체 상품 구매 금액 합계에 따라 배송비가 결정되는데, 각 상품 반복문 내에서 어떻게 배송비를 표시하지 ?
-										if (total >= 70000) {
-											delivery_int = 0;
-											delivery_str = "무료";
-										} else {
-											delivery_int = 2500;
-											delivery_str = "차등";
-										}
-									%>
-									<%=delivery_str%>
-									</td>
-									<td><%=df.format(amount)%></td>
+									<td><%=Util.comma(rs.getInt("price")*rs.getInt("point")/100)%></td>
+									<td>국내배송</td>
+									<td><%=delivery_str%></td>
+									<td><%=Util.comma(amount)%></td>
 								</tr>
-								<!-- 반복문 종료 -->
 								<!-- 선택상품 전체 + 배송비 합계 -->
 								<tr>
 									<input type="hidden" name="delivery_fee" value="<%=delivery_int%>">
-									<td colspan="9" class="table_footer">상품 금액  <%=df.format(total) %> + 배송비 <%=df.format(delivery_int)%> = 합계 <%=df.format(total + delivery_int)%></td>
+									<td colspan="9" class="table_footer">상품 금액  <%=Util.comma(amount)%> + 배송비 <%=Util.comma(delivery_int)%> = 합계 <%=Util.comma(amount + delivery_int)%></td>
 								</tr>
 							</table>
 							<div class="button">
@@ -171,29 +179,27 @@
 						<!-- 로그인 회원정보 가져와서 표시하기 해야함 -->
 						<%
 							// member table
-							String sql_m = "select*from member where email='" + session.getAttribute("email") + "'";
-							ResultSet rs_m = stmt.executeQuery(sql_m);
-							rs_m.next();
+							sql = "select*from member where email='" + session.getAttribute("email") + "'";
+							rs = stmt.executeQuery(sql);
+							rs.next();
 						%>
 						<div class="table_userinformation">
 							<table>	
-								<tr>
-									<td colspan="2" class="table_head">주문 정보</td>
-								</tr>
+								<caption>주문 정보</caption>
 								<tr>
 									<th>주문자명 * </th>
 									<td><input type="text" name="username" value="<%=session.getAttribute("username")%>" readonly></td>
 								</tr>
 								<%
 								// 1) 주소 정보가 있는 회원의 경우
-								if (rs_m.getInt("zip") != 0) {
+								if (rs.getString("zip") != null) {
 								%>
 								<tr>
 									<th>주소 * </th>
 									<td>
-										<input type="text" name="zip" value="<%=rs_m.getString("zip")%>"><p></p>
-										<input type="text" name="address1" value="<%=rs_m.getString("address1")%>"> 기본주소 <p></p>
-										<input type="text" name="address2" value="<%=rs_m.getString("address2")%>"> 나머지 주소
+										<input type="text" name="zip" value="<%=rs.getString("zip")%>"><p></p>
+										<input type="text" name="address1" value="<%=rs.getString("address1")%>"> 기본주소 <p></p>
+										<input type="text" name="address2" value="<%=rs.getString("address2")%>"> 나머지 주소
 									</td>
 								</tr>
 								<%
@@ -212,12 +218,11 @@
 								<%
 								}
 								
-								if (rs_m.getString("cell") != null) {
-									String cell = rs_m.getString("cell");
-									String cellSplit[] = cell.split("-");
+								if (rs.getString("cell") != null) {
+									String cell[] = rs.getString("cell").split("-");
 								%>
 								<script>
-									document.getElementById("cell1").value = "<%=cellSplit[0]%>";
+									document.getElementById("cell1").value = "<%=cell[0]%>";
 								</script>
 								<tr>
 									<th>휴대전화 * </th>
@@ -230,8 +235,8 @@
 											<option value="018">018</option>
 											<option value="019">019</option>
 										</select>-
-										<input type="text" name="cell2" size="5" value="<%=cellSplit[1]%>">-
-										<input type="text" name="cell3" size="5" value="<%=cellSplit[2]%>">
+										<input type="text" name="cell2" size="5" value="<%=cell[1]%>">-
+										<input type="text" name="cell3" size="5" value="<%=cell[2]%>">
 									</td>
 								</tr>
 								<%
@@ -277,26 +282,22 @@
 										</select>
 									</td>
 								</tr>
-								<!-- 여백 -->
-								<tr>
-									<td colspan="2" class="space"></td>
-								</tr>
+							</table>
+							<table>
 								<!-- 배송 정보 -->
-								<tr>
-									<td colspan="2" class="table_head">배송 정보</td>
-								</tr>
+								<caption>배송 정보</caption>
 								<tr>
 									<th>배송지 선택</th>
 									<td>
 										<input type="hidden" name="id_address"><!-- address table 에 레코드가 있다면 그 id 값을 부여 -->
-										<input type="radio" name="recipient" value="0" onclick="Recipient(1)">주문자 정보와 동일
-										<input type="radio" name="recipient" value="1" onclick="Recipient(2)" checked>새로운 배송지
-										<input type="button" value=" > 즐겨찾기에서 선택" class="recipient_button" onclick="Address()">
+										<input type="radio" name="delivery" value="0" onclick="Delivery(1)">주문자 정보와 동일
+										<input type="radio" name="delivery" value="1" onclick="Delivery(2)" checked>새로운 배송지
+										<input type="button" value=" > 주소록 관리" class="recipient_button" onclick="Address()">
 									</td>
 								</tr>
 								<tr>
 									<th>받으시는 분 * </th>
-									<td><input type="text" name="r_username"></td>
+									<td><input type="text" name="recipient"></td>
 								</tr>
 								<tr>
 									<th>주소 * </th>
@@ -326,14 +327,10 @@
 									<th>배송 메세지</th>
 									<td><textarea name="r_msg" cols="40" rows="3"></textarea></td>
 								</tr>
-								<!-- 여백 -->
-								<tr>
-									<td colspan="2" class="space"></td>
-								</tr>
+							</table>
+							<table>
 								<!-- 결제 정보 -->
-								<tr>
-									<td colspan="2" class="table_head">결제 정보</td>
-								</tr>
+								<caption>결제 정보</caption>
 								<!-- 포인트 사용 (로그인 정보) -->
 								<script>
 								// 콤마표시 정규식
@@ -344,14 +341,14 @@
 								// 보유포인트 모두사용
 								function Exhaust() {
 									document.getElementById("point").value = "0";
-									document.getElementById("use_point").value = "<%=df.format(rs_m.getInt("point"))%>";
-									document.form.amount_discount.value = "<%=df.format(rs_m.getInt("point"))%>";
-									document.form.amount_discount_hidden.value = "<%=rs_m.getInt("point")%>";
+									document.getElementById("use_point").value = "<%=Util.comma(rs.getInt("point"))%>";
+									document.form.amount_discount.value = "<%=Util.comma(rs.getInt("point"))%>";
+									document.form.amount_discount_hidden.value = "<%=rs.getInt("point")%>";
 									
 									// 최종 결제금액 !!
-									document.form.amount_pay.value = "<%=df.format(total + delivery_int - rs_m.getInt("point"))%>";
-									document.form.amount_pay_hidden.value = "<%=total + delivery_int - rs_m.getInt("point")%>";
-									document.getElementById("amount_pay_emphasis").innerHTML = "￦ "+"<%=df.format(total + delivery_int - rs_m.getInt("point"))%>";
+									document.form.amount_pay.value = "<%=Util.comma(amount + delivery_int - rs.getInt("point"))%>";
+									document.form.amount_pay_hidden.value = "<%=amount + delivery_int - rs.getInt("point")%>";
+									document.getElementById("amount_pay_emphasis").innerHTML = "￦ "+"<%=Util.comma(amount + delivery_int - rs.getInt("point"))%>";
 								}
 								
 								// 입력한 만큼 포인트 사용
@@ -360,9 +357,9 @@
 									// 사용 포인트
 									var use = parseInt(document.getElementById("use_point").value);
 									// 잔여 포인트
-									var point = <%=rs_m.getInt("point")%> - use;
+									var point = <%=rs.getInt("point")%> - use;
 									
-									if (<%=rs_m.getInt("point")%> < use) {
+									if (<%=rs.getInt("point")%> < use) {
 										alert("보유 포인트 내에서 사용 가능해요.");
 									}
 									else {
@@ -373,7 +370,7 @@
 										document.form.amount_discount_hidden.value = use + "";
 										
 										// 최종 결제금액 !!
-										var x = <%=total + delivery_int%> - use;
+										var x = <%=amount + delivery_int%> - use;
 										document.form.amount_pay.value = comma(x);
 										document.form.amount_pay_hidden.value = x;
 										document.getElementById("amount_pay_emphasis").innerHTML = "￦ "+ comma(x);
@@ -383,7 +380,7 @@
 								<tr>
 									<th>보유포인트</th>
 									<td>
-										￦ <input type="text" name="point" id="point" size="5" value="<%=df.format(rs_m.getInt("point"))%>" readonly>
+										￦ <input type="text" name="point" id="point" size="5" value="<%=Util.comma(rs.getInt("point"))%>" readonly>
 										 <input type="button" value="모두 사용" class="zip_button" onclick="Exhaust()">
 									</td>
 								</tr>
@@ -398,8 +395,8 @@
 								<tr>
 									<th>합계 금액</th>
 									<td>
-										￦ <input type="hidden" name="amount_buy_hidden" value="<%=total + delivery_int%>">
-										<input class="amount_box" type="text" name="amount_buy" readonly value="<%=df.format(total + delivery_int)%>">
+										￦ <input type="hidden" name="amount_buy_hidden" value="<%=amount + delivery_int%>">
+										<input class="amount_box" type="text" name="amount_buy" readonly value="<%=Util.comma(amount + delivery_int)%>">
 									</td>
 								</tr>
 								<tr>
@@ -413,14 +410,10 @@
 								<tr>
 									<th>결제 금액</th>
 									<td>
-										￦ <input type="hidden" name="amount_pay_hidden" value="<%=total + delivery_int%>">
-										<input class="amount_box" type="text" name="amount_pay" readonly value="<%=df.format(total + delivery_int)%>">
+										￦ <input type="hidden" name="amount_pay_hidden" value="<%=amount + delivery_int%>">
+										<input class="amount_box" type="text" name="amount_pay" readonly value="<%=Util.comma(amount + delivery_int)%>">
 									</td>
 								</tr>
-								<!-- 여백 -->
-								<tr>
-									<td colspan="2" class="space"></td>
-								</tr>								
 							</table>
 						</div>
 					</div>
@@ -464,7 +457,7 @@
 								</div>
 							</div>
 							<div id="submit_button_box">
-								<div id="amount_pay_emphasis">￦ <%=df.format(total + delivery_int)%></div>
+								<div id="amount_pay_emphasis">￦ <%=Util.comma(amount + delivery_int)%></div>
 								<input type="submit" value="결제하기">
 							</div>
 						</div>
