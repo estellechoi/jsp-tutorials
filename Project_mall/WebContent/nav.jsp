@@ -71,7 +71,7 @@
 				<%
 				}
 				%>
-				<li><a href="">CART</a></li>
+				<li><a href="../Member/cart.jsp">CART</a></li>
 				<li><a href="">Q&A / REVIEW</a></li>
 			</ul>
 		</div>
