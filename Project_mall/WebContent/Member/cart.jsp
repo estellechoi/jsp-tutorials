@@ -185,6 +185,7 @@ input[type=button], #button_buy {
 									<td><%=size%></td>
 									<td><input type="text" name="qty" class="qty" value="<%=rs.getInt("qty")%>" size="4"> 개</td>
 									<td><input type="button" value="옵션 변경"></td>
+									<td><input type="button" value="이 상품만 바로 구매"></td>
 								</tr>
 								<%
 									}
