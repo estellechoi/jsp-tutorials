@@ -118,7 +118,7 @@
 	
 	// 장바구니/위시리스트 이동
 	function Close_cart() {
-		document.getElementById("layer_cart").display = "none";
+		document.getElementById("layer_cart").style.display = "none";
 	}
 
 	function Move_cart() {
@@ -126,11 +126,22 @@
 	}
 
 	function Close_wishlist() {
-		document.getElementById("layer_wishlist").display = "none";
+		document.getElementById("layer_wishlist").style.display = "none";
 	}
 
 	function Move_wishlist() {
 		location = "../Member/wishlist.jsp";
+	}
+	
+	// onsubmit 바로구매시 사이즈 선택여부 체크
+	function Submit() {
+		if (document.getElementById("size").value == "0") {
+			alert("사이즈를 선택하세요.");
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 </script>
 <!-- jQuery 플러그인 spinner -->
@@ -165,7 +176,7 @@
 						<img src="Image/<%=rs.getString("product_list")%>" alt="no image">
 					</div>
 					<div id="head_right">
-						<form action="product_buynow.jsp" method="post">
+						<form action="product_buynow.jsp" method="post" onsubmit="return Submit()">
 							<!-- 
 							* 전송해야할 값
 							- 상품코드 (상품정보 불러오기 위한 코드)
