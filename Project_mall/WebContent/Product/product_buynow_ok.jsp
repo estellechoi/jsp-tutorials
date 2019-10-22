@@ -45,17 +45,17 @@
 	}
 
 	// address table에 없는 배송지인 경우 (새로운 배송지 입력한 경우)
-	String r = request.getParameter("recipient"); // "0" vs "1"
+	String d = request.getParameter("delivery"); // "0" vs "1"
 	String id_address = null;
 	
 	// 새로운 배송지인 경우
-	if (r.equals("1")) {
+	if (d.equals("1")) {
 		// 배송지 정보 → address 테이블에 저장
-		String recipient = request.getParameter("r_username");
-		String destination = request.getParameter("r_username");
-		String r_zip = request.getParameter("r_zip");
-		String r_address1 = request.getParameter("r_address1");
-		String r_address2 = request.getParameter("r_address2");
+		String recipient = request.getParameter("recipient");
+		String destination = request.getParameter("recipient");
+		String zip = request.getParameter("r_zip");
+		String address1 = request.getParameter("r_address1");
+		String address2 = request.getParameter("r_address2");
 		String cell = request.getParameter("r_cell1")+"-"+request.getParameter("r_cell2")+"-"+request.getParameter("r_cell3");
 		
 		String sql = "insert into address(email, recipient, zip, address1, address2, cell, destination, writeday)";
@@ -63,9 +63,9 @@
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, email);
 		pstmt.setString(2, recipient);
-		pstmt.setString(3, r_zip);
-		pstmt.setString(4, r_address1);
-		pstmt.setString(5, r_address2);
+		pstmt.setString(3, zip);
+		pstmt.setString(4, address1);
+		pstmt.setString(5, address2);
 		pstmt.setString(6, cell);
 		pstmt.setString(7, destination);
 		pstmt.executeUpdate();
