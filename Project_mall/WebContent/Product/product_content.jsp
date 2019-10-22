@@ -63,23 +63,6 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <!-- stylesheet -->
 <link rel="stylesheet" href="../Etc/product_content.css?ver=3">
-<!-- jQuery 플러그인 spinner -->
-<script>
-	$(function() {
-		$("#qty").spinner({
-			min:1,
-			max:100
-		});
-// spinner 값이 바뀔 때 이벤트 체크
-		$("#qty").on("spinstop", function() {
-			var qty = document.getElementById("qty").value;
-			var price = <%=rs.getInt("price")%>;
-			var am = comma(qty * price); // comma(); 금액 콤마 표시
-			document.getElementById("product_amount").innerText = "￦ " + am;
-			document.getElementById("buying_amount").innerText = "￦ " + am;
-		});
-	});
-</script>
 <script>
 	// 콤마
 	function comma(x) {
@@ -149,7 +132,23 @@
 	function Move_wishlist() {
 		location = "../Member/wishlist.jsp";
 	}
-
+</script>
+<!-- jQuery 플러그인 spinner -->
+<script>
+	$(function() {
+		$("#qty").spinner({
+			min:1,
+			max:100
+		});
+// spinner 값이 바뀔 때 이벤트 체크
+		$("#qty").on("spinstop", function() {
+			var qty = document.getElementById("qty").value;
+			var price = <%=rs.getInt("price")%>;
+			var am = comma(qty * price); // comma(); 금액 콤마 표시
+			document.getElementById("product_amount").innerText = "￦ " + am;
+			document.getElementById("buying_amount").innerText = "￦ " + am;
+		});
+	});
 </script>
 </head>
 <body>
