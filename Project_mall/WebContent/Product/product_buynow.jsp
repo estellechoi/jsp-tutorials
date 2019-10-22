@@ -5,6 +5,8 @@
 <%@ page import="java.text.DecimalFormat"%>
 <%
 
+	// **** 위시리스트나 장바구니에서 넘어온 상품의 경우, 구매 완료 후 해당 데이터베이스 테이블에서 레코드를 삭제해야 한다 !
+
 	request.setCharacterEncoding("UTF-8");
 	// 바로 구매
 	String product_code = request.getParameter("product_code");
