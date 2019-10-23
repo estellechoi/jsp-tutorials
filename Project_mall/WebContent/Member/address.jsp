@@ -104,11 +104,16 @@
 </style>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-	function AddressApply(xx, id, zip, address1, address2) {
+	function AddressApply(xx, id, recipient, zip, address1, address2, cell1, cell2, cell3) {
 		// 부모창의 폼에 값 전달
+		opener.document.order.recipient.value = recipient;
 		opener.document.getElementById("zip").value = zip;
 		opener.document.getElementById("address1").value = address1;
 		opener.document.getElementById("address2").value = address2;
+		opener.document.order.r_cell1.value = cell1;
+		opener.document.order.r_cell2.value = cell2;
+		opener.document.order.r_cell3.value = cell3;
+		opener.document.order.id_address.value = id; // 주소록의 id 값 → 부모창의 hidden 에 저장
 		alert("적용되었습니다 !");
 		
 		// 현재창에서 기본 배송지 표시
@@ -142,6 +147,11 @@
 	}
 	
 	function Close() {
+		// 아무런 이벤트가 없었다면 '새로운 배송지' 자동 선택
+		if (opener.document.order.id_address.value == "") {
+			opener.document.getElementsByName("same_address")[1].checked = true;
+		}
+		// 이벤트 있었다면 그냥 close(); 만 !
 		close();
 	}
 </script>
@@ -167,6 +177,7 @@
 			</tr>
 			<%
 				while (rs.next()) {
+					String cell[] = rs.getString("cell").split("-");
 			%>
 			<tr>
 				<td><input type="checkbox" name="id" value="<%=rs.getString("id")%>"></td>
@@ -178,7 +189,7 @@
 					// 팝업창일 때만 적용버튼 보이기(jsp:include 가 아닌, Javascript opener로 요청했을 때만)
 					if (incld == null) {
 				%>
-				<td><input type="button" value="적용" class="apply" onclick="AddressApply(this, <%=rs.getInt("id")%>,'<%=rs.getString("zip")%>', '<%=rs.getString("address1")%>', '<%=rs.getString("address2")%>')"></td>
+				<td><input type="button" value="적용" class="apply" onclick="AddressApply(this, '<%=rs.getString("id")%>', '<%=rs.getString("recipient")%>','<%=rs.getString("zip")%>', '<%=rs.getString("address1")%>', '<%=rs.getString("address2")%>', '<%=cell[0]%>', '<%=cell[1]%>', '<%=cell[2]%>')"></td>
 				<%
 					}
 				%>
