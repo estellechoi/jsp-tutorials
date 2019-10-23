@@ -133,7 +133,7 @@ input[type=button], #button_buy {
 	
 	// 이 상품만 바로 구매
 	function Buynow(product_code, size, qty) {
-		location = "../Product/product_buynow.jsp?product_code="+product_code+"&size="+size+"&qty="+qty;
+		location = "../Product/product_buynow.jsp?product_code="+product_code+"&size="+size+"&qty="+qty+"&cart=y";
 		
 		// cart 데이터 테이블에서 삭제는 구매 완료시에 ! 구매완료 전까지는 데이터 유지 !
 	}
