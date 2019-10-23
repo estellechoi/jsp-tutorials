@@ -64,37 +64,35 @@ function Email(x) {
 	}
 }
 
-// 배송지 선택
-document.form.username.value = "";
-document.form.zip.value = "";
-document.form.address1.value = "";
-document.form.address2.value = "";
-document.form.cell1.value = "";
-document.form.cell2.value = "";
-document.form.cell3.value = "";
-
-function Recipient(r) {
-	
-	if (r == 1) {
-		document.form.r_username.value = document.form.username.value;
-		document.form.r_zip.value = document.form.zip.value;
-		document.form.r_address1.value = document.form.address1.value;
-		document.form.r_address2.value = document.form.address2.value;
-		document.form.r_cell1.value = document.form.cell1.value;
-		document.form.r_cell2.value = document.form.cell2.value;
-		document.form.r_cell3.value = document.form.cell3.value;
+// 배송 정보 선택
+function Delivery(d) {
+	// 주문자 정보와 동일
+	if (d == "0") {
+		if (document.order.address_zip.value == "") {
+			alert("저장된 주소가 없으므로 새로운 배송지를 입력해 주세요 !");
+		}
+		else {
+			document.order.recipient.value = document.order.username.value;
+			document.order.r_zip.value = document.order.address_zip.value;
+			document.order.r_address1.value = document.order.address_address1.value;
+			document.order.r_address2.value = document.order.address_address2.value;
+			document.order.r_cell1.value = document.order.cell1.value;
+			document.order.r_cell2.value = document.order.cell2.value;
+			document.order.r_cell3.value = document.order.cell3.value;
+		}
 	}
+	// 새로운 배송지
 	else {
-		document.form.r_username.value = "";
-		document.form.r_zip.value = "";
-		document.form.r_address1.value = "";
-		document.form.r_address2.value = "";
-		document.form.r_cell1.value = "010";
-		document.form.r_cell2.value = "";
-		document.form.r_cell3.value = "";
+		document.order.id_address.value = "";
+		document.order.recipient.value = "";
+		document.order.r_zip.value = "";
+		document.order.r_address1.value = "";
+		document.order.r_address2.value = "";
+		document.order.r_cell1.value = "010";
+		document.order.r_cell2.value = "";
+		document.order.r_cell3.value = "";
 	}
 }
-
 // 새로운 배송지 등록
 function Address_book(email) {
 	
