@@ -83,6 +83,25 @@ input[type=button], #button_buy {
 	padding: 5px;
 	cursor: pointer;
 }
+
+/* 레이어 */
+#layer_options_cart {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	visibility: hidden;
+	border: 2px solid #495164;
+	background: white;
+	width: 200px;
+	height: 30px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	text-align: center;
+}
+
+#layer_options_cart #Show_options {
+	font-size: 12px;
+}
 </style>
 <script>
 	// 체크박스 모두 체크/해제 컨트롤
@@ -137,6 +156,30 @@ input[type=button], #button_buy {
 		
 		// cart 데이터 테이블에서 삭제는 구매 완료시에 ! 구매완료 전까지는 데이터 유지 !
 	}
+	
+	// 레이어
+	// 레이어 열기
+	function Change_options_open(i, product_code, size) {
+		var txt = "사이즈 <select id='layer_size'><option value='XS'>XS</option>";
+		txt = txt + "<option value='S'>S</option><option value='M'>M</option><option value='L'>L</option>";
+		txt = txt + "</select>";
+		document.getElementById("layer_options_cart").style.visibility = "visible";
+		document.getElementById("layer_options_cart").style.top = (event.clientY + document.documentElement.scrollTop) + "px";
+		document.getElementById("layer_options_cart").style.left = event.clientX + "px";
+		document.getElementById("Show_options").innerHTML = txt;
+		// 기존 사이즈 표시
+		document.getElementById("layer_size").value = size;
+	}
+	
+	// 변경하지 않고 레이어 닫기
+	function Change_options_close() {
+		document.getElementById("layer_options_cart").style.visibility = "hidden";
+	}
+	
+	// 레이어 변경내용 저장하기
+	function Change_options_save() {
+		
+	}
 </script>
 <!-- jQuery -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -149,11 +192,14 @@ input[type=button], #button_buy {
 			min:1,
 			max:100
 		});
-	});
-// 	// spinner 값이 바뀔 때 이벤트 체크
+		
+// 		// spinner 값이 바뀔 때 이벤트 체크
 // 		$(".qty").on("spinstop", function() {
-// 			var qty = document.getElementsById(this).value;
+// 			var qty = this.value;
+// 			this.value = qty;
 // 		});
+	});
+
 </script>
 </head>
 <body>
@@ -173,6 +219,7 @@ input[type=button], #button_buy {
 									<input type="checkbox" onclick="Checkbox_controller(this)" id="checkbox_master"> 모든 상품을 선택합니다.
 								</caption>
 								<%
+									int i = 0;
 									while (rs.next()) {		
 										// 사이즈 텍스트 변환
 										int s = rs.getInt("size");
@@ -191,12 +238,13 @@ input[type=button], #button_buy {
 									<td width="200px"><%=rs.getString("name")%></td>
 									<td>￦ <%=Util.comma(rs.getInt("price"))%></td>
 									<td><%=size%></td>
-									<td><input type="text" name="qty" class="qty" value="<%=rs.getInt("qty")%>" size="4"> 개</td>
 									<!-- 옵션 변경시, cart 데이터베이스 테이블도 바꿔줘야한다 ! 페이지 리로드 해야하나 ? -->
-									<td><input type="button" value="옵션 변경"></td>
+									<td><input type="button" value="옵션 변경" onclick="Change_options_open(<%=i%>, '<%=rs.getString("product_code")%>', '<%=size%>')"></td>
+									<td><input type="text" name="qty" class="qty" value="<%=rs.getInt("qty")%>" size="4"> 개</td>
 									<td><input type="button" value="이 상품만 바로 구매" onclick="Buynow('<%=rs.getString("product_code")%>', <%=s%>, <%=rs.getInt("qty")%>)"></td>
 								</tr>
 								<%
+										i++;
 									}
 								%>
 							</table>
@@ -205,6 +253,12 @@ input[type=button], #button_buy {
 								<input type="submit" id="button_buy" value="선택상품 구매">
 							</div>
 						</form>
+					</div>
+					<!-- 옵션변경 레이어 -->
+					<div id="layer_options_cart">
+						<span id="Show_options"></span>
+						<input type="button" value="변경" onclick="Change_options_save()">
+						<input type="button" value="취소" onclick="Change_options_close()">
 					</div>
 					<!-- ACCOUNT 페이지 메뉴 네비게이션바 -->
 					<div class="account_grid_right">
