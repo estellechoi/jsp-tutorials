@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="mall.Jdbc.Connect"%>
 <%@ page import="java.sql.*"%>
-<%@ page import="java.text.DecimalFormat"%>
+<%@ page import="mall.Util.Util"%>
 <%
 	// table ordered 의 id (주문 완료와 함께 id값 GET 전송)
 	String id = request.getParameter("id");
@@ -14,9 +14,6 @@
 	String sql = "select*from ordered, product where ordered.product_code = product.product_code and ordered.id=" + id;
 	ResultSet rs = stmt.executeQuery(sql);
 	rs.next();
-	
-	// 금액 표시 객체
-	DecimalFormat df = new DecimalFormat("#,###");
 %>
 <!DOCTYPE html>
 <html>
@@ -24,6 +21,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../Etc/product_buynow_view.css?after">
+<script>
+	function Myorder() {
+		location = "../Member/myorder.jsp";
+	}
+</script>
 </head>
 <body>
 	<!-- 네비게이션 바 -->
@@ -74,7 +76,7 @@
 							<td><%=rs.getInt("price")%></td>
 							<td><%=rs.getInt("qty")%></td>
 							<td><%=rs.getInt("get_point")%></td>
-							<td>일반배송</td>
+							<td>국내배송</td>
 							<%
 								String delivery_str = "무료";
 								if (rs.getInt("delivery_fee") != 0) {
@@ -86,7 +88,8 @@
 						</tr>
 						<tr>
 							<td colspan="8" class="table_footer">
-								상품 금액  <%=df.format(rs.getInt("price")*rs.getInt("qty"))%> + 배송비 <%=df.format(rs.getInt("delivery_fee"))%> = 합계 <%=df.format(rs.getInt("price")*rs.getInt("qty") + rs.getInt("delivery_fee"))%>
+								<!-- 여기에서 Util.comma() 작동 안하는 이유 ? -->
+								상품 금액  <%=Util.comma(rs.getInt("price")*rs.getInt("qty"))%> + 배송비 <%=Util.comma(rs.getInt("delivery_fee"))%> = 합계 <%=Util.comma(rs.getInt("price")*rs.getInt("qty") + rs.getInt("delivery_fee"))%>
 							</td>
 						</tr>
 					</table>
@@ -105,7 +108,7 @@
 						</tr>
 						<tr>
 							<td>우편번호</td>
-							<td><%=rs.getInt("zip")%></td>
+							<td><%=rs.getString("zip")%></td>
 						</tr>
 						<tr>
 							<td>주소</td>
@@ -132,7 +135,7 @@
 					<div class="button">
 						<!-- 추후 링크 걸기 -->
 						<input type="button" value="쇼핑 계속하기">
-						<input type="button" value="주문 상세 보기">
+						<input type="button" value="전체 주문 보기" onclick="Myorder()">
 					</div>
 				</div>
 			</section>
