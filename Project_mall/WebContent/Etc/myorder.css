@@ -65,6 +65,10 @@
 	color: #555555;
 }
 
+.myorder_section table img {
+	cursor: pointer;
+}
+
 .myorder_section table td:nth-child(1) {
 	width: 20%;
 	text-align: center;
