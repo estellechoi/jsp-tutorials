@@ -18,10 +18,12 @@
 	String qty = request.getParameter("qty");
 	String delivery_fee = request.getParameter("delivery_fee");
 	String get_point = request.getParameter("get_point"); // 적립 포인트
-	String r_msg = ""; // 배송 메세지
-		if (!(request.getParameter("r_msg").equals(""))) {
-			r_msg = request.getParameter("r_msg");
-		}
+// 	String r_msg = ""; // 배송 메세지
+// 		if (!(request.getParameter("r_msg").equals(""))) {
+// 			r_msg = request.getParameter("r_msg");
+// 		}
+	// 배송 메세지 이렇게 해줘야 하나 ? 자동으로 "" 처리되지 않나 ?
+	String r_msg = request.getParameter("r_msg");
 	
 	String pay = request.getParameter("pay"); // 결제수단
 	String pay_keychain = ""; // 결제정보 키체인
@@ -44,12 +46,27 @@
 		sender = "null";
 	}
 
+// **** 위시리스트나 장바구니에서 넘어온 상품의 경우, 구매 완료 후 해당 데이터베이스 테이블에서 레코드를 삭제해야 한다 !
+	// 위시리스트에서 온 경우
+	if (request.getParameter("IfFromWish").equals("y")) {
+		String sql = "delete from wishlist where product_code='"+product_code+"' and email='"+email+"'";
+		stmt.executeUpdate(sql);
+	}
+
+	// 장바구니에서 온 경우
+	if (request.getParameter("IfFromCart").equals("y")) {
+		String sql = "delete from cart where product_code='"+product_code+"' and email='"+email+"'";
+		stmt.executeUpdate(sql);
+	}
+
+		
+// 쿼리 시작 !
 	// address table에 없는 배송지인 경우 (새로운 배송지 입력한 경우)
-	String d = request.getParameter("delivery"); // "0" vs "1"
+	String same_address = request.getParameter("same_address"); // "0" vs "1"
 	String id_address = null;
 	
 	// 새로운 배송지인 경우
-	if (d.equals("1")) {
+	if (same_address.equals("1")) {
 		// 배송지 정보 → address 테이블에 저장
 		String recipient = request.getParameter("recipient");
 		String destination = request.getParameter("recipient");
@@ -76,24 +93,24 @@
 		rs.next();
 		id_address = rs.getString("id_address");
 	}
+	// 주소록에서 선택 경우
+	// input text 의 값이 없으면 null 이 아닌 "" 값이 넘어온다 !!!!
+	// 여기서 equals() 로 하지 않아도 되는 이유는 ?
+	else if (same_address.equals("2")) {
+		id_address = request.getParameter("id_address");
+		// product_buynow.jsp (opener)에서 팝업창 선택값을 Javascript로 받음 (input hidden에 저장)
+		// 주소록 팝업창에서 아무런 이벤트 없이 '취소' 버튼 눌렀다면, 자동으로 새배송지로 선택값 변경하는 것이 필요 !!
+		// same_address 값은 2인데, id_address 값이 없는 오류 발생하기 때문 !
+	}
+	// 주문자 정보와 동일
 	else {
-		// 배송지 즐겨찾기에서 선택한 경우
-		// input text 의 값이 없으면 null 이 아닌 "" 값이 넘어온다 !!!!
-		// 여기서 equals() 로 하지 않아도 되는 이유는 ?
-		if (request.getParameter("id_address") != "") {
-			id_address = request.getParameter("id_address");
-			// product_buynow.jsp 에서 script로 값 부여
-
-		}
-		// 주문자 정보와 동일
-		else {
-			// member 테이블 id_address 값 가져와야 한다 !
-			// 회원가입시 주소정보를 입력하면 id_address 값, table address에도 레코드 등록돼야 함
+		// member 테이블 id_address 값 가져와야 한다 !
+		// 회원가입시 주소정보를 입력하면 id_address 값, table address에도 레코드 등록돼야 함
+		// 회원가입시 주소정보 미입력하면 주문자정보에도 주소가 없기 때문에 <주문자 정보와 동일> 체크 불가
 			String sql = "select * from member where email='" + email + "'";
 			ResultSet rs = stmt.executeQuery(sql);
 			rs.next();
 			id_address = rs.getString("id_address");
-		}
 	}
 
 	
