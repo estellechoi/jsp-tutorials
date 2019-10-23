@@ -226,6 +226,7 @@ input[type=submit] {
 					<div id="layer_options">
 						<form action="../Product/product_buynow.jsp" method="post" name="layer">
 							<input type="hidden" name="product_code">
+							<input type="hidden" name="wish" value="y">
 							사이즈
 							<select name="size">
 								<option value="0">선택</option>
