@@ -4,13 +4,15 @@
 <%@ page import="mall.Jdbc.Connect"%>
 <%@ page import="mall.Util.Util"%>
 <%
-
-	// **** 위시리스트나 장바구니에서 넘어온 상품의 경우, 구매 완료 후 해당 데이터베이스 테이블에서 레코드를 삭제해야 한다 !
 	// 필요한 정보 : product_code, size, qty
 	request.setCharacterEncoding("UTF-8");
 	String product_code = request.getParameter("product_code");
 	String size = request.getParameter("size");
 	int qty = Integer.parseInt(request.getParameter("qty"));
+	
+	// **** 위시리스트나 장바구니에서 넘어온 상품의 경우, 구매 완료 후 해당 데이터베이스 테이블에서 레코드를 삭제해야 한다 !
+	String IfFromWish = request.getParameter("wish"); // 맞으면 "y" 아니면 null
+	String IfFromCart = request.getParameter("cart"); // 맞으면 "y" 아니면 null
 	
 	if (session.getAttribute("email") != null) {
 			
@@ -39,8 +41,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/product_buynow.css?ver=4">
-<script src="../Etc/product_buynow.js"></script>
+<link rel="stylesheet" href="../Etc/product_buynow.css?ver=5">
+<script src="../Etc/product_buynow.js?ver=3"></script>
 <script src="../Etc/common.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <!-- daum 도로명주소검색 API 시작 -->
@@ -51,7 +53,7 @@
 	    new daum.Postcode({
 	        oncomplete: function(data) {
 	        	// 사용자가 도로명 주소를 선택했을 경우
-	            if (data.userSelectedType === 'R') { 
+	            if (data.userSelectedType === 'R') {
 	                addr = data.roadAddress;
 	                
 	            // 사용자가 지번 주소를 선택했을 경우(J)
@@ -67,30 +69,7 @@
 	    }).open();
 	}
 	
-	// 배송 정보 선택
-	function Delivery(n) {
-		if (n == 0) {
-			if (document.form.zip.value = "") {
-				alert("주문자의 저장된 주소가 없으므로 새로운 배송지를 입력해 주세요 !")
-			}
-			else {
-				document.form.r_zip.value = document.form.zip.value;
-				document.form.r_address1.value = document.form.address1.value;
-				document.form.r_address2.value = document.form.address2.value;
-				document.form.r_cell1.value = document.form.cell1.value;
-				document.form.r_cell2.value = document.form.cell2.value;
-				document.form.r_cell3.value = document.form.cell3.value;
-			}
-		}
-		else if (n == 1) {
-			document.form.r_zip.value = "";
-			document.form.r_address1.value = "";
-			document.form.r_address2.value = "";
-			document.form.r_cell1.value = "";
-			document.form.r_cell2.value = "";
-			document.form.r_cell3.value = "";		
-		}
-	}
+
 </script>
 </head>
 <body onload="Member()">
@@ -113,7 +92,9 @@
 					
 					<!-- 국내배송 주문서 -->
 					<div id="table_domestic">
-						<form action="product_buynow_ok.jsp" method="post" name="form" onsubmit="return Submit()">
+						<form action="product_buynow_ok.jsp" method="post" name="order" onsubmit="return Submit()">
+							<input type="hidden" name="IfFromCart" value="<%=IfFromCart%>">
+							<input type="hidden" name="IfFromWish" value="<%=IfFromWish%>">
 							<input type="hidden" name="product_code" value="<%=product_code%>">
 							<input type="hidden" name="size" value="<%=size%>">
 							<input type="hidden" name="qty" value="<%=qty%>">
@@ -190,33 +171,30 @@
 									<th>주문자명 * </th>
 									<td><input type="text" name="username" value="<%=session.getAttribute("username")%>" readonly></td>
 								</tr>
-								<%
-								// 1) 주소 정보가 있는 회원의 경우
-								if (rs.getString("zip") != null) {
-								%>
 								<tr>
 									<th>주소 * </th>
 									<td>
-										<input type="text" name="zip" value="<%=rs.getString("zip")%>"><p></p>
-										<input type="text" name="address1" value="<%=rs.getString("address1")%>"> 기본주소 <p></p>
-										<input type="text" name="address2" value="<%=rs.getString("address2")%>"> 나머지 주소
-									</td>
-								</tr>
-								<%
-								// 2) 주소 정보가 없는 회원
-								} else {
-								%>
-								<tr>
-									<th>주소 * </th>
-									<td>
-										<input type="text" name="zip">
+									<%
+									// 1) 주소 정보가 있는 회원의 경우
+									if (rs.getString("zip") != null) {
+									%>
+										<input type="text" name="address_zip" value="<%=rs.getString("zip")%>"><p></p>
+										<input type="text" name="address_address1" value="<%=rs.getString("address1")%>"> 기본주소 <p></p>
+										<input type="text" name="address_address2" value="<%=rs.getString("address2")%>"> 나머지 주소
+									<%
+									// 2) 주소 정보가 없는 회원
+									} else {
+									%>
+										<input type="text" name="address_zip">
 										<input type="button" value="우편번호 검색" class="zip_button"> <p></p>
-										<input type="text" name="address1"> 기본주소 <p></p>
-										<input type="text" name="address2"> 나머지 주소
+										<input type="text" name="address_address1"> 기본주소 <p></p>
+										<input type="text" name="address_address2"> 나머지 주소			
+									<%
+									}
+									%>
 									</td>
-								</tr>				
+								</tr>	
 								<%
-								}
 								
 								if (rs.getString("cell") != null) {
 									String cell[] = rs.getString("cell").split("-");
@@ -290,9 +268,9 @@
 									<th>배송지 선택</th>
 									<td>
 										<input type="hidden" name="id_address"><!-- address table 에 레코드가 있다면 그 id 값을 부여 -->
-										<input type="radio" name="delivery" value="0" onclick="Delivery(1)">주문자 정보와 동일
-										<input type="radio" name="delivery" value="1" onclick="Delivery(2)" checked>새로운 배송지
-										<input type="button" value=" > 주소록 관리" class="recipient_button" onclick="Address()">
+										<input type="radio" name="same_address" value="0" onclick="Delivery(this.value)">주문자 정보와 동일
+										<input type="radio" name="same_address" value="1" onclick="Delivery(this.value)" checked>새로운 배송지
+										<input type="radio" name="same_address" value="2" onclick="Address()">주소록에서 선택
 									</td>
 								</tr>
 								<tr>
@@ -422,8 +400,8 @@
 							<div>
 								<div id="radio_box">
 									<input type="radio" name="pay" value="0" onclick="Pay_form(0)" checked>무통장 입금/계좌이체
-									<input type="radio" name="pay" value="2" onclick="Pay_form(1)">카카오페이
-									<input type="radio" name="pay" value="3" onclick="Pay_form(2)">카드결제
+									<input type="radio" name="pay" value="1" onclick="Pay_form(1)">카카오페이
+									<input type="radio" name="pay" value="2" onclick="Pay_form(2)">카드결제
 								</div>
 								<div id="layer_box">
 											<!-- 무통장입금/계좌이체 -->
