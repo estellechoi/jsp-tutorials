@@ -61,6 +61,11 @@
 
 		
 // 쿼리 시작 !
+
+	// member table에 적립포인트 누적시키기
+	String sql = "update member set point=point+" + get_point + " where email='" + email + "'";
+	stmt.executeUpdate(sql);
+	
 	// address table에 없는 배송지인 경우 (새로운 배송지 입력한 경우)
 	String same_address = request.getParameter("same_address"); // "0" vs "1"
 	String id_address = null;
@@ -75,7 +80,7 @@
 		String address2 = request.getParameter("r_address2");
 		String cell = request.getParameter("r_cell1")+"-"+request.getParameter("r_cell2")+"-"+request.getParameter("r_cell3");
 		
-		String sql = "insert into address(email, recipient, zip, address1, address2, cell, destination, writeday)";
+		sql = "insert into address(email, recipient, zip, address1, address2, cell, destination, writeday)";
 		sql = sql + " values(?,?,?,?,?,?,?,now())";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, email);
@@ -107,14 +112,14 @@
 		// member 테이블 id_address 값 가져와야 한다 !
 		// 회원가입시 주소정보를 입력하면 id_address 값, table address에도 레코드 등록돼야 함
 		// 회원가입시 주소정보 미입력하면 주문자정보에도 주소가 없기 때문에 <주문자 정보와 동일> 체크 불가
-			String sql = "select * from member where email='" + email + "'";
+			sql = "select * from member where email='" + email + "'";
 			ResultSet rs = stmt.executeQuery(sql);
 			rs.next();
 			id_address = rs.getString("id_address");
 	}
 
 	
-	String sql = "insert into ordered(username, email, product_code, size, qty, delivery_fee, id_address, get_point, amount_buy, amount_discount, amount_pay, pay, pay_keychain, sender, confirm, r_msg)";
+	sql = "insert into ordered(username, email, product_code, size, qty, delivery_fee, id_address, get_point, amount_buy, amount_discount, amount_pay, pay, pay_keychain, sender, confirm, r_msg)";
 	sql = sql + " values(?,?,?,?,?,?,?,?, ?, ?,?,?,?,?,?,?)";
 	PreparedStatement pstmt = conn.prepareStatement(sql);
 	pstmt.setString(1, username);
@@ -144,6 +149,7 @@
 	response.sendRedirect("../Product/product_buynow_view.jsp?id=" + rs.getInt("id"));
 	
 	// 종료
+	stmt.close();
 	pstmt.close();
 	conn.close();
 %>
