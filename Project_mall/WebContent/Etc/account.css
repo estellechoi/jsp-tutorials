@@ -26,9 +26,17 @@
 	padding-left: 10px;
 }
 
+.account_section table th {
+	font-size: 14px;
+	width: 200px;
+}
+
 .account_section table td {
 	border: 1px solid #eeeeee;
 	font-size: 13px;
 	height: 30px;
-	text-align: center;
+	text-align: left;
+	padding-left: 30px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
