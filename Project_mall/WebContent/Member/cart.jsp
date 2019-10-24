@@ -162,7 +162,8 @@ input[type=button], #button_buy {
 	function Change_options_open(i, product_code, size) {
 		var txt = "사이즈 <select id='layer_size'><option value='XS'>XS</option>";
 		txt = txt + "<option value='S'>S</option><option value='M'>M</option><option value='L'>L</option>";
-		txt = txt + "</select>";
+		// i : 옵션 선택 후 몇번째 상품에 적용할지 정보 저장
+		txt = txt + "</select><input type='hidden' name='i' value='" + i + "'>";
 		document.getElementById("layer_options_cart").style.visibility = "visible";
 		document.getElementById("layer_options_cart").style.top = (event.clientY + document.documentElement.scrollTop) + "px";
 		document.getElementById("layer_options_cart").style.left = event.clientX + "px";
@@ -178,7 +179,11 @@ input[type=button], #button_buy {
 	
 	// 레이어 변경내용 저장하기
 	function Change_options_save() {
-		
+		var i = parseInt(document.getElementsByName("i")[0].value);
+		var size = document.getElementById("layer_size").value;
+		// input name=size 값 변경
+		document.getElementsByName("size")[i].value = size;
+		document.getElementById("layer_options_cart").style.visibility = "hidden";
 	}
 </script>
 <!-- jQuery -->
@@ -190,13 +195,18 @@ input[type=button], #button_buy {
 	$(function() {
 		$(".qty").spinner({
 			min:1,
-			max:100
+			max:100,
+// 			spin: function(event, ui) {
+// 				var $Q = $(".qty");
+// 				var n = $Q.index(this); // .qty 요소 중 해당요소의 index no.
+// // 				document.getElementsByClassName(".qty")[n].value;
+// 				// alert(ui.value);
+// 			}
 		});
-		
 // 		// spinner 값이 바뀔 때 이벤트 체크
 // 		$(".qty").on("spinstop", function() {
-// 			var qty = this.value;
-// 			this.value = qty;
+// 			var $qty = $(".qty");
+// 			$qty.index(this).value = qty;
 // 		});
 	});
 
@@ -214,6 +224,7 @@ input[type=button], #button_buy {
 				<div class="account_grid_container">
 					<div class="account_grid_left">
 						<form action="cart_toBuy.jsp" method="post">
+							<input type="hidden" name="IfFromCart" value="y">
 							<table>
 								<caption>
 									<input type="checkbox" onclick="Checkbox_controller(this)" id="checkbox_master"> 모든 상품을 선택합니다.
@@ -237,7 +248,7 @@ input[type=button], #button_buy {
 									<td><img src="../Product/Image/<%=rs.getString("product_list")%>" alt="no image" width="80" height="80" onclick="Product_content(<%=rs.getInt("id")%>)"></td>
 									<td width="200px"><%=rs.getString("name")%></td>
 									<td>￦ <%=Util.comma(rs.getInt("price"))%></td>
-									<td><%=size%></td>
+									<td><input type="text" name="size" value="<%=size%>" readonly size="1"></td>
 									<!-- 옵션 변경시, cart 데이터베이스 테이블도 바꿔줘야한다 ! 페이지 리로드 해야하나 ? -->
 									<td><input type="button" value="옵션 변경" onclick="Change_options_open(<%=i%>, '<%=rs.getString("product_code")%>', '<%=size%>')"></td>
 									<td><input type="text" name="qty" class="qty" value="<%=rs.getInt("qty")%>" size="4"> 개</td>
