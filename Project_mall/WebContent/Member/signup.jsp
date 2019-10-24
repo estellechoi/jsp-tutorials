@@ -109,7 +109,7 @@
 										<td id="zip_x"></td>
 									</tr>
 									<tr>
-										<th id="business_no">성별</th>
+										<th id="business_no">성별 * </th>
 										<td id="business_no_form">
 											<input type="radio" name="sex" value="0" checked>남
 											<input type="radio" name="sex" value="1">여
