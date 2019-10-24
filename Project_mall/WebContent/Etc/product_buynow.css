@@ -94,6 +94,12 @@
 	vertical-align: center;
 }
 
+#table_domestic img {
+	overflow: hidden;
+	border: none;
+	border-radius: 50%;
+}
+
 /* 테이블 필드명 굵게 */
 #table_domestic table .field td {
 	font-weight: bold;

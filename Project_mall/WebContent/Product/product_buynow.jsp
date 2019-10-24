@@ -136,7 +136,7 @@
 									<td><%=Util.comma(rs.getInt("price"))%></td>
 									<td><%=qty%></td>
 									<!-- 포인트 적립 처리 어떻게 할거 ? input hidden 으로 값 전송-->
-									<td><%=Util.comma(rs.getInt("price")*rs.getInt("point")/100)%></td>
+									<td><%=Util.comma(rs.getInt("price")*rs.getInt("point")/100)%> p </td>
 									<td>국내배송</td>
 									<td><%=delivery_str%></td>
 									<td><%=Util.comma(amount)%></td>
