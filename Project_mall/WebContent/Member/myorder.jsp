@@ -43,8 +43,8 @@
 	
 	// ordered, product 2개 테이블의 데이터를 동시에 조회
 	// MySQL substring(1, 10) 1번째 문자 ~ 10번째 문자까지 추출
-	String sql = "select ordered.id, substring(ordered.writeday, 1, 10) as writeday, product.id as product_id, product.product_list, product.name, ordered.size";
-	sql = sql + ", ordered.qty, ordered.amount_buy, product.price from ordered, product where ordered.email='" + session.getAttribute("email") + "'";
+	String sql = "select ordered.id, substring(ordered.writeday, 1, 10) as writeday, product.id as product_id, product.product_list, product.name, ordered.size as size";
+	sql = sql + ", ordered.qty, ordered.amount_buy, product.price, ordered.get_point from ordered, product where ordered.email='" + session.getAttribute("email") + "'";
 	sql = sql + " and product.product_code = ordered.product_code" + sql_period + " order by writeday desc";
 	ResultSet rs = stmt.executeQuery(sql);
 %>
@@ -53,7 +53,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/myorder.css?ver=3">
+<link rel="stylesheet" href="../Etc/myorder.css?ver=4">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script>
@@ -112,11 +112,13 @@
 						<table>
 							<caption>주문일 <%=rs.getString("writeday")%></caption>
 							<tr>
-								<td><img src="../Product/Image/<%=rs.getString("product_list")%>" alt="no image" width="100" onclick="Product_content('<%=rs.getString("product_id")%>')"></td>
+								<td><img src="../Product/Image/<%=rs.getString("product_list")%>" alt="no image" width="100" height="100" onclick="Product_content('<%=rs.getString("product_id")%>')"></td>
 								<td>
-									<%=rs.getString("name")%><p></p>
-									<%=Util.comma(rs.getInt("amount_buy"))%> 원 <p></p>
-									<%=rs.getString("qty")%> 개
+									<b><%=rs.getString("name")%></b><p></p>
+									<%=Util.comma(rs.getInt("amount_buy"))%> 원
+									<span id="show_get_point"><%=Util.comma(rs.getInt("get_point"))%> p 적립</span>
+									<p></p>
+									사이즈: <%=rs.getString("size")%> / 수량: <%=rs.getString("qty")%> 개
 								</td>
 								<td>
 									배송중 <p></p>

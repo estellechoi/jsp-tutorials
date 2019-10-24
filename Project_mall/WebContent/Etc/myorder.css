@@ -47,7 +47,9 @@
 /* 주문내역마다 테이블 */
 .myorder_section table {
 	border: 1px solid #495164;
+	border-radius: 5px;
 	width: 800px;
+	height: 140px;
 	margin: auto;
 }
 
@@ -58,15 +60,18 @@
 	font-weight: bold;
 	color: #495164;
 	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-bottom: 10px;
 }
 
 .myorder_section table td {
 	color: #555555;
+	font-size: 14px;
 }
 
 .myorder_section table img {
 	cursor: pointer;
+	border: none;
+	border-radius: 50%;
 }
 
 .myorder_section table td:nth-child(1) {
@@ -89,4 +94,10 @@ a {
 	font-weight: bold;
 	font-size: 18px;
 	text-decoration: none;	
+}
+
+/* 적립 포인트 텍스트 */
+#show_get_point {
+	font-size: 11px;
+	color: #FF8000;
 }
