@@ -68,8 +68,6 @@
 	        }
 	    }).open();
 	}
-	
-
 </script>
 </head>
 <body onload="Member()">
