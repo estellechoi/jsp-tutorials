@@ -45,7 +45,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/account_edit.css">
+<link rel="stylesheet" href="../Etc/account_edit.css?ver=1">
 <script>
 	// 문서 로드시
 	function Filled() {
@@ -92,6 +92,31 @@
 		history.back();
 	}
 </script>
+<!-- daum 도로명주소검색 API 시작 -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	// 우편번호 검색 버튼 클릭하여 함수 호출
+	function search_address() {
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	        	// 사용자가 도로명 주소를 선택했을 경우
+	            if (data.userSelectedType === 'R') { 
+	                addr = data.roadAddress;
+	                
+	            // 사용자가 지번 주소를 선택했을 경우(J)
+	            } else { 
+	                addr = data.jibunAddress;
+	            }
+	            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	            document.getElementById("zip").value = data.zonecode; // 우편번호
+	            document.getElementById("address1").value = addr;  // 주소
+	            // 커서를 상세주소 필드로 이동한다.
+	            document.getElementById("address2").focus();
+	        }
+	    }).open();	
+	}
+</script>
+<!-- daum 도로명주소검색 API 끝 -->
 <script src="../Etc/common.js?after"></script>
 </head>
 <body onload="Filled()">
@@ -105,7 +130,8 @@
 				<div id="account_edit_header">EDIT ACCOUNT</div>
 				<div class="account_grid_container">	
 					<div class="account_grid_left">
-						<form action="account_edit_ok.jsp" method="post">
+						<form action="account_edit_ok.jsp" method="post" name="order">
+							<!-- 주소록 팝업창에서 값을 받기 위해 form의 name 값을 order로 함.... -->
 							<!-- table member 레코드 id 값 -->
 							<input type="hidden" name="id" value="<%=rs.getInt("id")%>">
 							<input type="hidden" name="birth" value="<%=rs.getString("birth")%>">
@@ -124,7 +150,7 @@
 								<tr>
 									<th>이메일</th>
 									<td>
-										<input type="text" name="email" value="<%=session.getAttribute("email")%>">
+										<input type="text" name="email" value="<%=session.getAttribute("email")%>" readonly>
 									</td>
 								</tr>
 								<tr>
@@ -134,21 +160,22 @@
 									%>
 									<td>
 										<input type="text" name="zip" id="zip" value="<%=rs.getInt("zip")%>" size="5" readonly>
-										<input type="button" value="주소록 열기" onclick="Address()">
+										<input type="button" value="우편번호 검색" onclick="search_address()">
 										<br>
-										<!-- 주소록 기능을 하는 address.jsp 페이지 별도로 생성해서 개인정보수정/구매시 다시 연결해야할듯 -->
 										<input type="text" name="address1" id="address1" value="<%=rs.getString("address1")%>" readonly><br>
-										<input type="text" name="address2" id="address2" value="<%=rs.getString("address2")%>" readonly>
+										<input type="text" name="address2" id="address2" value="<%=rs.getString("address2")%>"><br>
+										<span class="information">새 주소는 내 주소록에 자동으로 추가됩니다.</span>
 									</td>
 									<%
 										} else {
 									%>
 									<td>
 										<input type="text" name="zip" id="zip" size="5">
-										<input type="button" value="주소록 열기" onclick="Address()">
+										<input type="button" value="우편번호 검색" onclick="search_address()">
 										<br>
 										<input type="text" name="address1" id="address1"><br>
-										<input type="text" name="address2" id="address2">
+										<input type="text" name="address2" id="address2"><br>
+										<span class="information">새 주소는 내 주소록에 자동으로 추가됩니다.</span>
 									</td>		
 									<%
 										}
