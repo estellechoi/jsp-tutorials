@@ -6,9 +6,10 @@
 <%
 	// request 전송값 가져오기
 	request.setCharacterEncoding("UTF-8");
-	String product_code[] = request.getParameterValues("product_code");
-	String size[] = request.getParameterValues("size");
-	String Q[] = request.getParameterValues("qty");
+	String product_code[] = request.getParameter("product_code").split(",");
+	String size[] = request.getParameter("size").split(",");
+	String Q[] = request.getParameter("qty").split(",");
+	// 자바에서 split 했을 때 공백은 배열의 요소에 포함되나 ? 테스트결과, 아닌듯
 	
 	// 수량 int 변환
 	int qty[] = new int[Q.length];
