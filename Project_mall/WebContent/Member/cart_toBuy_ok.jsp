@@ -47,6 +47,7 @@
 		sender = "null";
 	}
 	
+	// 하나의 오더에 여러 개의 상품이 있을 때, 오더번호로 구별할까 ? ArrayList로 한 오더에 여러 상품을 넣어줄까 ?
 	// product_code, qty, size 를 상품별로 세트로 묶어 ArrayList에 넣어주기
 	ArrayList<String[]> P = new ArrayList<String[]>();
 	// ArrayList의 각 요소는 상품 1개당 코드, qty, size를 요소로 하는 배열
