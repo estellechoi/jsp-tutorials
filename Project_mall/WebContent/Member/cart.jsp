@@ -185,6 +185,25 @@ input[type=button], #button_buy {
 		document.getElementsByName("size")[i].value = size;
 		document.getElementById("layer_options_cart").style.visibility = "hidden";
 	}
+	
+	// 선택된 상품 구매하기
+	function Order_selected() {
+		var checkbox = document.getElementsByName("product_code"); // 배열
+		
+		var product_code ="";
+		var size = "";
+		var qty = "";
+		
+		for (var i = 0; i < <%=n%>; i++) { // checkbox.length 로 대체 가능 (상품의 가짓수)
+			if(checkbox[i].checked) {
+				product_code = product_code + checkbox[i].value + ",";
+				size = size + document.getElementsByName("size")[i].value + ",";
+				qty = qty + document.getElementsByName("qty")[i].value + ",";
+			}
+		}
+		
+		location = "cart_toBuy.jsp?product_code=" + product_code + "&size=" + size + "&qty=" + qty;
+	}
 </script>
 <!-- jQuery -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -261,7 +280,7 @@ input[type=button], #button_buy {
 							</table>
 							<div id="button_box">
 								<input type="button" id="button_del" value="선택상품 삭제" onclick="Del()">
-								<input type="submit" id="button_buy" value="선택상품 구매">
+								<input type="button" id="button_buy" value="선택상품 구매" onclick="Order_selected()">
 							</div>
 						</form>
 					</div>
