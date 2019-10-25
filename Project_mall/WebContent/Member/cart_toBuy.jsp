@@ -53,7 +53,7 @@
 					<!-- 국내배송 주문서 -->
 					<div id="table_domestic">
 						<form action="cart_toBuy_ok" method="post" name="order" onsubmit="return Submit()">
-							<input type="hidden" name="IfFromCart" value="<%=request.getParameter("IfFromCart")%>">
+							<input type="hidden" name="IfFromCart" value="<%=request.getParameter("cart")%>">
 							<table>
 								<caption>상품 주문내역</caption>
 								<tr class="field">
