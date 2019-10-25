@@ -6,7 +6,7 @@
 <%
 	Connection conn = Connect.connection_static();
 	Statement stmt = conn.createStatement();
-	String sql = "select product.id, product.product_code, product.product_list, product.name, product.price, cart.size, cart.qty from product, cart where cart.email='" + session.getAttribute("email") + "'";
+	String sql = "select product.id, product.product_code, product.product_list, product.name, product.price, cart.id as id_cart, cart.size, cart.qty from product, cart where cart.email='" + session.getAttribute("email") + "'";
 	sql = sql + " and product.product_code = cart.product_code";
 	ResultSet rs = stmt.executeQuery(sql);
 	rs.last();
@@ -193,6 +193,7 @@ input[type=button], #button_buy {
 		var product_code ="";
 		var size = "";
 		var qty = "";
+		var id_cart = "";
 		
 		for (var i = 0; i < <%=n%>; i++) { // checkbox.length 로 대체 가능 (상품의 가짓수)
 			if(checkbox[i].checked) {
@@ -202,7 +203,7 @@ input[type=button], #button_buy {
 			}
 		}
 		
-		location = "cart_toBuy.jsp?product_code=" + product_code + "&size=" + size + "&qty=" + qty;
+		location = "cart_toBuy.jsp?product_code=" + product_code + "&size=" + size + "&qty=" + qty + "&cart=y";
 	}
 </script>
 <!-- jQuery -->
@@ -262,6 +263,7 @@ input[type=button], #button_buy {
 											case 4: size = "L"; break;
 										}
 								%>
+								<input type="hidden" name="id_cart" value="<%=rs.getString("id_cart")%>">
 								<tr>
 									<td><input type="checkbox" name="product_code" value="<%=rs.getString("product_code")%>" onclick="Checkbox()"></td>
 									<td><img src="../Product/Image/<%=rs.getString("product_list")%>" alt="no image" width="80" height="80" onclick="Product_content(<%=rs.getInt("id")%>)"></td>
