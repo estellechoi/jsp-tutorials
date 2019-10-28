@@ -12,19 +12,49 @@
 	String username = session.getAttribute("username").toString(); // 가능 ?
 
 	// POST 전송값 가져오기
-	request.setCharacterEncoding("UTF-8");	
-	String product_code = request.getParameter("product_code");
-	String size = request.getParameter("size");
-	String qty = request.getParameter("qty");
-	String delivery_fee = request.getParameter("delivery_fee");
-	String get_point = request.getParameter("get_point"); // 적립 포인트
-// 	String r_msg = ""; // 배송 메세지
-// 		if (!(request.getParameter("r_msg").equals(""))) {
-// 			r_msg = request.getParameter("r_msg");
-// 		}
-	// 배송 메세지 이렇게 해줘야 하나 ? 자동으로 "" 처리되지 않나 ?
-	String r_msg = request.getParameter("r_msg");
+	request.setCharacterEncoding("UTF-8");
+	// 상품 가짓수
+	int kind = Integer.parseInt(request.getParameter("kind"));
 	
+	// 주문 상품 정보
+	String product_code[];
+	String size[];
+	int qty[];
+	int get_point[];
+	
+	// 1개 상품만 바로 구매
+	if (kind == 1) {
+		product_code = new String[kind];
+		size = new String[kind];
+		qty = new int[kind];
+		get_point = new int[kind];
+		product_code[0] = request.getParameter("product_code");
+		size[0] = request.getParameter("size");
+		qty[0] = Integer.parseInt(request.getParameter("qty"));
+		get_point[0] = Integer.parseInt(request.getParameter("get_point"));
+	}
+	// 여러개 선택 상품 구매
+	else {
+		product_code = request.getParameterValues("product_code");
+		size = request.getParameterValues("size");
+		String P[] = request.getParameterValues("get_point");
+		get_point = new int[kind];
+		for(int i=0; i<P.length; i++) {
+			get_point[i] = Integer.parseInt(P[i]);
+		}
+		String Q[] = request.getParameterValues("qty");
+		qty = new int[kind];
+		for (int i =0; i<Q.length; i++) {
+			qty[i] = Integer.parseInt(Q[i]);
+		}
+	}
+	
+	String use_point = request.getParameter("use_point"); // 사용한 적립금
+	String amount_buy = request.getParameter("amount_buy_hidden"); // 콤마 없는 값이 넘어오도록 이전 페이지에서 컨트롤했어야 ...
+	String amount_discount = request.getParameter("amount_discount_hidden");
+	String amount_pay = request.getParameter("amount_pay_hidden");
+	String delivery_fee = request.getParameter("delivery_fee");
+	String r_msg = request.getParameter("r_msg");
 	String pay = request.getParameter("pay"); // 결제수단
 	String pay_keychain = ""; // 결제정보 키체인
 		if (request.getParameter("pay_keychain") == null) {
@@ -33,10 +63,7 @@
 			pay_keychain = "1";
 		}
 	String confirm = request.getParameter("confirm"); // 구매 진행 동의
-	String amount_buy = request.getParameter("amount_buy_hidden"); // 콤마 없는 값이 넘어오도록 이전 페이지에서 컨트롤했어야 ...
-	String amount_discount = request.getParameter("amount_discount_hidden");
-	String amount_pay = request.getParameter("amount_pay_hidden");
-	
+
 	// 무통장입금/계좌이체의 경우
 	String sender = "";
 	if (request.getParameter("sender") != "" && request.getParameter("sender") != null) {
@@ -48,22 +75,32 @@
 
 // **** 위시리스트나 장바구니에서 넘어온 상품의 경우, 구매 완료 후 해당 데이터베이스 테이블에서 레코드를 삭제해야 한다 !
 	// 위시리스트에서 온 경우
-	if (request.getParameter("IfFromWish").equals("y")) {
-		String sql = "delete from wishlist where product_code='"+product_code+"' and email='"+email+"'";
+	if (request.getParameter("wish").equals("y")) {
+		String sql = "delete from wishlist where product_code='"+product_code[0]+"' and email='"+email+"'";
 		stmt.executeUpdate(sql);
 	}
 
 	// 장바구니에서 온 경우
-	if (request.getParameter("IfFromCart").equals("y")) {
-		String sql = "delete from cart where product_code='"+product_code+"' and email='"+email+"'";
+	if (request.getParameter("cart").equals("y")) {
+		String sql_code ="";
+		for (int i=0; i<kind; i++) {
+			sql_code = sql_code + "'" + product_code[i] + "', ";
+		}
+		int e = sql_code.lastIndexOf(",");
+		sql_code = sql_code.substring(0,e);
+		String sql = "delete from cart where product_code in(" + sql_code + ") and email='"+email+"'";
 		stmt.executeUpdate(sql);
 	}
 
 		
 // 쿼리 시작 !
 
-	// member table에 적립포인트 누적시키기
-	String sql = "update member set point=point+" + get_point + " where email='" + email + "'";
+	// member table에서 사용포인트 빼고 적립포인트 누적시키기
+	int add_point = 0;
+	for (int i=0; i<get_point.length; i++) {
+		add_point = add_point + get_point[i];
+	}
+	String sql = "update member set point=point+" + add_point + "-" + use_point + " where email='" + email + "'";
 	stmt.executeUpdate(sql);
 	
 	// address table에 없는 배송지인 경우 (새로운 배송지 입력한 경우)
@@ -117,39 +154,56 @@
 			rs.next();
 			id_address = rs.getString("id_address");
 	}
-
-	
-	sql = "insert into ordered(username, email, product_code, size, qty, delivery_fee, id_address, get_point, amount_buy, amount_discount, amount_pay, pay, pay_keychain, sender, confirm, r_msg)";
-	sql = sql + " values(?,?,?,?,?,?,?,?, ?, ?,?,?,?,?,?,?)";
-	PreparedStatement pstmt = conn.prepareStatement(sql);
-	pstmt.setString(1, username);
-	pstmt.setString(2, email);
-	pstmt.setString(3, product_code);
-	pstmt.setString(4, size);	
-	pstmt.setString(5, qty);
-	pstmt.setString(6, delivery_fee);
-	pstmt.setString(7, id_address);
-	pstmt.setString(8, get_point);
-	pstmt.setString(9, amount_buy);
-	pstmt.setString(10, amount_discount);
-	pstmt.setString(11, amount_pay);
-	pstmt.setString(12, pay);
-	pstmt.setString(13, pay_keychain);
-	pstmt.setString(14, sender);
-	pstmt.setString(15, confirm);
-	pstmt.setString(16, r_msg);
-	pstmt.executeUpdate();
-	
-	// table ordered 추가 후 방금 추가한 레코드의 id 값 가져가자 !
+		
+	// ordered 테이블에 레코드 추가하기 전, 가장 최근 레코드의 id 값을 저장해놓자 !
 	sql = "select max(id) as id from ordered where email='"+email+"'";
 	ResultSet rs = stmt.executeQuery(sql);
 	rs.next();
+	int id_max = rs.getInt("id");
 	
-	// 페이지 이동 (마이오더 페이지)
-	response.sendRedirect("../Product/product_buynow_view.jsp?id=" + rs.getInt("id"));
+	// ordered 테이블 에서 같은 오더끼리 조회하기 위한, 오더번호 생성하기
+	String order_code = product_code[0] + (id_max + 1);
+
+	// ordered 테이블에 레코드 추가하기
+	for (int i=0; i<kind; i++) {
+		sql = "insert into ordered(username, email, product_code, size, qty, delivery_fee, id_address, get_point, amount_buy, amount_discount, amount_pay, pay, pay_keychain, sender, confirm, r_msg, order_code)";
+		sql = sql + " values(?,?,?,?,?,?,?,?, ?, ?,?,?,?,?,?,?,?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, username);
+		pstmt.setString(2, email);
+		pstmt.setString(3, product_code[i]);
+		pstmt.setString(4, size[i]);	
+		pstmt.setInt(5, qty[i]);
+		pstmt.setString(6, delivery_fee);
+		pstmt.setString(7, id_address);
+		pstmt.setInt(8, get_point[i]);
+		pstmt.setString(9, amount_buy);
+		pstmt.setString(10, amount_discount);
+		pstmt.setString(11, amount_pay);
+		pstmt.setString(12, pay);
+		pstmt.setString(13, pay_keychain);
+		pstmt.setString(14, sender);
+		pstmt.setString(15, confirm);
+		pstmt.setString(16, r_msg);
+		pstmt.setString(17, order_code);
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+	}
+
+	// ordered 테이블에 레코드 추가 후, 방금 추가된 레코드의 id 값들을 불러오자 !
+	// 혹은 생성한 order_code만 보내주기 (이걸로 조회 가능하니까)
+	sql = "select id from ordered where email='"+email+"' and id>" + id_max;
+	rs = stmt.executeQuery(sql);
+	String id = "";
+	while (rs.next()) {
+		id = id + rs.getInt("id") + ",";
+	}
+	
+	// 페이지 이동 (주문완료 페이지)
+	response.sendRedirect("../Product/product_buynow_view.jsp?order_code=" + order_code + "&id=" + id);
 	
 	// 종료
 	stmt.close();
-	pstmt.close();
 	conn.close();
 %>
