@@ -184,6 +184,7 @@
 							- 사이즈
 							 -->
 							<input type="hidden" name="product_code" value="<%=rs.getString("product_code")%>">
+							<input type="hidden" name="kind" value="1">
 							<table>
 								<caption><%=rs.getString("name")%></caption>
 								<tr>
