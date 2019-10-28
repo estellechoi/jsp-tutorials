@@ -41,19 +41,28 @@
 	Connection conn = Connect.connection_static();
 	Statement stmt = conn.createStatement();
 	
-	// ordered, product 2개 테이블의 데이터를 동시에 조회
-	// MySQL substring(1, 10) 1번째 문자 ~ 10번째 문자까지 추출
-	String sql = "select ordered.id, substring(ordered.writeday, 1, 10) as writeday, product.id as product_id, product.product_list, product.name, ordered.size as size";
-	sql = sql + ", ordered.qty, ordered.amount_buy, product.price, ordered.get_point from ordered, product where ordered.email='" + session.getAttribute("email") + "'";
-	sql = sql + " and product.product_code = ordered.product_code" + sql_period + " order by writeday desc";
+	// order_code 부터 추출
+	String sql = "select order_code, count(*) as num from ordered group by order_code having num >= 1";
 	ResultSet rs = stmt.executeQuery(sql);
+	
+	// order_code 의 개수
+	rs.last();
+	int r = rs.getRow();
+	rs.beforeFirst();
+	
+	// order_code 배열화
+	String order_code[] = new String[r];
+	for (int i=0; i<order_code.length; i++) {
+		rs.next();
+		order_code[i] = rs.getString("order_code");
+	}
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/myorder.css?ver=4">
+<link rel="stylesheet" href="../Etc/myorder.css?ver=6">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script>
@@ -107,18 +116,31 @@
 							<input type="button" value="조회" onclick="Period_order(6)">
 						</div>
 						<%
-							while(rs.next()) {
+							// ordered, product 2개 테이블의 데이터를 동시에 조회 (order_code 별로 조회)
+							// MySQL substring(1, 10) 1번째 문자 ~ 10번째 문자까지 추출
+							for (int i=0; i<order_code.length; i++) {
+								sql = "select ordered.order_code, substring(ordered.writeday, 1, 10) as writeday, product.id as product_id, product.product_list, product.name, ordered.size as size";
+								sql = sql + ", ordered.qty, ordered.amount_buy, product.price, ordered.get_point from ordered, product where ordered.email='" + session.getAttribute("email") + "'";
+								sql = sql + " and product.product_code = ordered.product_code" + sql_period + " and ordered.order_code='"+ order_code[i] +"'";
+								rs = stmt.executeQuery(sql);
+								rs.next();
 						%>
 						<table>
-							<caption>주문일 <%=rs.getString("writeday")%></caption>
+							<caption>
+								<b>주문일 <%=rs.getString("writeday")%></b>
+								<span id="order_code"><%=order_code[i]%></span>
+							</caption>
+							<%
+								rs.beforeFirst();
+								while(rs.next()) {
+							%>
 							<tr>
 								<td><img src="../Product/Image/<%=rs.getString("product_list")%>" alt="no image" width="100" height="100" onclick="Product_content('<%=rs.getString("product_id")%>')"></td>
 								<td>
 									<b><%=rs.getString("name")%></b><p></p>
-									<%=Util.comma(rs.getInt("amount_buy"))%> 원
+									사이즈 : <%=rs.getString("size")%> / 수량 : <%=rs.getString("qty")%> 개<p></p>
+									총 <%=Util.comma(rs.getInt("price")*rs.getInt("qty"))%> 원
 									<span id="show_get_point"><%=Util.comma(rs.getInt("get_point"))%> p 적립</span>
-									<p></p>
-									사이즈: <%=rs.getString("size")%> / 수량: <%=rs.getString("qty")%> 개
 								</td>
 								<td>
 									배송중 <p></p>
@@ -126,6 +148,9 @@
 									<a href="#">주문 취소</a>
 								</td>
 							</tr>
+							<%
+								}
+							%>
 						</table>
 						<%
 							}
