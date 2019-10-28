@@ -152,7 +152,7 @@ input[type=button], #button_buy {
 	
 	// 이 상품만 바로 구매
 	function Buynow(product_code, size, qty) {
-		location = "../Product/product_buynow.jsp?product_code="+product_code+"&size="+size+"&qty="+qty+"&cart=y";
+		location = "../Product/product_buynow.jsp?product_code="+product_code+"&size="+size+"&qty="+qty+"&cart=y&kind=1";
 		
 		// cart 데이터 테이블에서 삭제는 구매 완료시에 ! 구매완료 전까지는 데이터 유지 !
 	}
@@ -203,7 +203,7 @@ input[type=button], #button_buy {
 			}
 		}
 		
-		location = "cart_toBuy.jsp?product_code=" + product_code + "&size=" + size + "&qty=" + qty + "&cart=y";
+		location = "../Product/product_buynow.jsp?product_code=" + product_code + "&size=" + size + "&qty=" + qty + "&cart=y&kind="+<%=n%>;
 	}
 </script>
 <!-- jQuery -->
