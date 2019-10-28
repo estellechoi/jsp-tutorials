@@ -4,37 +4,42 @@
 <%@ page import="mall.Jdbc.Connect"%>
 <%@ page import="mall.Util.Util"%>
 <%
-	// 필요한 정보 : product_code, size, qty
+	// POST 전송값 가져오기
 	request.setCharacterEncoding("UTF-8");
-	String product_code = request.getParameter("product_code");
-	String size = request.getParameter("size");
-	int qty = Integer.parseInt(request.getParameter("qty"));
+	int kind = Integer.parseInt(request.getParameter("kind")); // 상품 가짓수
+	String product_code[];
+	String size[];
+	String Q[];
+	int qty[];
+	
+	// 1개 상품만 바로 구매
+	if (kind == 1) {
+		product_code = new String[1];
+		size = new String[1];
+		qty = new int[1];
+		product_code[0] = request.getParameter("product_code");
+		size[0] = request.getParameter("size");
+		qty[0] = Integer.parseInt(request.getParameter("qty"));
+	}
+	// 여러개 선택 상품 구매
+	else {
+		product_code = request.getParameter("product_code").split(",");
+		size = request.getParameter("size").split(",");
+		Q = request.getParameter("qty").split(",");
+		qty = new int[product_code.length];
+		for (int i =0; i<Q.length; i++) {
+			qty[i] = Integer.parseInt(Q[i]);
+		}
+	}
 	
 	// **** 위시리스트나 장바구니에서 넘어온 상품의 경우, 구매 완료 후 해당 데이터베이스 테이블에서 레코드를 삭제해야 한다 !
-	String IfFromWish = request.getParameter("wish"); // 맞으면 "y" 아니면 null
-	String IfFromCart = request.getParameter("cart"); // 맞으면 "y" 아니면 null
+	String wish = request.getParameter("wish"); // 맞으면 "y" 아니면 null
+	String cart = request.getParameter("cart"); // 맞으면 "y" 아니면 null
 	
 	if (session.getAttribute("email") != null) {
 			
 		Connection conn = Connect.connection_static();
 		Statement stmt = conn.createStatement();
-		
-		// 구매하는 상품 정보를 표시하기 위해 데이터 불러오기
-		String sql = "select*from product where product_code='" + product_code + "'";
-		ResultSet rs = stmt.executeQuery(sql);
-		rs.next();
-		
-		// 사이즈 텍스트 변환
-		switch(size) {
-			case "0": size = "선택"; break;
-			case "1": size = "XS"; break;
-			case "2": size = "S"; break;
-			case "3": size = "M"; break;
-			case "4": size = "L"; break;
-		}
-		
-		// 이 상품만 바로 구매 페이지 / 상품의 가짓수 = 1
-		int n = 1;
 %>
 <!DOCTYPE html>
 <html>
@@ -91,60 +96,79 @@
 					<!-- 국내배송 주문서 -->
 					<div id="table_domestic">
 						<form action="product_buynow_ok.jsp" method="post" name="order" onsubmit="return Submit()">
-							<input type="hidden" name="IfFromCart" value="<%=IfFromCart%>">
-							<input type="hidden" name="IfFromWish" value="<%=IfFromWish%>">
-							<input type="hidden" name="product_code" value="<%=product_code%>">
-							<input type="hidden" name="size" value="<%=size%>">
-							<input type="hidden" name="qty" value="<%=qty%>">
-							<input type="hidden" name="get_point" value="<%=rs.getInt("price")*rs.getInt("point")/100%>">
+							<input type="hidden" name="cart" value="<%=cart%>">
+							<input type="hidden" name="wish" value="<%=wish%>">
+							<input type="hidden" name="kind" value="<%=kind%>">
 							<table>
 								<caption>상품 주문내역</caption>
 								<tr class="field">
-									<td><input type="checkbox" id="checkbox_all" onclick="Check_all(this, <%=n%>)"></td>
+									<td><input type="checkbox" id="checkbox_all" onclick="Check_all(this, <%=kind%>)"></td>
 									<td>이미지</td>
 									<td>상품정보</td>
 									<td>판매가</td>
 									<td>수량</td>
 									<td>적립포인트</td>
 									<td>배송구분</td>
-									<td>배송비</td>
 									<td>합계</td>
 								</tr>
-								<!-- 구매상품 반복문 -->
-								<%
-
-								int amount = 0;
-								
-								// 배송료
-								int delivery_int;
-								String delivery_str = "";	
-								amount = qty * rs.getInt("price");
-								
-								// 상품 구매 금액 합계에 따라 배송비가 결정 (여러가지 상품을 선택 구매하는 페이지에서 달라져야..)
-								if (amount >= 70000) {
-									delivery_int = 0;
-									delivery_str = "무료";
-								} else {
-									delivery_int = 2500;
-									delivery_str = "차등";
+								<!-- 구매상품 반복문 시작-->
+								<%			
+								// 구매하는 상품 정보를 표시하기 위해 데이터 불러오기
+								// select*from table where column in('value', 'value', 'value');
+								String sql = "select*from product where product_code in(";
+								// 조회할 상품코드
+								String sql_product_code = "";
+								for (int i=0; i<product_code.length; i++) {
+									sql_product_code = sql_product_code + "'"+product_code[i]+"', ";
 								}
+								int e = sql_product_code.lastIndexOf(",");
+								sql_product_code = sql_product_code.substring(0, e);
+								sql = sql + sql_product_code + ")";
+								// 쿼리 실행
+								ResultSet rs = stmt.executeQuery(sql);
+								
+								// 모든 상품 구매금액 합계
+								int total = 0;		
+								
+								// 반복문 시작
+								int i = 0;
+								while(rs.next()) {
+									int amount = qty[i] * rs.getInt("price");
+									total = total + amount;
+
 								%>
+								<input type="hidden" name="product_code" value="<%=product_code[i]%>">
+								<input type="hidden" name="size" value="<%=size[i]%>">
+								<input type="hidden" name="qty" value="<%=qty[i]%>">
+								<input type="hidden" name="get_point" value="<%=rs.getInt("price")*rs.getInt("point")/100%>">
 								<tr>
-									<td><input type="checkbox" class="checkbox" onclick="Check_allbox(<%=n%>)"></td>
+									<td><input type="checkbox" class="checkbox" onclick="Check_allbox(<%=kind%>)"></td>
 									<td><img src="Image/<%=rs.getString("product_list")%>" alt="no img" width="100"></td>
-									<td><%=rs.getString("name")%> <p></p> [옵션 : 사이즈 <%=size%>]</td>
+									<td><%=rs.getString("name")%> <p></p> [옵션 : 사이즈 <%=size[i]%>]</td>
 									<td><%=Util.comma(rs.getInt("price"))%></td>
-									<td><%=qty%></td>
+									<td><%=qty[i]%></td>
 									<!-- 포인트 적립 처리 어떻게 할거 ? input hidden 으로 값 전송-->
 									<td><%=Util.comma(rs.getInt("price")*rs.getInt("point")/100)%> p </td>
 									<td>국내배송</td>
-									<td><%=delivery_str%></td>
 									<td><%=Util.comma(amount)%></td>
 								</tr>
+								<%
+									i++;
+								}
+								// 배송료
+								int delivery_int;
+								
+								// 상품 구매 금액 합계에 따라 배송비가 결정 (여러가지 상품을 선택 구매하는 페이지에서 달라져야..)
+								if (total >= 70000) {
+									delivery_int = 0;
+								} else {
+									delivery_int = 2500;
+								}
+								%>
 								<!-- 선택상품 전체 + 배송비 합계 -->
 								<tr>
 									<input type="hidden" name="delivery_fee" value="<%=delivery_int%>">
-									<td colspan="9" class="table_footer">상품 금액  <%=Util.comma(amount)%> + 배송비 <%=Util.comma(delivery_int)%> = 합계 <%=Util.comma(amount + delivery_int)%></td>
+									<td colspan="9" class="table_footer">상품 금액  <%=Util.comma(total)%> + 배송비 <%=Util.comma(delivery_int)%> = 합계 <%=Util.comma(total + delivery_int)%></td>
 								</tr>
 							</table>
 							<div class="button">
@@ -322,9 +346,9 @@
 									document.form.amount_discount_hidden.value = "<%=rs.getInt("point")%>";
 									
 									// 최종 결제금액 !!
-									document.form.amount_pay.value = "<%=Util.comma(amount + delivery_int - rs.getInt("point"))%>";
-									document.form.amount_pay_hidden.value = "<%=amount + delivery_int - rs.getInt("point")%>";
-									document.getElementById("amount_pay_emphasis").innerHTML = "￦ "+"<%=Util.comma(amount + delivery_int - rs.getInt("point"))%>";
+									document.form.amount_pay.value = "<%=Util.comma(total + delivery_int - rs.getInt("point"))%>";
+									document.form.amount_pay_hidden.value = "<%=total + delivery_int - rs.getInt("point")%>";
+									document.getElementById("amount_pay_emphasis").innerHTML = "￦ "+"<%=Util.comma(total+ delivery_int - rs.getInt("point"))%>";
 								}
 								
 								// 입력한 만큼 포인트 사용
@@ -346,7 +370,7 @@
 										document.form.amount_discount_hidden.value = use + "";
 										
 										// 최종 결제금액 !!
-										var x = <%=amount + delivery_int%> - use;
+										var x = <%=total + delivery_int%> - use;
 										document.form.amount_pay.value = comma(x);
 										document.form.amount_pay_hidden.value = x;
 										document.getElementById("amount_pay_emphasis").innerHTML = "￦ "+ comma(x);
@@ -371,8 +395,8 @@
 								<tr>
 									<th>합계 금액</th>
 									<td>
-										￦ <input type="hidden" name="amount_buy_hidden" value="<%=amount + delivery_int%>">
-										<input class="amount_box" type="text" name="amount_buy" readonly value="<%=Util.comma(amount + delivery_int)%>">
+										￦ <input type="hidden" name="amount_buy_hidden" value="<%=total + delivery_int%>">
+										<input class="amount_box" type="text" name="amount_buy" readonly value="<%=Util.comma(total + delivery_int)%>">
 									</td>
 								</tr>
 								<tr>
@@ -386,8 +410,8 @@
 								<tr>
 									<th>결제 금액</th>
 									<td>
-										￦ <input type="hidden" name="amount_pay_hidden" value="<%=amount + delivery_int%>">
-										<input class="amount_box" type="text" name="amount_pay" readonly value="<%=Util.comma(amount + delivery_int)%>">
+										￦ <input type="hidden" name="amount_pay_hidden" value="<%=total + delivery_int%>">
+										<input class="amount_box" type="text" name="amount_pay" readonly value="<%=Util.comma(total + delivery_int)%>">
 									</td>
 								</tr>
 							</table>
@@ -433,7 +457,7 @@
 								</div>
 							</div>
 							<div id="submit_button_box">
-								<div id="amount_pay_emphasis">￦ <%=Util.comma(amount + delivery_int)%></div>
+								<div id="amount_pay_emphasis">￦ <%=Util.comma(total + delivery_int)%></div>
 								<input type="submit" value="결제하기">
 							</div>
 						</div>
@@ -448,6 +472,15 @@
 		stmt.close();
 		conn.close();
 	} else {
-		response.sendRedirect("product_buynow_nonmember.jsp?product_code="+product_code+"&size="+size+"&qty="+qty);
+		// 비회원 주문 페이지로 이동
+		String product_code_str = "";
+		String size_str = "";
+		String qty_str = "";
+		for (int i=0; i<product_code.length; i++) {
+			product_code_str = product_code_str + product_code[i] + ",";
+			size_str = size_str + size[i] + ",";
+			qty_str = qty_str + qty[i] + ",";
+		}
+		response.sendRedirect("product_buynow_nonmember.jsp?product_code="+product_code_str+"&size="+size_str+"&qty="+qty_str);
 	}
 %>
