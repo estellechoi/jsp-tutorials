@@ -227,6 +227,7 @@ input[type=submit] {
 						<form action="../Product/product_buynow.jsp" method="post" name="layer">
 							<input type="hidden" name="product_code">
 							<input type="hidden" name="wish" value="y">
+							<input type="hidden" name="kind" value="1"> <!-- 상품 가짓수 -->
 							사이즈
 							<select name="size">
 								<option value="0">선택</option>
