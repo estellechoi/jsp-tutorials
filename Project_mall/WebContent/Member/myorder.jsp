@@ -119,8 +119,8 @@
 							// ordered, product 2개 테이블의 데이터를 동시에 조회 (order_code 별로 조회)
 							// MySQL substring(1, 10) 1번째 문자 ~ 10번째 문자까지 추출
 							for (int i=0; i<order_code.length; i++) {
-								sql = "select ordered.order_code, substring(ordered.writeday, 1, 10) as writeday, product.id as product_id, product.product_list, product.name, ordered.size as size";
-								sql = sql + ", ordered.qty, ordered.amount_buy, product.price, ordered.get_point from ordered, product where ordered.email='" + session.getAttribute("email") + "'";
+								sql = "select ordered.order_code, ordered.id as id_order, substring(ordered.writeday, 1, 10) as writeday, product.id as product_id, product.product_list, product.name, ordered.size as size";
+								sql = sql + ", ordered.qty, ordered.amount_buy, product.price, ordered.get_point, ordered.cancel from ordered, product where ordered.email='" + session.getAttribute("email") + "'";
 								sql = sql + " and product.product_code = ordered.product_code" + sql_period + " and ordered.order_code='"+ order_code[i] +"'";
 								rs = stmt.executeQuery(sql);
 								rs.next();
@@ -145,7 +145,17 @@
 								<td>
 									배송중 <p></p>
 									<a href="#">배송 조회</a><p></p>
-									<a href="#">주문 취소</a>
+									<%
+									if (rs.getString("cancel").equals("na")) {
+									%>
+									<a href="myorder_cancel.jsp?order_code=<%=order_code[i]%>&id_order=<%=rs.getString("id_order")%>">주문 취소</a>
+									<%
+									} else {
+									%>
+									<a href="#">취소 접수</a>
+									<%
+									}
+									%>
 								</td>
 							</tr>
 							<%
