@@ -12,24 +12,14 @@
 	String Q[];
 	int qty[];
 	
-	// 1개 상품만 바로 구매
-	if (kind == 1) {
-		product_code = new String[1];
-		size = new String[1];
-		qty = new int[1];
-		product_code[0] = request.getParameter("product_code");
-		size[0] = request.getParameter("size");
-		qty[0] = Integer.parseInt(request.getParameter("qty"));
-	}
-	// 여러개 선택 상품 구매
-	else {
-		product_code = request.getParameter("product_code").split(",");
-		size = request.getParameter("size").split(",");
-		Q = request.getParameter("qty").split(",");
-		qty = new int[product_code.length];
-		for (int i =0; i<Q.length; i++) {
-			qty[i] = Integer.parseInt(Q[i]);
-		}
+	// 1개 상품만 바로 구매 / 1개 상품 선택 구매 이더라도 뒤에 , 붙어 오도록 이전페이지에서 Script 작성
+
+	product_code = request.getParameter("product_code").split(",");
+	size = request.getParameter("size").split(",");
+	Q = request.getParameter("qty").split(",");
+	qty = new int[product_code.length];
+	for (int i =0; i<Q.length; i++) {
+		qty[i] = Integer.parseInt(Q[i]);
 	}
 	
 	// **** 위시리스트나 장바구니에서 넘어온 상품의 경우, 구매 완료 후 해당 데이터베이스 테이블에서 레코드를 삭제해야 한다 !
@@ -47,9 +37,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../Etc/product_buynow.css?ver=5">
-<script src="../Etc/product_buynow.js?ver=3"></script>
+<script src="../Etc/product_buynow.js?ver=4"></script>
 <script src="../Etc/common.js"></script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
 <!-- daum 도로명주소검색 API 시작 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -73,6 +62,22 @@
 	        }
 	    }).open();
 	}
+</script>
+<!-- 제이쿼리 -->
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+	$(function() {
+		var kind = <%=kind%>;
+		$("#drop_product").click(function() {
+			$(".checkbox").each(function(i) {
+				if (this.checked) {
+					$(".row_product").eq(i).remove();
+					kind--; // 상품 삭제시마다 상품가지수 변화주기
+				}
+				document.getElementsByName("kind")[0].value = kind + "";
+			});
+		});
+	});
 </script>
 </head>
 <body onload="Member()">
@@ -114,34 +119,32 @@
 								<!-- 구매상품 반복문 시작-->
 								<%			
 								// 구매하는 상품 정보를 표시하기 위해 데이터 불러오기
-								// select*from table where column in('value', 'value', 'value');
-								String sql = "select*from product where product_code in(";
 								// 조회할 상품코드
-								String sql_product_code = "";
+								String ex = "";
 								for (int i=0; i<product_code.length; i++) {
-									sql_product_code = sql_product_code + "'"+product_code[i]+"', ";
+									ex = ex + "'" + product_code[i] + "', ";
 								}
-								int e = sql_product_code.lastIndexOf(",");
-								sql_product_code = sql_product_code.substring(0, e);
-								sql = sql + sql_product_code + ")";
+								int e = ex.lastIndexOf(",");
+								ex = ex.substring(0, e);
+								
+								// select*from table where column in('value', 'value', 'value');
+								String sql = "select*from product where product_code in(" + ex + ")";
 								// 쿼리 실행
 								ResultSet rs = stmt.executeQuery(sql);
 								
 								// 모든 상품 구매금액 합계
-								int total = 0;		
+								int total = 0;
 								
 								// 반복문 시작
 								int i = 0;
 								while(rs.next()) {
-									int amount = qty[i] * rs.getInt("price");
-									total = total + amount;
-
 								%>
-								<input type="hidden" name="product_code" value="<%=product_code[i]%>">
-								<input type="hidden" name="size" value="<%=size[i]%>">
-								<input type="hidden" name="qty" value="<%=qty[i]%>">
-								<input type="hidden" name="get_point" value="<%=rs.getInt("price")*rs.getInt("point")/100%>">
-								<tr>
+								<tr class="row_product">
+									<input type="hidden" name="product_code" value="<%=product_code[i]%>">
+									<input type="hidden" name="size" value="<%=size[i]%>">
+									<input type="hidden" name="qty" value="<%=qty[i]%>">
+									<input type="hidden" name="get_point" value="<%=rs.getInt("price")*rs.getInt("point")/100%>">
+									<!-- 테이블 열 -->
 									<td><input type="checkbox" class="checkbox" onclick="Check_allbox(<%=kind%>)"></td>
 									<td><img src="Image/<%=rs.getString("product_list")%>" alt="no img" width="100"></td>
 									<td><%=rs.getString("name")%> <p></p> [옵션 : 사이즈 <%=size[i]%>]</td>
@@ -150,9 +153,10 @@
 									<!-- 포인트 적립 처리 어떻게 할거 ? input hidden 으로 값 전송-->
 									<td><%=Util.comma(rs.getInt("price")*rs.getInt("point")/100)%> p </td>
 									<td>국내배송</td>
-									<td><%=Util.comma(amount)%></td>
+									<td><%=Util.comma(qty[i] * rs.getInt("price"))%></td>
 								</tr>
 								<%
+									total = total + (qty[i] * rs.getInt("price"));
 									i++;
 								}
 								// 배송료
@@ -172,7 +176,7 @@
 								</tr>
 							</table>
 							<div class="button">
-								<input type="button" value="ⓧ 선택상품 삭제" onclick="Drop_product()">
+								<input type="button" value="ⓧ 선택상품 삭제" id="drop_product">
 								<input type="button" value="이전 페이지" onclick="Back()">
 							</div>
 							<hr/>
@@ -339,11 +343,12 @@
 								}
 								
 								// 보유포인트 모두사용
-								function Exhaust() {
+								function Exhaust(point) {
 									document.getElementById("point").value = "0";
-									document.getElementById("use_point").value = "<%=Util.comma(rs.getInt("point"))%>";
-									document.form.amount_discount.value = "<%=Util.comma(rs.getInt("point"))%>";
-									document.form.amount_discount_hidden.value = "<%=rs.getInt("point")%>";
+									document.getElementById("use_point").value = comma(point);
+									document.form.use_point.value = point + "";
+									document.form.amount_discount.value = comma(parseInt(document.form.amount_discount.value) + point);
+									document.form.amount_discount_hidden.value = parseInt(document.form.amount_discount_hidden.value) + point;
 									
 									// 최종 결제금액 !!
 									document.form.amount_pay.value = "<%=Util.comma(total + delivery_int - rs.getInt("point"))%>";
@@ -353,17 +358,17 @@
 								
 								// 입력한 만큼 포인트 사용
 								// 코드가 지저분하다.... 뭔가 문제가 있어 ...
-								function Use_point() {
+								function Use_point(point) {
 									// 사용 포인트
 									var use = parseInt(document.getElementById("use_point").value);
 									// 잔여 포인트
-									var point = <%=rs.getInt("point")%> - use;
+									var left = point - use;
 									
-									if (<%=rs.getInt("point")%> < use) {
+									if (left < use) {
 										alert("보유 포인트 내에서 사용 가능해요.");
 									}
 									else {
-										document.getElementById("point").value = comma(point); // 콤마표시
+										document.getElementById("point").value = comma(left); // 콤마표시
 										
 										// 할인 금액 = 사용 포인트
 										document.form.amount_discount.value = comma(use);
@@ -381,12 +386,15 @@
 									<th>보유포인트</th>
 									<td>
 										￦ <input type="text" name="point" id="point" size="5" value="<%=Util.comma(rs.getInt("point"))%>" readonly>
-										 <input type="button" value="모두 사용" class="zip_button" onclick="Exhaust()">
+										 <input type="button" value="모두 사용" class="zip_button" onclick="Exhaust(<%=rs.getInt("point")%>)">
 									</td>
 								</tr>
 								<tr>
 									<th>사용포인트</th>
-									<td>￦ <input type="text" id="use_point" size="5" value="0" onblur="Use_point()"></div></td>
+									<td>
+										￦ <input type="hidden" name="use_point" value="0">
+										<input type="text" id="use_point" size="5" value="0" onblur="Use_point(<%=rs.getInt("point")%>)"></div>
+									</td>
 									<!-- 
 									text나 textarea의 경우에는 값을 적고 있을 때에는 onchange로는 값의 변경을 감지할 수 없습니다.
 									왜냐하면 onchange 이벤트가 걸리는 시점이 blur(focus와 반대로 오브젝트를 떠나는 시점)이기 때문입니다.

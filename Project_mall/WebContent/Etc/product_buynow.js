@@ -6,11 +6,6 @@ function Back() {
 	history.back();
 }
 
-// 선택상품 삭제
-function Drop_product() {
-	
-}
-
 // 전체선택 체크박스
 function Check_all(x, n) {
 	if (x.checked) {
