@@ -65,10 +65,11 @@ footer {
 /* 전체 <li> 스타일  */
 nav li {
 	list-style-type: none;
-	font-size: 14px;
+	font-size: 15px;
 	color: #353535;
 	cursor: pointer;
-	margin: 5px;
+	margin: 10px;
+	letter-spacing: 5px;
 }
 
 nav a {
@@ -85,7 +86,6 @@ nav .sub {
 	margin-bottom: 15px;
 	padding-left: 15px;
 	display: none;
-	border: 1px solid red;
 }
 
 /* 하위메뉴 li */

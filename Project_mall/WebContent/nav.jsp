@@ -5,8 +5,30 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="../Etc/nav.js?ver=1"></script>
-<link rel="stylesheet" href="../Etc/nav.css">
+<!-- JQuery 로 메뉴바 토글 구현하기 --> 
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+	$(function() {
+		// hover is shorthand for mouseenter/mouseleave (mouseover/out과 다르게 자식요소까지 포함)
+		$("li").click(function() {
+			var sub = $(this).children(".sub");
+			if (sub.is(":visible"))
+				sub.slideUp(500);
+			else
+				sub.slideDown(500);
+		});
+		
+		// 문서 로드시 첫번째 메뉴를 펼쳐진 상태로 두기
+		// 해당 요소에 click() 이벤트를 발생시킨다 !
+		$("li").eq(0).click();
+	});
+	
+	// 상품 카테고리별 페이지 이동
+	function Product_list(code, category) {
+		location = "../Product/product_list.jsp?code=" + code + "&category=" + category;
+	}
+</script>
+<link rel="stylesheet" href="../Etc/nav.css?ver=2">
 </head>
 <body>
 <nav>
@@ -20,33 +42,33 @@
 	</div>
 	<div id="middle">
 		<ul>
-			<li onclick="toggle(0, 'best')">
+			<li>
 				bestseller
 				<ul class="sub">
-					<li>best 30</li>
+					<li><a href="javascript:Product_list(0, 'bestseller');">best 24</a></li>
 				</ul>
 			</li>
-			<li onclick="toggle(1, 'top')">
+			<li>
 				top
 				<ul class="sub">
-					<li>sleeveless</li>
-					<li>knit</li>
-					<li>blouse/shirt</li>
-					<li>tee</li>
+					<li><a href="javascript:Product_list(101, 'top');">sleeveless</a></li>
+					<li><a href="javascript:Product_list(102, 'top');">knit</a></li>
+					<li><a href="javascript:Product_list(103, 'top');">blouse/shirt</a></li>
+					<li><a href="javascript:Product_list(104, 'top');">tee</a></li>
 				</ul>
 			</li>
-			<li onclick="toggle(2, 'bottom')">
+			<li>
 				bottom
 				<ul class="sub">
-					<li>skirts</li>
-					<li>pants</li>
+					<li><a href="javascript:Product_list(201, 'bottom');">skirts</a></li>
+					<li><a href="javascript:Product_list(202, 'bottom');">pants</a></li>
 				</ul>
 			</li>
-			<li onclick="toggle(3, 'dress')">
+			<li>
 				dress
 				<ul class="sub">
-					<li>short</li>
-					<li>long</li>
+					<li><a href="javascript:Product_list(301, 'dress');">short</a></li>
+					<li><a href="javascript:Product_list(302, 'dress');">long</a></li>
 				</ul>
 			</li>
 		</ul>
