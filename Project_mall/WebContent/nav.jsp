@@ -86,14 +86,14 @@
 				%>
 				<li><a href="../Member/signout.jsp">SIGN OUT</a></li>
 				<li><a href="../Member/account.jsp">MY ACCOUNT</a></li>
+				<li><a href="../Member/cart.jsp">CART</a></li>
 				<%
 				} else {
 				%>
 				<li><a href="../Member/signin.jsp">SIGN IN</a></li>		
 				<%
 				}
-				%>
-				<li><a href="../Member/cart.jsp">CART</a></li>
+				%>	
 				<li><a href="">Q&A / REVIEW</a></li>
 			</ul>
 		</div>
