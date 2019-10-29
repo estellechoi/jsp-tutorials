@@ -49,7 +49,7 @@
 		}
 	}
 	
-	String use_point = request.getParameter("use_point"); // 사용한 적립금
+	int use_point = Integer.parseInt(request.getParameter("use_point")); // 사용한 적립금
 	String amount_buy = request.getParameter("amount_buy_hidden"); // 콤마 없는 값이 넘어오도록 이전 페이지에서 컨트롤했어야 ...
 	String amount_discount = request.getParameter("amount_discount_hidden");
 	String amount_pay = request.getParameter("amount_pay_hidden");
@@ -102,6 +102,12 @@
 	}
 	String sql = "update member set point=point+" + add_point + "-" + use_point + " where email='" + email + "'";
 	stmt.executeUpdate(sql);
+	
+	// product 테이블에 판매량 누적시키기
+	for (int i=0; i<product_code.length; i++) {
+		sql = "update product set quantity_sales=quantity_sales+" + qty[i] + " where product_code='" + product_code[i] + "'";
+		stmt.executeUpdate(sql);
+	}
 	
 	// address table에 없는 배송지인 경우 (새로운 배송지 입력한 경우)
 	String same_address = request.getParameter("same_address"); // "0" vs "1"
