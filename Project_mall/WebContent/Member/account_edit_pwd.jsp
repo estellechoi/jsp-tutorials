@@ -15,7 +15,32 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/account_edit.css?ver=1">
+<link rel="stylesheet" href="../Etc/account_edit.css?ver=2">
+<script>
+	function Pwd_check(rs) {
+		var pwd_before = document.getElementsByName("pwd_before")[0].value;
+		var pwd = document.getElementsByName("pwd")[0].value;
+		var pwd_check = document.getElementsByName("pwd_check")[0].value;
+		
+		// DB 데이터와 비교
+		if (!(rs == pwd_before)) {
+			alert("이전 비밀번호가 틀립니다.");
+			document.getElementById("pwd_before").style.color = "red";
+			document.getElementsByName("pwd_before")[0].focus();
+			// 왜 리턴되지 ?
+			return false;
+		}
+		else if (pwd != pwd_check) {
+			alert("새 비밀번호가 일치하지 않습니다.");
+			document.getElementById("pwd_check").style.color = "red";
+			document.getElementsByName("pwd_check")[0].focus();
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+</script>
 </head>
 <body>
 	<!-- 네비게이션 바 -->
@@ -28,7 +53,7 @@
 				<div id="account_edit_header">UPDATE PASSWORD</div>
 				<div class="account_grid_container">
 					<div class="account_grid_left">
-						<form action="account_edit_pwd_ok.jsp" method="post">
+						<form action="account_edit_pwd_ok.jsp" method="post" onsubmit="return Pwd_check('<%=rs.getString("pwd")%>')">
 							<!-- table member 레코드 id 값 -->
 							<input type="hidden" name="id" value="<%=rs.getInt("id")%>">
 							<table>
@@ -36,16 +61,18 @@
 									<%=session.getAttribute("email")%>
 								</caption>
 								<tr>
-									<th>이전 비밀번호</th>
-									<td><input type="text" name="pwd_before"></td>
+									<th id="pwd_before">이전 비밀번호</th>
+									<td><input type="password" name="pwd_before"></td>
 								</tr>
 								<tr>
 									<th>새 비밀번호</th>
-									<td><input type="text" name="pwd"></td>
+									<td><input type="password" name="pwd"></td>
 								</tr>
 								<tr>
-									<th>새 비밀번호 확인</th>
-									<td><input type="text" name="pwd_check"></td>
+									<th id="pwd_check">새 비밀번호 확인</th>
+									<td>
+										<input type="password" name="pwd_check">
+									</td>
 								</tr>
 								<tr>
 									<th></th>
