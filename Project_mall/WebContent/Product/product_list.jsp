@@ -19,8 +19,8 @@
 
 	// 대분류 code 값
 	request.setCharacterEncoding("UTF-8");
-	int c = Integer.parseInt(request.getParameter("code"));
-	String category = request.getParameter("category");
+	int c = Integer.parseInt(request.getParameter("code")); // 상품 대분류 코드
+	String category = request.getParameter("category"); // 품목 (bestseller,..)
 
 	Product_list p = new Product_list();
 	
@@ -36,7 +36,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../Etc/product_list.css?ver=2">
-<script src="../Etc/product_list.js"></script>
+<script>
+	function Content(id) {
+		location = "product_content.jsp?id="+id;
+	}
+</script>
 </head>
 <body>
 	<!-- 네비게이션 바 -->
@@ -52,7 +56,10 @@
 					<!-- 상품 테이블 -->
 					<table>
 						<!-- 하위 카테고리 링크 -->
-						<caption class="link_sub_category"><a href="#">short</a> / <a href="#">long</a></caption>
+						<caption class="link_sub_category">
+							<!-- 상품 코드에 따라 -->
+							<a href="#">short</a> / <a href="#">long</a>
+						</caption>
 						<tr>
 				
 							<%
