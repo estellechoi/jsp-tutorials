@@ -152,7 +152,7 @@ input[type=button], #button_buy {
 	
 	// 이 상품만 바로 구매
 	function Buynow(product_code, size, qty) {
-		location = "../Product/product_buynow.jsp?product_code="+product_code+"&size="+size+"&qty="+qty+"&cart=y&kind=1";
+		location = "../Product/product_buynow.jsp?product_code="+product_code+",&size="+size+",&qty="+qty+",&cart=y&kind=1";
 		
 		// cart 데이터 테이블에서 삭제는 구매 완료시에 ! 구매완료 전까지는 데이터 유지 !
 	}
@@ -194,16 +194,19 @@ input[type=button], #button_buy {
 		var size = "";
 		var qty = "";
 		var id_cart = "";
+		var n = 0;
 		
-		for (var i = 0; i < <%=n%>; i++) { // checkbox.length 로 대체 가능 (상품의 가짓수)
+		for (var i = 0; i < checkbox.length; i++) { // checkbox.length 로 대체 가능 (장바구니 상품의 가짓수)
 			if(checkbox[i].checked) {
 				product_code = product_code + checkbox[i].value + ",";
 				size = size + document.getElementsByName("size")[i].value + ",";
 				qty = qty + document.getElementsByName("qty")[i].value + ",";
+				n++;
+				// 맨 뒤 , 없애기 (이 상품만 바로구매 값전송 양식과 통일하려고)
 			}
 		}
 		
-		location = "../Product/product_buynow.jsp?product_code=" + product_code + "&size=" + size + "&qty=" + qty + "&cart=y&kind="+<%=n%>;
+		location = "../Product/product_buynow.jsp?product_code=" + product_code + "&size=" + size + "&qty=" + qty + "&cart=y&kind="+n;
 	}
 </script>
 <!-- jQuery -->
