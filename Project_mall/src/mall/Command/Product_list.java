@@ -13,10 +13,18 @@ public class Product_list {
 		Connection conn = Connect.connection_static();
 		
 		// 2) 쿼리 작성
-		String sql = "select*from product where product_code like 'p0" + c + "%' limit 0, 24";
-		
+		String sql;
+		if (c == 0) {
+			// 베스트셀러
+			// 판매량 순으로 레코드 가져오기
+			sql = "select*from product order by quantity_sales asc limit 0, 24";
+		}
+		else {
+			sql = "select*from product where product_code like 'p0" + c + "%' limit 0, 24";	
+		}
+	
 		// 3) 쿼리 실행
-		PreparedStatement pstmt = conn.prepareStatement(sql);	
+		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		
 		// 4) ResultSet 레코드 → ArrayList<E> 요소로 저장
