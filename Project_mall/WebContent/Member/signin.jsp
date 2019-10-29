@@ -42,7 +42,6 @@
 						</form>
 						<!-- 아이디/비밀번호 찾기 -->
 						<div id="signin_forgot">
-							<a href="forgot_id.jsp"><img alt="no image" src="../Etc/link_icon.jpg" width="12px"> 아이디 찾기</a>
 							<a href="forgot_pwd.jsp"><img alt="no image" src="../Etc/link_icon.jpg" width="12px"> 비밀번호 찾기</a>
 						</div>
 						<!-- 카카오 계정으로 로그인하기 -->
