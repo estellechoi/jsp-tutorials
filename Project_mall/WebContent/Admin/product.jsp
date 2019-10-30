@@ -22,6 +22,57 @@
 		font-size: 14px;
 		color: #353535;
 	}
+	
+	table {
+		width : 1000px;
+		margin: auto;
+		border: 1px solid grey;
+		border-radius: 5px;
+	}
+	
+	table caption {
+		text-align: right;
+		padding-top: 20px;
+		padding-bottom: 15px;
+	}
+	
+	/* 목록으로 돌아가기 */
+	table caption a {
+		text-decoration: none;
+		font-size: 12px;
+		font-weight: bold;
+		color: #495164;
+		letter-spacing: 3px;
+	}
+	table caption a:hover {
+		text-decoration: underline;
+	}
+	
+	table th, td {
+		padding: 12px;
+		font-size: 12px;
+	}
+	
+	/* 버튼 */
+	input[type=button] {
+		border: 1px solid #495164;
+		border-radius: 5px;
+		background: #495164;
+		color: white;
+		padding: 5px;
+		cursor: pointer;
+		font-size: 12px;
+	}
+	
+	input[type=submit] {
+		border: 1px solid #600000;
+		border-radius: 5px;
+		background: #600000;
+		color: white;
+		padding: 5px;	
+		cursor: pointer;
+		font-size: 12px;
+	}
 </style>
 <script>
 	function category_sub(first) {
@@ -109,7 +160,7 @@
 					<!-- 폼 -->
 					<form action="product_ok.jsp" method="post" name="form" enctype="multipart/form-data" onsubmit="return check_form()">
 					<table>
-						<caption><a href="product_manage.jsp">전체상품 목록</a></caption>
+						<caption><a href="product_manage.jsp">목록으로 돌아가기</a></caption>
 						<tr>
 							<th>상품분류</th>
 							<td>
@@ -120,11 +171,14 @@
 										<option value="02">bottom</option>
 										<option value="03">dress</option>
 									</select>
-								
+							</td>
+							<td>	
 									중분류
 									<select name="category2">
+										<option value="00">선택</option>
 									</select>
-									
+							</td>
+							<td>
 									제조국
 									<select name="country" id="">
 										<option value="00">미확인</option>
@@ -133,7 +187,8 @@
 										<option value="03">중국</option>
 										<option value="04">일본</option>
 									</select>
-									
+							</td>
+							<td>
 									제조사
 									<select name="maker">
 										<option value="00">미확인</option>
@@ -143,18 +198,26 @@
 										<option value="04">한솔섬유</option>
 									</select>
 							</td>
+							<td>
+									<!-- 상품코드 출력 버튼 -->
+									<input type="button" value="상품코드 출력" onclick="code()">
+							</td>
+						</tr>
+						<tr>
+							<th>상품코드</th>
+							<td colspan="5"><input type="text" name="product_code" readonly style="background:#80FF80; border: 1px solid #00FF00"></td>
 						</tr>
 						<tr>
 							<th>상품이름</th>
-							<td><input type="text" name="name"></td>
+							<td colspan="5"><input type="text" name="name"></td>
 						</tr>
 						<tr>
 							<th>상품가격</th>
-							<td><input type="text" name="price"></td>
+							<td colspan="5"><input type="text" name="price"></td>
 						</tr>
 						<tr>
 							<th>세탁정보</th>
-							<td>
+							<td colspan="5">
 								<select name="laundry" id="laundry">
 									<option value="0">물세탁</option>
 									<option value="1">손세탁</option>
@@ -165,7 +228,7 @@
 						</tr>
 						<tr>
 							<th>생산일자 </th>
-							<td>
+							<td colspan="5">
 								<!-- manufactured_date -->
 								<select name="yy" id="yy">
 									<option value="2019">2019</option>
@@ -196,27 +259,23 @@
 						</tr>
 						<tr>
 							<th>입고수량</th>
-							<td><input type="text" name="quantity_order"></td>
+							<td colspan="5"><input type="text" name="quantity_order"></td>
 						</tr>
 						<tr>
-							<th>상품(list)</th>
-							<td><input type="file" name="product_list"></td>
+							<th>상품 이미지(대표)</th>
+							<td colspan="5"><input type="file" name="product_list"></td>
 						</tr>
 						<tr>
-							<th>상품(메인)</th>
-							<td><input type="file" name="product_main"></td>
+							<th>상품 이미지(상세1)</th>
+							<td colspan="5"><input type="file" name="product_main"></td>
 						</tr>
 						<tr>
-							<th>상품(상세)</th>
-							<td><input type="file" name="product_detail"></td>
+							<th>상품 이미지(상세2)</th>
+							<td colspan="5"><input type="file" name="product_detail"></td>
 						</tr>
 						<tr>
-							<th><input type="button" value="상품코드 출력" onclick="code()"></th>
-							<td><span id="print_code"></span></td>
-							<input type="hidden" name="product_code">
-						</tr>
-						<tr>
-							<td colspan="2"><input type="submit" value="상품 등록"></td>
+							<th></th>
+							<td colspan="5"><input type="submit" value="상품 등록"></td>
 						</tr>
 					</table>
 				</form>				
