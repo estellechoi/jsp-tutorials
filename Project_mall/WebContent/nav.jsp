@@ -37,7 +37,7 @@
 		document.getElementById("layer_search").style.visibility = "hidden";
 	}
 </script>
-<link rel="stylesheet" href="../Etc/nav.css?ver=3">
+<link rel="stylesheet" href="../Etc/nav.css?ver=6">
 </head>
 <body>
 <nav>
@@ -117,12 +117,12 @@
 <!-- 서치 레이어 -->
 <div id="layer_search">
 	<div class="layer_header">
-		<a href="javascript:layerSearchClose()">X</a>
 	</div>
 	<div class="layer_body">
-		<form action="#" method="post">
-			<input type="search" name="search">
+		<form action="../Product/product_list.jsp" method="post">
+			<input type="search" name="search" placeholder="상품 이름, 카테고리 검색">
 			<input type="submit" value="go">
+			<input type="button" value="X" onclick="layerSearchClose()">
 		</form>
 	</div>
 </div>
