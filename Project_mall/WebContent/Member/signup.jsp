@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="../Etc/signup.css?ver=3">
 <!-- jQuery -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="../Etc/signup.js?ver=2"></script>
+<script src="../Etc/signup.js?ver=3"></script>
 <!-- daum 도로명주소검색 API 시작 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -180,8 +180,8 @@
 											<textarea cols="80" rows="10">
 												<jsp:include page="../Etc/agree3.txt"/>
 											</textarea> <p></p>
-											SMS 수신을 동의하십니까? <input type="checkbox" name="agree3" class="agree" value="Y" onclick="Agree()">동의함 <p></p>
-											이메일 수신을 동의하십니까? <input type="checkbox" name="agree4" class="agree" value="Y" onclick="Agree()">동의함
+											SMS 수신을 동의하십니까? <input type="checkbox" name="agree_SMS" class="agree" value="Y" onclick="Agree()">동의함 <p></p>
+											이메일 수신을 동의하십니까? <input type="checkbox" name="agree_email" class="agree" value="Y" onclick="Agree()">동의함
 										</td>
 									</tr>
 								</table>

@@ -49,11 +49,15 @@ function AgreeAll(master) {
 
 function Agree() {
 	var n = 0;
-	for(var i =0; i<4; i++) {
+	for(var i =0; i<2; i++) {
 		if(document.getElementsByClassName("agree")[i].checked) {
 			n++;
 		}
 	}
+	if (document.getElementsByClassName("agree_SMS")[0].checked)
+		n++;
+	if (document.getElementsByClassName("agree_email")[0].checked)
+		n++;
 	
 	if(n == 4) {
 		document.getElementById("agree_master").checked = true;		
