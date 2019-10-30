@@ -27,8 +27,17 @@
 	function Product_list(code, category) {
 		location = "../Product/product_list.jsp?code=" + code + "&category=" + category;
 	}
+	
+	// 서치 레이어 활성화
+	function layerSearch() {
+		document.getElementById("layer_search").style.visibility = "visible";
+	}
+	
+	function layerSearchClose() {
+		document.getElementById("layer_search").style.visibility = "hidden";
+	}
 </script>
-<link rel="stylesheet" href="../Etc/nav.css?ver=2">
+<link rel="stylesheet" href="../Etc/nav.css?ver=3">
 </head>
 <body>
 <nav>
@@ -76,12 +85,18 @@
 	<div id="bottom">
 		<div id="search_button">
 			<ul>
-				<li><a href="#"><img src="../Etc/search.png" alt="no image" width="20px"></a></li>
+				<li><a href="javascript:layerSearch()"><img src="../Etc/search.png" alt="no image" width="20px"></a></li>
 			</ul>
 		</div>
 		<div>
 			<ul>
 				<%
+				if (session.getAttribute("email") != null && session.getAttribute("email").equals("admin@gmail.com")) {
+				%>
+				<li><a href="../Admin/product_manage.jsp">MANAGE PRODUCT</a></li>
+				<%
+				}
+				
 				if (session.getAttribute("email") != null) {
 				%>
 				<li><a href="../Member/signout.jsp">SIGN OUT</a></li>
@@ -99,6 +114,17 @@
 		</div>
 	</div>
 </nav>
-
+<!-- 서치 레이어 -->
+<div id="layer_search">
+	<div class="layer_header">
+		<a href="javascript:layerSearchClose()">X</a>
+	</div>
+	<div class="layer_body">
+		<form action="#" method="post">
+			<input type="search" name="search">
+			<input type="submit" value="go">
+		</form>
+	</div>
+</div>
 </body>
 </html>
