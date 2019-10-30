@@ -17,7 +17,72 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/product_manage.css?ver=1">
+<style>
+.product_manage_section {
+	height: 900px;
+	overflow: scroll;
+}
+
+.list_header {
+	height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+/* 	font-family: 'Gill Sans MT Std'; */
+	font-weight: 700;
+	letter-spacing: 2px;
+	font-size: 14px;
+	color: #353535;
+}
+
+/* 상품 리스트 테이블 크기 (브라우저 크기에 맞추기) */
+table {
+	width: 1200px;
+	margin: auto;
+	border-collapse: collapse;
+}
+
+table caption {
+	text-align: right;
+	padding: 20px;
+}
+
+	/* 상품 등록 */
+	table caption a {
+		text-decoration: none;
+		font-size: 12px;
+		font-weight: bold;
+		color: #495164;
+		letter-spacing: 3px;
+	}
+	table caption a:hover {
+		text-decoration: underline;
+	}
+
+table td {
+	border: 1px solid grey;
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	color: grey;
+	font-size: 13px;
+}
+
+table td img {
+	border: none;
+	border-radius: 50%;
+}
+
+table #field td {
+	font-weight: bold;
+	color: #353535;
+}
+
+table td a {
+	color: grey;
+}
+
+</style>
 </head>
 <body>
 	<!-- 네비게이션 바 -->
@@ -29,7 +94,7 @@
 			<section class="product_manage_section">
 				<div class="list_main">
 					<!-- 대분류 텍스트 -->
-					<div class="list_header">전체 상품</div>
+					<div class="list_header">MANAGE PRODUCT</div>
 					<!-- 상품 테이블 -->
 					<table>
 						<caption><a href="product.jsp">상품등록</a></caption>
@@ -59,7 +124,7 @@
 							<td><%=order%></td>
 							<td><%=sales%></td>
 							<td><%=order-sales%></td>
-							<td><img src="Image/<%=rs.getString("product_list")%>" alt="no image" width="80"></td>
+							<td><img src="../Product/Image/<%=rs.getString("product_list")%>" alt="no image" width="80" height="80"></td>
 							<td><%=rs.getString("writeday")%></td>
 						</tr>
 						<%
