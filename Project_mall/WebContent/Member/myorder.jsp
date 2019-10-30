@@ -40,22 +40,6 @@
 	// DB 연결
 	Connection conn = Connect.connection_static();
 	Statement stmt = conn.createStatement();
-	
-	// order_code 부터 추출
-	String sql = "select order_code, count(*) as num from ordered group by order_code having num >= 1";
-	ResultSet rs = stmt.executeQuery(sql);
-	
-	// order_code 의 개수
-	rs.last();
-	int r = rs.getRow();
-	rs.beforeFirst();
-	
-	// order_code 배열화
-	String order_code[] = new String[r];
-	for (int i=0; i<order_code.length; i++) {
-		rs.next();
-		order_code[i] = rs.getString("order_code");
-	}
 %>
 <!DOCTYPE html>
 <html>
@@ -116,6 +100,26 @@
 							<input type="button" value="조회" onclick="Period_order(6)">
 						</div>
 						<%
+						// order_code 부터 추출
+						// 같은 값은 가진 레코드 개수가 1개 이상인  order_code 레코드 조회 (해당 레코드 필드명: order_code, 레코드 개수: num)
+						String sql = "select order_code, count(*) as num from ordered where email='"+session.getAttribute("email")+"'";
+						sql = sql + " group by order_code having num >= 1";
+						ResultSet rs = stmt.executeQuery(sql);
+						
+						// 주문 내역이 있다면
+						if (rs.next()) {		
+							// order_code 의 개수
+							rs.last();
+							int r = rs.getRow();
+							rs.beforeFirst();
+							
+							// order_code 배열화
+							String order_code[] = new String[r];
+							for (int i=0; i<order_code.length; i++) {
+								rs.next();
+								order_code[i] = rs.getString("order_code");
+							}
+							
 							// ordered, product 2개 테이블의 데이터를 동시에 조회 (order_code 별로 조회)
 							// MySQL substring(1, 10) 1번째 문자 ~ 10번째 문자까지 추출
 							for (int i=0; i<order_code.length; i++) {
@@ -164,7 +168,20 @@
 						</table>
 						<%
 							}
+						
+	} else {
+		
+
 						%>
+						<table>
+							<caption></caption>
+							<tr>
+								<td colspan="3">주문 내역이 없습니다.</td>
+							</tr>
+						</table>
+						<%
+						
+	}					%>
 					</div>
 					<!-- ACCOUNT 페이지 메뉴 네비게이션바 -->
 					<div class="account_grid_right">
