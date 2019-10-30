@@ -17,10 +17,29 @@
 // 	String sql = "select*from product where product_code like 'p03%' limit 0, 24";
 // 	ResultSet rs = stmt.executeQuery(sql);
 
-	// 대분류 code 값
 	request.setCharacterEncoding("UTF-8");
-	int c = Integer.parseInt(request.getParameter("code")); // 상품 대분류 코드
-	String category = request.getParameter("category"); // 품목 (bestseller,..)
+	int c = 0;
+	String category = "";
+	// 대분류 code 값
+	if (request.getParameter("code") != null) {
+		c = Integer.parseInt(request.getParameter("code")); // 상품 대분류 코드
+		category = request.getParameter("category"); // 품목 (bestseller,..)		
+	}
+
+	// 검색어로 접근한 경우
+	if (request.getParameter("search") != null) {
+		// 띄어쓰기로 구분되는 단어 모두에 대해 검색
+		String search[] = request.getParameter("search").split(" ");
+		for (int i = 0; i < search.length; i++) {
+			switch(search[i]) {
+				case "원피스": c = 3; break;
+				case "드레스": c = 302; break;
+				case "탑": c = 1; break;
+				default: c = 0;
+			}
+		}
+		category = "'" + request.getParameter("search") + "' 검색 결과";
+	}
 
 	Product_list p = new Product_list();
 	
@@ -35,15 +54,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/product_list.css?ver=2">
+<link rel="stylesheet" href="../Etc/product_list.css?ver=9">
 <script>
 	function Content(id) {
 		location = "product_content.jsp?id="+id;
 	}
+	
+	function scrollTopButton() {
+		alert(document.documentElement.scrollTop);
+		document.documentElement.scrollTop = 0;
+	}
 </script>
 </head>
 <body>
-	<!-- 네비게이션 바 -->
+	<!-- scrollTop 네비게이션바 -->
+	<input type="button" value="TOP" id="TOP" onclick="scrollTopButton()">
+	<!-- 메뉴바 include -->
 	<jsp:include page="../nav.jsp" flush="false"/>
 	<div id="grid_container">
 		<!-- empty space for nav bar -->
@@ -58,7 +84,7 @@
 						<!-- 하위 카테고리 링크 -->
 						<caption class="link_sub_category">
 							<!-- 상품 코드에 따라 -->
-							<a href="#">short</a> / <a href="#">long</a>
+							<a href="#"><span id="test"></span></a>
 						</caption>
 						<tr>
 				
@@ -76,7 +102,7 @@
 										<img src="Image/<%=product.get(i).getProduct_list()%>" alt="no image" width="250" onclick="Content(<%=product.get(i).getId()%>)">
 									</div>
 									<div id="text_box">
-										<%=product.get(i).getName()%> <br>
+										<%=product.get(i).getName()%> <p></p>
 										￦ <%=product.get(i).getPrice()%>
 									</div>
 								</td>
@@ -87,7 +113,6 @@
 					</table>
 				</div>
 			</section>
-
 		</div>
 	</div>
 </body>
