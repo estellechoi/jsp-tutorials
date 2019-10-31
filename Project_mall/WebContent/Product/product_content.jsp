@@ -5,7 +5,13 @@
 <%@ page import="java.text.DecimalFormat"%>
 <%
 
-	String email = session.getAttribute("email").toString();
+	String email = "";
+	if (session.getAttribute("email") != null) {
+		email = session.getAttribute("email").toString();
+	}
+	else {
+		email = "nonmember"; // 비회원
+	}
 
 	Connection conn = Connect.connection_static();
 	Statement stmt = conn.createStatement();
