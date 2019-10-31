@@ -6,13 +6,25 @@
 	// DB 연결 (Connect 클래스 connection_static() 메소드 실행)
 	Connection conn = Connect.connection_static();
 	Statement stmt = conn.createStatement();
-
-	// session 값 가져오기
-	String email = session.getAttribute("email").toString();
-	String username = session.getAttribute("username").toString(); // 가능 ?
-
+	
 	// POST 전송값 가져오기
 	request.setCharacterEncoding("UTF-8");
+	
+	// 주문자정보
+	String email = "";
+	String username = "";
+	
+	// 로그인회원  session 값 가져오기
+	if (session.getAttribute("email") != null) {
+		email = session.getAttribute("email").toString();
+		username = session.getAttribute("username").toString();		
+	}
+	// 비회원 POST 전송값 가져오기
+	else {
+		email = request.getParameter("email");
+		username = request.getParameter("username");
+	}
+
 	// 상품 가짓수
 	int kind = Integer.parseInt(request.getParameter("kind"));
 	
@@ -49,7 +61,10 @@
 		}
 	}
 	
-	int use_point = Integer.parseInt(request.getParameter("use_point")); // 사용한 적립금
+	int use_point = 0; // 비회원 (사용할 일 없긴 함.)
+	if (request.getParameter("use_point") != null) {
+		use_point = Integer.parseInt(request.getParameter("use_point")); // 사용한 적립금
+	}
 	String amount_buy = request.getParameter("amount_buy_hidden"); // 콤마 없는 값이 넘어오도록 이전 페이지에서 컨트롤했어야 ...
 	String amount_discount = request.getParameter("amount_discount_hidden");
 	String amount_pay = request.getParameter("amount_pay_hidden");
@@ -94,14 +109,16 @@
 
 		
 // 쿼리 시작 !
-
+	String sql;
 	// member table에서 사용포인트 빼고 적립포인트 누적시키기
-	int add_point = 0;
-	for (int i=0; i<get_point.length; i++) {
-		add_point = add_point + get_point[i];
+	if (session.getAttribute("email") != null) {
+		int add_point = 0;
+		for (int i=0; i<get_point.length; i++) {
+			add_point = add_point + get_point[i];
+		}
+		sql = "update member set point=point+" + add_point + "-" + use_point + " where email='" + email + "'";
+		stmt.executeUpdate(sql);		
 	}
-	String sql = "update member set point=point+" + add_point + "-" + use_point + " where email='" + email + "'";
-	stmt.executeUpdate(sql);
 	
 	// product 테이블에 판매량 누적시키기
 	for (int i=0; i<product_code.length; i++) {
@@ -113,8 +130,8 @@
 	String same_address = request.getParameter("same_address"); // "0" vs "1"
 	String id_address = null;
 	
-	// 새로운 배송지인 경우
-	if (same_address.equals("1")) {
+	// 새로운 배송지인 경우 or 비회원
+	if (same_address.equals("1") || session.getAttribute("email") == null) {
 		// 배송지 정보 → address 테이블에 저장
 		String recipient = request.getParameter("recipient");
 		String destination = request.getParameter("recipient");
@@ -153,16 +170,17 @@
 	// 주문자 정보와 동일
 	else {
 		// member 테이블 id_address 값 가져와야 한다 !
+		// 1) 로그인 회원
 		// 회원가입시 주소정보를 입력하면 id_address 값, table address에도 레코드 등록돼야 함
 		// 회원가입시 주소정보 미입력하면 주문자정보에도 주소가 없기 때문에 <주문자 정보와 동일> 체크 불가
 			sql = "select * from member where email='" + email + "'";
 			ResultSet rs = stmt.executeQuery(sql);
 			rs.next();
-			id_address = rs.getString("id_address");
+			id_address = rs.getString("id_address");			
 	}
 		
 	// ordered 테이블에 레코드 추가하기 전, 가장 최근 레코드의 id 값을 저장해놓자 !
-	sql = "select max(id) as id from ordered where email='"+email+"'";
+	sql = "select max(id) as id from ordered";
 	ResultSet rs = stmt.executeQuery(sql);
 	rs.next();
 	int id_max = rs.getInt("id");
