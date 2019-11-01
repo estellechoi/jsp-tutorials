@@ -8,8 +8,7 @@
 	Statement stmt = conn.createStatement();
 	
 	// POST 전송값 가져오기
-	request.setCharacterEncoding("UTF-8");
-	
+	request.setCharacterEncoding("UTF-8");	
 	// 주문자정보
 	String email = "";
 	String username = "";
