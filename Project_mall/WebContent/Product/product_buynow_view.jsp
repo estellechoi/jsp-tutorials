@@ -5,9 +5,8 @@
 <%@ page import="mall.Util.Util"%>
 <%
 	// ordered 의 id 값 (주문 완료와 함께 id값 GET 전송)
-	String ID = request.getParameter("id");
 	int e = request.getParameter("id").lastIndexOf(",");
-	String id = ID.substring(0,e);
+	String id = request.getParameter("id").substring(0, e);
 	
 	// order_code 값
 	String order_code = request.getParameter("order_code");
@@ -104,10 +103,21 @@
 	margin: 10px;
 	cursor: pointer;
 }
+.alert {
+	width: 1200px;
+	margin: auto;
+	text-align: left;
+	padding-left: 10px;
+	color: red;
+	font-size: 12px;
+}
 </style>
 <script>
 	function Myorder() {
 		location = "../Member/myorder.jsp";
+	}
+	function Signin() {
+		location = "../Member/signin.jsp";
 	}
 </script>
 </head>
@@ -129,6 +139,13 @@
 							<td><%=order_code%></td>
 						</tr>
 					</table>
+						<%
+							if(session.getAttribute("email") == null) {
+						%>
+						<div class="alert"> * 비회원 주문 조회를 위해 오더번호를 기억해주세요.</div>
+						<%
+							}
+						%>
 					<table>
 						<!-- 주문 정보 -->
 						<caption>주문 상품 정보</caption>
@@ -233,7 +250,17 @@
 					<div class="button">
 						<!-- 추후 링크 걸기 -->
 						<input type="button" value="쇼핑 계속하기">
+						<%
+							if (session.getAttribute("email") != null) {
+						%>
 						<input type="button" value="전체 주문 보기" onclick="Myorder()">
+						<%
+							} else {
+						%>
+						<input type="button" value="주문 조회" onclick="Signin()">
+						<%
+							}
+						%>
 					</div>
 				</div>
 			</section>
