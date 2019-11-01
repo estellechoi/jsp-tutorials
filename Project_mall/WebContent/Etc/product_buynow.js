@@ -104,8 +104,11 @@ function Pay_form(n) {
 }
 
 
-// submit
-function Submit() {	
+// onsubmit
+function Submit() {
+	// request 값 정리
+	var email = document.getElementById("email_id").value + "@" + document.getElementById("email_host").value;
+	document.getElementsByName("email")[0].value = email;
 	// 구매진행 동의여부
 	if (form.confirm.value != "1") {
 		alert("구매 진행에 동의해야 결제 가능합니다.");

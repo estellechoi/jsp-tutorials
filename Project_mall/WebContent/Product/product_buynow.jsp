@@ -317,7 +317,7 @@ input:focus {
 }
 
 </style>
-<script src="../Etc/product_buynow.js?ver=4"></script>
+<script src="../Etc/product_buynow.js?ver=6"></script>
 <script src="../Etc/common.js"></script>
 <!-- daum 도로명주소검색 API 시작 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -539,6 +539,7 @@ input:focus {
 								<tr>
 									<th>이메일 * </th>
 									<td>
+										<input type="hidden" name="email">
 										<input type="text" name="email_id" id="email_id" size="7" value="<%=email[0]%>">@
 										<input type="text" name="email_host" id="email_host" size="7" value="<%=email[1]%>">
 										<select name="email_host_select" id="email_host_select" onchange="Email(this.value)">
