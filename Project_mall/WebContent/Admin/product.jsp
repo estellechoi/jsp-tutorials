@@ -274,6 +274,12 @@
 							<td colspan="5"><input type="file" name="product_detail"></td>
 						</tr>
 						<tr>
+							<th>상품 설명</th>
+							<td colspan="5">
+								<textarea name="information" cols="40" rows="10"></textarea>
+							</td>
+						</tr>
+						<tr>
 							<th></th>
 							<td colspan="5"><input type="submit" value="상품 등록"></td>
 						</tr>
