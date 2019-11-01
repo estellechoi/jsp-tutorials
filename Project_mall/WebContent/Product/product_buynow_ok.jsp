@@ -14,12 +14,12 @@
 	String email = "";
 	String username = "";
 	
-	// 로그인회원  session 값 가져오기
+	// 1) 로그인회원  session 값
 	if (session.getAttribute("email") != null) {
 		email = session.getAttribute("email").toString();
 		username = session.getAttribute("username").toString();		
 	}
-	// 비회원 POST 전송값 가져오기
+	// 2) 비회원 POST 전송값
 	else {
 		email = request.getParameter("email");
 		username = request.getParameter("username");
@@ -167,10 +167,9 @@
 		// 주소록 팝업창에서 아무런 이벤트 없이 '취소' 버튼 눌렀다면, 자동으로 새배송지로 선택값 변경하는 것이 필요 !!
 		// same_address 값은 2인데, id_address 값이 없는 오류 발생하기 때문 !
 	}
-	// 주문자 정보와 동일
+	// 주문자 정보와 동일 (로그인 회원)
 	else {
 		// member 테이블 id_address 값 가져와야 한다 !
-		// 1) 로그인 회원
 		// 회원가입시 주소정보를 입력하면 id_address 값, table address에도 레코드 등록돼야 함
 		// 회원가입시 주소정보 미입력하면 주문자정보에도 주소가 없기 때문에 <주문자 정보와 동일> 체크 불가
 			sql = "select * from member where email='" + email + "'";
@@ -217,7 +216,7 @@
 
 	// ordered 테이블에 레코드 추가 후, 방금 추가된 레코드의 id 값들을 불러오자 !
 	// 혹은 생성한 order_code만 보내주기 (이걸로 조회 가능하니까)
-	sql = "select id from ordered where email='"+email+"' and id>" + id_max;
+	sql = "select id from ordered where id>" + id_max;
 	rs = stmt.executeQuery(sql);
 	String id = "";
 	while (rs.next()) {
