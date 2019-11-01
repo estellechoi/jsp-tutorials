@@ -37,6 +37,7 @@
 	}
 	
 	// 상품정보
+	String id_product = rs.getString("id");
 	String product_code = rs.getString("product_code");
 	String country = product_code.substring(5,7); // index 5,6
 	String maker = product_code.substring(7,9); // index 7,8
@@ -68,7 +69,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <!-- stylesheet -->
-<link rel="stylesheet" href="../Etc/product_content.css?ver=3">
+<link rel="stylesheet" href="../Etc/product_content.css?ver=6">
 <script>
 	// 콤마
 	function comma(x) {
@@ -194,7 +195,9 @@
 							<table>
 								<caption><%=rs.getString("name")%></caption>
 								<tr>
-									<td id="product_summary" colspan="2">상품설명</td>
+									<td id="product_summary" colspan="2">
+										<%=rs.getString("information")%>
+									</td>
 								</tr>
 								<tr>
 									<td id="product_price" colspan="2">￦  <%=df.format(rs.getInt("price"))%></td>
@@ -205,10 +208,10 @@
 										<!-- size 선택하지 않으면 구매 못하도록 장치 필요 -->
 										<select name="size" id="size">
 											<option value="0">선택</option>
-											<option value="1">XS</option>
-											<option value="2">S</option>
-											<option value="3">M</option>
-											<option value="4">L</option>
+											<option value="XS">XS</option>
+											<option value="S">S</option>
+											<option value="M">M</option>
+											<option value="L">L</option>
 										</select>							
 									</td>
 								</tr>
@@ -264,6 +267,10 @@
 						</tr>
 					</table>
 				</article>
+				<!-- 리뷰 게시판 -->
+				<jsp:include page="../Board/review_list.jsp" flush="false">
+					<jsp:param name="id_product" value="<%=id_product%>"/>
+				</jsp:include>
 			</section>
 		</div>
 	</div>
