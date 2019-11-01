@@ -24,7 +24,7 @@
 							<div id="signin_form">
 								<div id="form_left">
 									<div id="userid">
-										<label for="uid">이메일</label> <input type="text" name="email" id="email">
+										<label for="email">이메일</label> <input type="text" name="email" id="email">
 									</div>
 									<div id="password">
 										<label for="pwd">패스워드</label> <input type="password" name="pwd" id="pwd">
@@ -40,6 +40,7 @@
 								<img alt="no image" src="../Etc/lock.png" width="12px"> 보안접속
 							</div>
 						</form>
+						<!-- 로그인 폼 끝 -->
 						<!-- 아이디/비밀번호 찾기 -->
 						<div id="signin_forgot">
 							<a href="forgot_pwd.jsp"><img alt="no image" src="../Etc/link_icon.jpg" width="12px"> 비밀번호 찾기</a>
@@ -56,14 +57,16 @@
 						 	<div><a href="signup.jsp">회원가입  > </a></div>
 						</div>
 						<!-- 비회원 로그인-->
-						<div id="nonmember">
-							<div>비회원 주문조회</div>
-							<div>비회원의 경우, 주문번호로 주문조회가 가능합니다.</div>
-							<div><img alt="no image" src="../Etc/link_icon.jpg" width="12px"> <span>주문자명</span> <input type="text" name="name"></div>
-							<div><img alt="no image" src="../Etc/link_icon.jpg" width="12px"> <span>주문번호</span> <input type="text" name="ordernum1" size="7"> - <input type="text" name="ordernum2" size="7"></div>
-							<div><img alt="no image" src="../Etc/link_icon.jpg" width="12px"> <span>비밀번호</span> <input type="password" name="pwd"></div>
-							<div><button>조회 >></button></div>
-						</div>
+						<form action="../Member/myorder_detail.jsp" method="post">
+							<div id="nonmember">
+								<div>비회원 주문조회</div>
+								<div>비회원의 경우, 주문번호로 주문조회가 가능합니다.</div>
+								<div><img alt="no image" src="../Etc/link_icon.jpg" width="12px"> <span>주문자명</span> <input type="text" name="username"></div>
+								<div><img alt="no image" src="../Etc/link_icon.jpg" width="12px"> <span>이메일</span> &nbsp; <input type="text" name="email"></div>
+								<div><img alt="no image" src="../Etc/link_icon.jpg" width="12px"> <span>주문번호</span> <input type="text" name="order_code"></div>
+								<div><button>조회 >></button></div>
+							</div>
+						</form>
 					</div>
 				</section>
 				<!-- footer -->
