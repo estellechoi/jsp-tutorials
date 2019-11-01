@@ -49,10 +49,11 @@
 	
 	product_code = product_code + id;
 	
-	// 상품이름, 가격, 세탁정보
+	// 상품이름, 가격, 세탁정보, 상품설명
 	String name = multi.getParameter("name");
 	String price = multi.getParameter("price");
 	String laundry = multi.getParameter("laundry");
+	String information = multi.getParameter("information");
 	
 	// 생산일자
 	String yy = multi.getParameter("yy");
@@ -69,8 +70,8 @@
 	String product_detail = multi.getFilesystemName("product_detail");
 	
 	// DB 쿼리
-	sql = "insert into product(product_code, name, price, laundry, manufactured_date, quantity_order, quantity_sales, product_list, product_main, product_detail, product_recommend, writeday)";
-	sql = sql + " values(?,?,?,?,?,?,?,?,?,?,?,now())";
+	sql = "insert into product(product_code, name, price, laundry, manufactured_date, quantity_order, quantity_sales, product_list, product_main, product_detail, product_recommend, writeday, information)";
+	sql = sql + " values(?,?,?,?,?,?,?,?,?,?,?,now(),?)";
 	
 	pstmt = conn.prepareStatement(sql);
 	pstmt.setString(1, product_code);
@@ -84,6 +85,7 @@
 	pstmt.setString(9, product_main);
 	pstmt.setString(10, product_detail);
 	pstmt.setString(11, ""); // 관련상품 추후 처리
+	pstmt.setString(12, information);
 	
 	pstmt.executeUpdate();
 	
