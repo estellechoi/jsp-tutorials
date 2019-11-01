@@ -5,7 +5,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-/* 	font-family: 'Gill Sans MT Std'; */
+	/* 	font-family: 'Gill Sans MT Std'; */
 	font-weight: 700;
 	letter-spacing: 2px;
 	font-size: 14px;
@@ -37,7 +37,6 @@
 	color: #FF8000;
 }
 
-
 #period_controller {
 	width: 800px;
 	margin: auto;
@@ -60,6 +59,7 @@
 	color: #495164;
 	padding-top: 20px;
 	padding-bottom: 10px;
+	cursor: pointer;
 }
 
 .myorder_section table td {
@@ -93,7 +93,7 @@ a {
 	color: #3897F0;
 	font-weight: bold;
 	font-size: 18px;
-	text-decoration: none;	
+	text-decoration: none;
 }
 
 /* 적립 포인트 텍스트 */
@@ -104,4 +104,16 @@ a {
 
 #order_code {
 	font-size: 12px;
+}
+
+/* 리뷰작성 레이어 */
+#layer_review {
+	visibility: hidden;
+	border: 3px solid #555555;
+	background: white;
+	width: 400px;
+	height: 400px;
+	position: absolute;
+	top: 20px;
+	left: 500px;
 }

@@ -46,7 +46,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/myorder.css?ver=6">
+<link rel="stylesheet" href="../Etc/myorder.css?ver=9">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script>
@@ -72,6 +72,19 @@
 	
 	function Product_content(id) {
 		location = "../Product/product_content.jsp?id=" + id;
+	}
+	
+	function Myorder_detail(order_code) {
+		location = "../Member/myorder_detail.jsp?order_code=" + order_code;
+	}
+	
+	// 리뷰작성 레이어 열기
+	function Review_write(id_product) {
+		document.getElementById("layer_review").style.visibility = "visible";
+		document.getElementsByName("id_product")[0].value = id_product;
+	}
+	function Review_write_close() {
+		document.getElementById("layer_review").style.visibility = "hidden";
 	}
 </script>
 </head>
@@ -123,14 +136,14 @@
 							// ordered, product 2개 테이블의 데이터를 동시에 조회 (order_code 별로 조회)
 							// MySQL substring(1, 10) 1번째 문자 ~ 10번째 문자까지 추출
 							for (int i=0; i<order_code.length; i++) {
-								sql = "select ordered.order_code, ordered.id as id_order, substring(ordered.writeday, 1, 10) as writeday, product.id as product_id, product.product_list, product.name, ordered.size as size";
+								sql = "select ordered.order_code, ordered.id as id_order, substring(ordered.writeday, 1, 10) as writeday, product.id as id_product, product.product_list, product.name, ordered.size as size";
 								sql = sql + ", ordered.qty, ordered.amount_buy, product.price, ordered.get_point, ordered.cancel from ordered, product where ordered.email='" + session.getAttribute("email") + "'";
 								sql = sql + " and product.product_code = ordered.product_code" + sql_period + " and ordered.order_code='"+ order_code[i] +"'";
 								rs = stmt.executeQuery(sql);
 								rs.next();
 						%>
 						<table>
-							<caption>
+							<caption onclick="Myorder_detail('<%=order_code[i]%>')">
 								<b>주문일 <%=rs.getString("writeday")%></b>
 								<span id="order_code"><%=order_code[i]%></span>
 							</caption>
@@ -139,7 +152,7 @@
 								while(rs.next()) {
 							%>
 							<tr>
-								<td><img src="../Product/Image/<%=rs.getString("product_list")%>" alt="no image" width="100" height="100" onclick="Product_content('<%=rs.getString("product_id")%>')"></td>
+								<td><img src="../Product/Image/<%=rs.getString("product_list")%>" alt="no image" width="100" height="100" onclick="Product_content('<%=rs.getString("id_product")%>')"></td>
 								<td>
 									<b><%=rs.getString("name")%></b><p></p>
 									사이즈 : <%=rs.getString("size")%> / 수량 : <%=rs.getString("qty")%> 개<p></p>
@@ -147,7 +160,6 @@
 									<span id="show_get_point"><%=Util.comma(rs.getInt("get_point"))%> p 적립</span>
 								</td>
 								<td>
-									배송중 <p></p>
 									<a href="#">배송 조회</a><p></p>
 									<%
 									if (rs.getString("cancel").equals("na")) {
@@ -160,6 +172,11 @@
 									<%
 									}
 									%>
+									<p></p>
+									<a href="javascript:Review_write('<%=rs.getString("id_product")%>')">리뷰 작성</a>
+								</td>
+								<td>
+									배송중
 								</td>
 							</tr>
 							<%
@@ -188,9 +205,45 @@
 						<jsp:include page="account_nav.jsp" flush="false"/>
 					</div>
 			</section>
-			
 		</div>
 	</div>
-
+	<!-- 리뷰작성 레이어 -->
+	<div id="layer_review">
+		<form action="../Board/review_write_ok.jsp" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="id_product">
+			<table>
+				<tr>
+					<th>별점</th>
+					<td>
+						<select name="star">
+							<option value="5">★★★★★</option>
+							<option value="4">★★★★</option>
+							<option value="3">★★★</option>
+							<option value="2">★★</option>
+							<option value="1">★</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>키</th>
+					<td><input type="text" name="height" placeholder="cm"></td>
+				</tr>
+				<tr>
+					<th>몸무게</th>
+					<td><input type="text" name="weight" placeholder="kg"></td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td><textarea name="content"cols="40" rows="1"></textarea></td>
+				</tr>
+				<tr>
+					<th>사진</th>
+					<td><input type="file" name="image"></td>
+				</tr>
+			</table>
+			<input type="submit" value="저장">
+			<a href="javascript:Review_write_close()">취소</a>
+		</form>
+	</div>
 </body>
 </html>
