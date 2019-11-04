@@ -58,6 +58,26 @@
 	case "04": maker = "한솔섬유"; break;
 	default: maker = "???";		
 	}
+	
+	// 쿠키 생성
+	// 접속한 클라이언트의 하드로부터 쿠키 값을 읽어오는 함수
+	// 저장한 데이터 없을 때 배열의 크기는 1 (자동으로 붙는 session id 때문)
+	Cookie cookies[] = request.getCookies();
+	
+	
+	// 1) 쿠키 없을 경우 (최초쿠키, 시간 지나서 쿠키 모두 소멸한 경우)
+	if (cookies.length == 1) {
+		Cookie cookie = new Cookie("product_code" + cookies.length, rs.getString("product_code"));
+		cookie.setMaxAge(600); // 600초
+		response.addCookie(cookie); // 하드디스크에 저장
+	}
+	// 2) 추가로 쿠키 생성
+	else {
+		int n = Integer.parseInt(cookies[cookies.length-2].getName().substring(12));
+		Cookie cookie = new Cookie("product_code" + (n + 1), rs.getString("product_code"));
+		cookie.setMaxAge(600);
+		response.addCookie(cookie);
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -70,6 +90,20 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <!-- stylesheet -->
 <link rel="stylesheet" href="../Etc/product_content.css?ver=6">
+<style>
+/* TOP 버튼 */
+#TOP {
+	border: 3px solid #FF00FF;
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	color: #FF00FF;
+	font-weight: bold;
+	position: fixed;
+	top: 100px;
+	left: 800px;
+}
+</style>
 <script>
 	// 콤마
 	function comma(x) {
@@ -150,6 +184,11 @@
 			return true;
 		}
 	}
+	
+	function scrollTopButton() {
+		alert(document.documentElement.scrollTop);
+		document.documentElement.scrollTop = 0;
+	}
 </script>
 <!-- jQuery 플러그인 spinner -->
 <script>
@@ -170,6 +209,8 @@
 </script>
 </head>
 <body>
+	<!-- scrollTop 네비게이션바 -->
+	<div id="TOP" onclick="scrollTopButton()">TOP</div>
 	<!-- 네비게이션 바 -->
 	<jsp:include page="../nav.jsp" flush="false"/>
 	<div id="grid_container">
