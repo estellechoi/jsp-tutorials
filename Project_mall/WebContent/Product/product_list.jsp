@@ -54,7 +54,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/product_list.css?ver=9">
+<link rel="stylesheet" href="../Etc/product_list.css?ver=11">
 <script>
 	function Content(id) {
 		location = "product_content.jsp?id="+id;
@@ -68,7 +68,7 @@
 </head>
 <body>
 	<!-- scrollTop 네비게이션바 -->
-	<input type="button" value="TOP" id="TOP" onclick="scrollTopButton()">
+	<div id="TOP" onclick="scrollTopButton()">TOP</div>
 	<!-- 메뉴바 include -->
 	<jsp:include page="../nav.jsp" flush="false"/>
 	<div id="grid_container">
@@ -76,41 +76,45 @@
 		<div id="grid_left"></div> 
 		<div id="grid_right">
 			<section class="product_list_section">
+				<!-- 대분류 텍스트 -->
+				<div class="list_header"><%=category%></div>
 				<div class="list_main">
-					<!-- 대분류 텍스트 -->
-					<div class="list_header"><%=category%></div>
 					<!-- 상품 테이블 -->
-					<table>
-						<!-- 하위 카테고리 링크 -->
-						<caption class="link_sub_category">
-							<!-- 상품 코드에 따라 -->
-							<a href="#"><span id="test"></span></a>
-						</caption>
-						<tr>
-				
-							<%
-								for (int i = 0; i < product.size(); i++) {
-									if (i % 4 == 0) {
-							%>
-								</tr>
-								<tr>
-							<%
+					<div>
+						<table>
+							<!-- 하위 카테고리 링크 -->
+							<caption class="link_sub_category">
+								<!-- 상품 코드에 따라 -->
+								<a href="#"><span id="test"></span></a>
+							</caption>
+							<tr>
+					
+								<%
+									for (int i = 0; i < product.size(); i++) {
+										if (i % 4 == 0) {
+								%>
+									</tr>
+									<tr>
+								<%
+										}
+								%>
+									<td align="center">
+										<div id="image_box">
+											<img src="Image/<%=product.get(i).getProduct_list()%>" alt="no image" width="250" onclick="Content(<%=product.get(i).getId()%>)">
+										</div>
+										<div id="text_box">
+											<%=product.get(i).getName()%> <p></p>
+											￦ <%=product.get(i).getPrice()%>
+										</div>
+									</td>
+								<%
 									}
-							%>
-								<td align="center">
-									<div id="image_box">
-										<img src="Image/<%=product.get(i).getProduct_list()%>" alt="no image" width="250" onclick="Content(<%=product.get(i).getId()%>)">
-									</div>
-									<div id="text_box">
-										<%=product.get(i).getName()%> <p></p>
-										￦ <%=product.get(i).getPrice()%>
-									</div>
-								</td>
-							<%
-								}
-							%>
-						</tr>
-					</table>
+								%>
+							</tr>
+						</table>
+					</div>
+					<!-- 쿠키 이미지 -->
+					<jsp:include page="../Product/cookie.jsp" flush="false"/>
 				</div>
 			</section>
 		</div>

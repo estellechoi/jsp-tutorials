@@ -22,6 +22,11 @@
 	color: #353535;
 }
 
+/* 리스트 메인 구간 grid display */
+.list_main {
+	display: grid;
+	grid-template-columns: 1fr 100px;
+}
 /* 상품 테이블 크기 (브라우저 크기에 맞추기) */
 table {
 	width: 100%;
@@ -78,7 +83,11 @@ table .link_sub_category a:hover {
 /* TOP 버튼 */
 #TOP {
 	border: 3px solid #FF00FF;
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
 	color: #FF00FF;
+	font-weight: bold;
 	position: fixed;
 	top: 100px;
 	left: 800px;
