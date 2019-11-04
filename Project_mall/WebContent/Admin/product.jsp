@@ -154,137 +154,141 @@
 		<div id="grid_left"></div> 
 		<div id="grid_right">
 			<section class="product_manage_section">
+				<!-- 대분류 텍스트 -->
+				<div class="list_header">상품 등록</div>
 				<div class="list_main">
-					<!-- 대분류 텍스트 -->
-					<div class="list_header">상품 등록</div>
 					<!-- 폼 -->
-					<form action="product_ok.jsp" method="post" name="form" enctype="multipart/form-data" onsubmit="return check_form()">
-					<table>
-						<caption><a href="product_manage.jsp">목록으로 돌아가기</a></caption>
-						<tr>
-							<th>상품분류</th>
-							<td>
-									대분류
-									<select name="category1" onchange="category_sub(this.value)">
-										<option value="선택">선택</option>
-										<option value="01">top</option>
-										<option value="02">bottom</option>
-										<option value="03">dress</option>
+					<div>
+						<form action="product_ok.jsp" method="post" name="form" enctype="multipart/form-data" onsubmit="return check_form()">
+						<table>
+							<caption><a href="product_manage.jsp">목록으로 돌아가기</a></caption>
+							<tr>
+								<th>상품분류</th>
+								<td>
+										대분류
+										<select name="category1" onchange="category_sub(this.value)">
+											<option value="선택">선택</option>
+											<option value="01">top</option>
+											<option value="02">bottom</option>
+											<option value="03">dress</option>
+										</select>
+								</td>
+								<td>	
+										중분류
+										<select name="category2">
+											<option value="00">선택</option>
+										</select>
+								</td>
+								<td>
+										제조국
+										<select name="country" id="">
+											<option value="00">미확인</option>
+											<option value="01">대한민국</option>
+											<option value="02">미국</option>
+											<option value="03">중국</option>
+											<option value="04">일본</option>
+										</select>
+								</td>
+								<td>
+										제조사
+										<select name="maker">
+											<option value="00">미확인</option>
+											<option value="01">삼성물산</option>
+											<option value="02">코오롱인더스트리</option>
+											<option value="03">세아상역</option>
+											<option value="04">한솔섬유</option>
+										</select>
+								</td>
+								<td>
+										<!-- 상품코드 출력 버튼 -->
+										<input type="button" value="상품코드 출력" onclick="code()">
+								</td>
+							</tr>
+							<tr>
+								<th>상품코드</th>
+								<td colspan="5"><input type="text" name="product_code" readonly style="background:#80FF80; border: 1px solid #00FF00"></td>
+							</tr>
+							<tr>
+								<th>상품이름</th>
+								<td colspan="5"><input type="text" name="name"></td>
+							</tr>
+							<tr>
+								<th>상품가격</th>
+								<td colspan="5"><input type="text" name="price"></td>
+							</tr>
+							<tr>
+								<th>세탁정보</th>
+								<td colspan="5">
+									<select name="laundry" id="laundry">
+										<option value="0">물세탁</option>
+										<option value="1">손세탁</option>
+										<option value="2">드라이클리닝</option>
+										<option value="3">울세탁</option>
 									</select>
-							</td>
-							<td>	
-									중분류
-									<select name="category2">
-										<option value="00">선택</option>
+								</td>
+							</tr>
+							<tr>
+								<th>생산일자 </th>
+								<td colspan="5">
+									<!-- manufactured_date -->
+									<select name="yy" id="yy">
+										<option value="2019">2019</option>
+										<option value="2018">2018</option>
+										<option value="2017">2017</option>
 									</select>
-							</td>
-							<td>
-									제조국
-									<select name="country" id="">
-										<option value="00">미확인</option>
-										<option value="01">대한민국</option>
-										<option value="02">미국</option>
-										<option value="03">중국</option>
-										<option value="04">일본</option>
-									</select>
-							</td>
-							<td>
-									제조사
-									<select name="maker">
-										<option value="00">미확인</option>
-										<option value="01">삼성물산</option>
-										<option value="02">코오롱인더스트리</option>
-										<option value="03">세아상역</option>
-										<option value="04">한솔섬유</option>
-									</select>
-							</td>
-							<td>
-									<!-- 상품코드 출력 버튼 -->
-									<input type="button" value="상품코드 출력" onclick="code()">
-							</td>
-						</tr>
-						<tr>
-							<th>상품코드</th>
-							<td colspan="5"><input type="text" name="product_code" readonly style="background:#80FF80; border: 1px solid #00FF00"></td>
-						</tr>
-						<tr>
-							<th>상품이름</th>
-							<td colspan="5"><input type="text" name="name"></td>
-						</tr>
-						<tr>
-							<th>상품가격</th>
-							<td colspan="5"><input type="text" name="price"></td>
-						</tr>
-						<tr>
-							<th>세탁정보</th>
-							<td colspan="5">
-								<select name="laundry" id="laundry">
-									<option value="0">물세탁</option>
-									<option value="1">손세탁</option>
-									<option value="2">드라이클리닝</option>
-									<option value="3">울세탁</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<th>생산일자 </th>
-							<td colspan="5">
-								<!-- manufactured_date -->
-								<select name="yy" id="yy">
-									<option value="2019">2019</option>
-									<option value="2018">2018</option>
-									<option value="2017">2017</option>
-								</select>
-								<select name="mm">
-									<%
-										for(int i=1;i<=12;i++)
-										{
-									%>
-									<option value="<%=i%>"><%=i%></option>
-									<%
-										}
-									%>
-									</select>
-									<select name="dd">
-									<%
-										for(int i=1;i<=12;i++)
-										{
-									%>
-									<option value="<%=i%>"><%=i%></option>
-									<%
-										}
-									%>
-								</select>		
-							</td>
-						</tr>
-						<tr>
-							<th>입고수량</th>
-							<td colspan="5"><input type="text" name="quantity_order"></td>
-						</tr>
-						<tr>
-							<th>상품 이미지(대표)</th>
-							<td colspan="5"><input type="file" name="product_list"></td>
-						</tr>
-						<tr>
-							<th>상품 이미지(상세1)</th>
-							<td colspan="5"><input type="file" name="product_main"></td>
-						</tr>
-						<tr>
-							<th>상품 이미지(상세2)</th>
-							<td colspan="5"><input type="file" name="product_detail"></td>
-						</tr>
-						<tr>
-							<th>상품 설명</th>
-							<td colspan="5">
-								<textarea name="information" cols="40" rows="10"></textarea>
-							</td>
-						</tr>
-						<tr>
-							<th></th>
-							<td colspan="5"><input type="submit" value="상품 등록"></td>
-						</tr>
-					</table>
-				</form>				
+									<select name="mm">
+										<%
+											for(int i=1;i<=12;i++)
+											{
+										%>
+										<option value="<%=i%>"><%=i%></option>
+										<%
+											}
+										%>
+										</select>
+										<select name="dd">
+										<%
+											for(int i=1;i<=12;i++)
+											{
+										%>
+										<option value="<%=i%>"><%=i%></option>
+										<%
+											}
+										%>
+									</select>		
+								</td>
+							</tr>
+							<tr>
+								<th>입고수량</th>
+								<td colspan="5"><input type="text" name="quantity_order"></td>
+							</tr>
+							<tr>
+								<th>상품 이미지(대표)</th>
+								<td colspan="5"><input type="file" name="product_list"></td>
+							</tr>
+							<tr>
+								<th>상품 이미지(상세1)</th>
+								<td colspan="5"><input type="file" name="product_main"></td>
+							</tr>
+							<tr>
+								<th>상품 이미지(상세2)</th>
+								<td colspan="5"><input type="file" name="product_detail"></td>
+							</tr>
+							<tr>
+								<th>상품 설명</th>
+								<td colspan="5">
+									<textarea name="information" cols="40" rows="10"></textarea>
+								</td>
+							</tr>
+							<tr>
+								<th></th>
+								<td colspan="5"><input type="submit" value="상품 등록"></td>
+							</tr>
+						</table>
+						</form>	
+					</div>
+					<!-- 관리자용 navigation -->
+					<jsp:include page="admin_nav.jsp" flush="false"/>
 				</div>
 			</section>
 		</div>
