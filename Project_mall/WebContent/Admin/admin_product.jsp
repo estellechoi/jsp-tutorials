@@ -34,6 +34,11 @@
 	font-size: 14px;
 	color: #353535;
 }
+/**/
+.list_main {
+	display: grid;
+	grid-template-columns: 1fr 150px;
+}
 
 /* 상품 리스트 테이블 크기 (브라우저 크기에 맞추기) */
 table {
@@ -92,45 +97,49 @@ table td a {
 		<div id="grid_left"></div> 
 		<div id="grid_right">
 			<section class="product_manage_section">
+				<!-- 대분류 텍스트 -->
+				<div class="list_header">MANAGE PRODUCT</div>
 				<div class="list_main">
-					<!-- 대분류 텍스트 -->
-					<div class="list_header">MANAGE PRODUCT</div>
 					<!-- 상품 테이블 -->
-					<table>
-						<caption><a href="product.jsp">상품등록</a></caption>
-						<tr id="field">
-							<td>상품코드</td>
-							<td>상품명</td>
-							<td>가격</td>
-							<td>입고량</td>
-							<td>판매량</td>
-							<td>재고</td>
-							<td>이미지</td>
-							<td>등록일</td>
-						</tr>
-						<%
-						
-						DecimalFormat df = new DecimalFormat("#,###");
-						
-						while(rs.next()) {
-							int order = rs.getInt("quantity_order");
-							int sales = rs.getInt("quantity_sales");
-						%>
-						<tr>
-							<td><%=rs.getString("product_code")%></td>
-							<td><a href="#"><%=rs.getString("name")%></a></td>
-							<!-- 금액 표시 설정하기 -->
-							<td>￦ <%=df.format(rs.getInt("price"))%></td>
-							<td><%=order%></td>
-							<td><%=sales%></td>
-							<td><%=order-sales%></td>
-							<td><img src="../Product/Image/<%=rs.getString("product_list")%>" alt="no image" width="80" height="80"></td>
-							<td><%=rs.getString("writeday")%></td>
-						</tr>
-						<%
-						}
-						%>
-					</table>
+					<div>
+						<table>
+							<caption><a href="product.jsp">상품등록</a></caption>
+							<tr id="field">
+								<td>상품코드</td>
+								<td>상품명</td>
+								<td>가격</td>
+								<td>입고량</td>
+								<td>판매량</td>
+								<td>재고</td>
+								<td>이미지</td>
+								<td>등록일</td>
+							</tr>
+							<%
+							
+							DecimalFormat df = new DecimalFormat("#,###");
+							
+							while(rs.next()) {
+								int order = rs.getInt("quantity_order");
+								int sales = rs.getInt("quantity_sales");
+							%>
+							<tr>
+								<td><%=rs.getString("product_code")%></td>
+								<td><a href="#"><%=rs.getString("name")%></a></td>
+								<!-- 금액 표시 설정하기 -->
+								<td>￦ <%=df.format(rs.getInt("price"))%></td>
+								<td><%=order%></td>
+								<td><%=sales%></td>
+								<td><%=order-sales%></td>
+								<td><img src="../Product/Image/<%=rs.getString("product_list")%>" alt="no image" width="80" height="80"></td>
+								<td><%=rs.getString("writeday")%></td>
+							</tr>
+							<%
+							}
+							%>
+						</table>
+					</div>
+					<!-- 관리자용 navigation -->
+					<jsp:include page="admin_nav.jsp" flush="false"/>
 				</div>
 			</section>
 		</div>
