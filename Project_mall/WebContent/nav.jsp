@@ -93,7 +93,7 @@
 				<%
 				if (session.getAttribute("email") != null && session.getAttribute("email").equals("admin@gmail.com")) {
 				%>
-				<li><a href="../Admin/product_manage.jsp">MANAGE PRODUCT</a></li>
+				<li><a href="../Admin/admin_product.jsp">ADMIN</a></li>
 				<%
 				}
 				
