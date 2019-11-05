@@ -87,10 +87,23 @@
 		sender = "null";
 	}
 
+// 주소 정보 있는지 확인 (회원 중에)
+	String IfHasAddress = "";
+	String sql = "select*from member where email='" + email + "'";
+	ResultSet rs = stmt.executeQuery(sql);
+	if (rs.next()) {
+		if (rs.getString("id_address") == null) {
+			IfHasAddress = "n";
+		}
+		else {
+			IfHasAddress = "y";
+		}
+	}
+	
 // **** 위시리스트나 장바구니에서 넘어온 상품의 경우, 구매 완료 후 해당 데이터베이스 테이블에서 레코드를 삭제해야 한다 !
 	// 위시리스트에서 온 경우
 	if (request.getParameter("wish").equals("y")) {
-		String sql = "delete from wishlist where product_code='"+product_code[0]+"' and email='"+email+"'";
+		sql = "delete from wishlist where product_code='"+product_code[0]+"' and email='"+email+"'";
 		stmt.executeUpdate(sql);
 	}
 
@@ -102,13 +115,13 @@
 		}
 		int e = sql_code.lastIndexOf(",");
 		sql_code = sql_code.substring(0,e);
-		String sql = "delete from cart where product_code in(" + sql_code + ") and email='"+email+"'";
+		sql = "delete from cart where product_code in(" + sql_code + ") and email='"+email+"'";
 		stmt.executeUpdate(sql);
 	}
 
 		
 // 쿼리 시작 !
-	String sql;
+
 	// member table에서 사용포인트 빼고 적립포인트 누적시키기
 	if (session.getAttribute("email") != null) {
 		int add_point = 0;
@@ -129,8 +142,8 @@
 	String same_address = request.getParameter("same_address"); // "0" vs "1"
 	String id_address = null;
 	
-	// 새로운 배송지인 경우 or 비회원
-	if (same_address.equals("1") || session.getAttribute("email") == null) {
+	// 새로운 배송지인 경우 or 비회원 or 주문자정보와 동일하지만 신규회원이라 주소정보가 없는 경우
+	if (same_address.equals("1") || session.getAttribute("email") == null || IfHasAddress.equals("n")) {
 		// 배송지 정보 → address 테이블에 저장
 		String recipient = request.getParameter("recipient");
 		String destination = request.getParameter("recipient");
@@ -153,7 +166,7 @@
 		
 		// 방금 저장한 레코드의 id 값 가져오기 (중복방지를 위해 email 값 추가)
 		sql = "select max(id) as id_address from address where email='"+email+"'";
-		ResultSet rs = stmt.executeQuery(sql);
+		rs = stmt.executeQuery(sql);
 		rs.next();
 		id_address = rs.getString("id_address");
 	}
@@ -166,20 +179,20 @@
 		// 주소록 팝업창에서 아무런 이벤트 없이 '취소' 버튼 눌렀다면, 자동으로 새배송지로 선택값 변경하는 것이 필요 !!
 		// same_address 값은 2인데, id_address 값이 없는 오류 발생하기 때문 !
 	}
-	// 주문자 정보와 동일 (로그인 회원)
+	// 주문자 정보와 동일 (로그인 회원) 하면서, 주소정보가 있는 경우
 	else {
 		// member 테이블 id_address 값 가져와야 한다 !
 		// 회원가입시 주소정보를 입력하면 id_address 값, table address에도 레코드 등록돼야 함
 		// 회원가입시 주소정보 미입력하면 주문자정보에도 주소가 없기 때문에 <주문자 정보와 동일> 체크 불가
 			sql = "select * from member where email='" + email + "'";
-			ResultSet rs = stmt.executeQuery(sql);
+			rs = stmt.executeQuery(sql);
 			rs.next();
 			id_address = rs.getString("id_address");			
 	}
 		
 	// ordered 테이블에 레코드 추가하기 전, 가장 최근 레코드의 id 값을 저장해놓자 !
 	sql = "select max(id) as id from ordered";
-	ResultSet rs = stmt.executeQuery(sql);
+	rs = stmt.executeQuery(sql);
 	rs.next();
 	int id_max = rs.getInt("id");
 	
