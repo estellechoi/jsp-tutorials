@@ -29,12 +29,11 @@
 	}
 	
 	// 회원 생년월일
-	String birth = rs.getString("birth");
-	String birthSplit[] = birth.split("-");
+	String birth[] = rs.getString("birth").split("-");
 	
 	// 07 과 같은 수를 7 로 변환하기 위한 작업
-	int mm = Integer.parseInt(birthSplit[1]);
-	int dd = Integer.parseInt(birthSplit[2]);
+	int mm = Integer.parseInt(birth[1]);
+	int dd = Integer.parseInt(birth[2]);
 	
 	// 오늘 날짜
 	Date today = new Date();
@@ -50,16 +49,16 @@
 	// 문서 로드시
 	function Filled() {
 		// 생년월일
-		document.getElementsByName("birth_yy")[0].value = "<%=birthSplit[0]%>";
+		document.getElementsByName("birth_yy")[0].value = "<%=birth[0]%>";
 		document.getElementsByName("birth_mm")[0].value = "<%=mm%>";
 		document.getElementsByName("birth_dd")[0].value = "<%=dd%>";
 		
 		// 수신동의 체크
-		if (<%=rs.getString("agree_SMS")%> == "1") {
+		if (<%=rs.getString("agree_SMS")%> == "Y") {
 			document.getElementsByName("agree_SMS")[0].checked = true;
 		}
 		
-		if (<%=rs.getString("agree_email")%> == "1") {
+		if (<%=rs.getString("agree_email")%> == "Y") {
 			document.getElementsByName("agree_email")[0].checked = true;
 		}
 	}
@@ -185,13 +184,12 @@
 									<th>휴대전화</th>
 									<%
 										if (rs.getString("cell") != null) {
-										String cell = rs.getString("cell");
-										String cellSplit[] = cell.split("-");
+										String cell[] = rs.getString("cell").split("-");
 									%>
 									<td>
-										<input type="text" name="cell1" value="<%=cellSplit[0]%>" size="5" onblur="Cell()">-
-										<input type="text" name="cell2" value="<%=cellSplit[1]%>" size="5" onblur="Cell()">-
-										<input type="text" name="cell3" value="<%=cellSplit[2]%>" size="5" onblur="Cell()">
+										<input type="text" name="cell1" value="<%=cell[0]%>" size="5" onblur="Cell()">-
+										<input type="text" name="cell2" value="<%=cell[1]%>" size="5" onblur="Cell()">-
+										<input type="text" name="cell3" value="<%=cell[2]%>" size="5" onblur="Cell()">
 									</td>
 									<%
 										} else {
