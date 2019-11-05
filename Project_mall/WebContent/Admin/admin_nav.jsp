@@ -28,6 +28,7 @@
 		<ul>
 			<li><a href="admin_product.jsp">상품 관리</a></li>
 			<li><a href="admin_member.jsp">회원 관리</a></li>
+			<li><a href="admin_order.jsp">오더 관리</a></li>
 		</ul>
 	</div>
 </body>
