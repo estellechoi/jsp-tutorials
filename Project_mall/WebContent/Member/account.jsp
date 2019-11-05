@@ -43,7 +43,7 @@
 							<caption>내 포인트/쿠폰 현황</caption>
 							<tr>
 								<th>가용 포인트</th>
-								<td><%=Util.comma(rs.getInt("point"))%></td>
+								<td><%=Util.comma(rs.getInt("point"))%> p </td>
 							</tr>
 							<tr>
 								<th>내 쿠폰</th>
@@ -126,23 +126,7 @@
 							<tr>
 								<th>수신 동의</th>
 								<td>
-								<%
-									String agree_SMS;
-									String agree_email;
-									if (rs.getInt("agree_SMS") == 1) {
-										agree_SMS = "동의";
-									}
-									else {
-										agree_SMS = "미동의";
-									}
-									if (rs.getInt("agree_email") == 1) {
-										agree_email = "동의";
-									}
-									else {
-										agree_email = "미동의";
-									}
-								%>
-								SMS 수신 동의 <%=agree_SMS%> / 이메일 수신 동의 <%=agree_email%>
+								SMS 수신 동의 <%=rs.getString("agree_SMS")%> / 이메일 수신 동의  <%=rs.getString("agree_email")%>
 								</td>
 							</tr>
 							<tr>
