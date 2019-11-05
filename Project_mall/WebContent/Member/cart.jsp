@@ -264,10 +264,12 @@ input[type=button], #button_buy {
 									<td><input type="text" name="size" value="<%=rs.getString("size")%>" readonly size="1"></td>
 									<!-- 옵션 변경시, cart 데이터베이스 테이블도 바꿔줘야한다 ! 페이지 리로드 해야하나 ? -->
 									<td>
-										<button type="button" onclick="Change_options_open(<%=i%>, '<%=rs.getString("product_code")%>', '<%=rs.getString("size")%>')">옵션 변경</button>
+										<a href="javascript:Change_options_open(<%=i%>, '<%=rs.getString("product_code")%>', '<%=rs.getString("size")%>')">옵션 변경</a>
 									</td>
 									<td><input type="text" name="qty" class="qty" value="<%=rs.getInt("qty")%>" size="4"> 개</td>
-									<td><input type="button" value="이 상품만 바로 구매" onclick="Buynow('<%=rs.getString("product_code")%>', '<%=rs.getString("size")%>', <%=rs.getInt("qty")%>)"></td>
+									<td>
+										<a href="javascript:Buynow('<%=rs.getString("product_code")%>', '<%=rs.getString("size")%>', <%=rs.getInt("qty")%>)">이 상품만 바로 구매</a>
+									</td>
 								</tr>
 								<%
 										i++;
@@ -275,8 +277,8 @@ input[type=button], #button_buy {
 								%>
 							</table>
 							<div id="button_box">
-								<input type="button" id="button_del" value="선택상품 삭제" onclick="Del()">
-								<input type="button" id="button_buy" value="선택상품 구매" onclick="Order_selected()">
+								<a href="javascript:Del()" id="button_del">선택상품 삭제</a>
+								<a href="javascript:Order_selected()" id="button_buy">선택상품 구매</a>
 							</div>
 						</form>
 					</div>
