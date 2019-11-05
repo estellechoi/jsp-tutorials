@@ -46,7 +46,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/myorder.css?ver=9">
+<link rel="stylesheet" href="../Etc/myorder.css?ver=10">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script>
@@ -137,7 +137,7 @@
 							// MySQL substring(1, 10) 1번째 문자 ~ 10번째 문자까지 추출
 							for (int i=0; i<order_code.length; i++) {
 								sql = "select ordered.order_code, ordered.id as id_order, substring(ordered.writeday, 1, 10) as writeday, product.id as id_product, product.product_list, product.name, ordered.size as size";
-								sql = sql + ", ordered.qty, ordered.amount_buy, product.price, ordered.get_point, ordered.cancel from ordered, product where ordered.email='" + session.getAttribute("email") + "'";
+								sql = sql + ", ordered.qty, ordered.amount_buy, product.price, ordered.get_point, ordered.cancel, ordered.status from ordered, product where ordered.email='" + session.getAttribute("email") + "'";
 								sql = sql + " and product.product_code = ordered.product_code" + sql_period + " and ordered.order_code='"+ order_code[i] +"'";
 								rs = stmt.executeQuery(sql);
 								rs.next();
@@ -176,7 +176,7 @@
 									<a href="javascript:Review_write('<%=rs.getString("id_product")%>')">리뷰 작성</a>
 								</td>
 								<td>
-									배송중
+									<%=rs.getString("status")%>
 								</td>
 							</tr>
 							<%

@@ -80,13 +80,18 @@
 }
 
 .myorder_section table td:nth-child(2) {
-	width: 50%;
+	width: 40%;
 	text-align: left;
 }
 
 .myorder_section table td:nth-child(3) {
-	width: 30%;
+	width: 20%;
 	text-align: center;
+}
+.myorder_section table td:nth-child(4) {
+	width: 10%;
+	text-align: left;
+	font-size: 12px;
 }
 
 a {
