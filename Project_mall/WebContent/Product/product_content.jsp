@@ -116,10 +116,10 @@
 	var wishlist = new XMLHttpRequest();
 	
 	function Cart(product_code) {
-		var size = parseInt(document.getElementById("size").value);
+		var size = document.getElementById("size").value;
 		var qty = document.getElementById("qty").value;
 		var email = "<%=email%>";
-		if (size == 0) {
+		if (size == "0") {
 			alert("사이즈를 선택하세요 !");
 		}
 		else {
@@ -183,11 +183,6 @@
 		else {
 			return true;
 		}
-	}
-	
-	function scrollTopButton() {
-		alert(document.documentElement.scrollTop);
-		document.documentElement.scrollTop = 0;
 	}
 </script>
 <!-- jQuery 플러그인 spinner -->
