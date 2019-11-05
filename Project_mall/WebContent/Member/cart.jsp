@@ -19,7 +19,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	#cart_header {
+#cart_header {
 	height: 200px;
 	display: flex;
 	align-items: center;
@@ -140,14 +140,14 @@ input[type=button], #button_buy {
 	
 	// 선택상품 삭제
 	function Del() {
-		// 체크된 상품코드
-		var code = "";
+		// 체크된 상품의 cart id
+		var id = "";
 		for (var i=0; i<<%=n%>; i++) {
 			if (document.getElementsByName("product_code")[i].checked) {
-				code = code + document.getElementsByName("product_code")[i].value + ",";
+				id = id + document.getElementsByName("id_cart")[i].value + ",";
 			}
 		}
-		location = "cart_del.jsp?code=" + code;
+		location = "cart_del.jsp?id=" + id;
 	}
 	
 	// 이 상품만 바로 구매
@@ -254,16 +254,6 @@ input[type=button], #button_buy {
 								<%
 									int i = 0;
 									while (rs.next()) {		
-										// 사이즈 텍스트 변환
-										int s = rs.getInt("size");
-										String size = "";
-										switch(s) {
-											case 0: size = "선택"; break;
-											case 1: size = "XS"; break;
-											case 2: size = "S"; break;
-											case 3: size = "M"; break;
-											case 4: size = "L"; break;
-										}
 								%>
 								<input type="hidden" name="id_cart" value="<%=rs.getString("id_cart")%>">
 								<tr>
@@ -271,11 +261,13 @@ input[type=button], #button_buy {
 									<td><img src="../Product/Image/<%=rs.getString("product_list")%>" alt="no image" width="80" height="80" onclick="Product_content(<%=rs.getInt("id")%>)"></td>
 									<td width="200px"><%=rs.getString("name")%></td>
 									<td>￦ <%=Util.comma(rs.getInt("price"))%></td>
-									<td><input type="text" name="size" value="<%=size%>" readonly size="1"></td>
+									<td><input type="text" name="size" value="<%=rs.getString("size")%>" readonly size="1"></td>
 									<!-- 옵션 변경시, cart 데이터베이스 테이블도 바꿔줘야한다 ! 페이지 리로드 해야하나 ? -->
-									<td><input type="button" value="옵션 변경" onclick="Change_options_open(<%=i%>, '<%=rs.getString("product_code")%>', '<%=size%>')"></td>
+									<td>
+										<button type="button" onclick="Change_options_open(<%=i%>, '<%=rs.getString("product_code")%>', '<%=rs.getString("size")%>')">옵션 변경</button>
+									</td>
 									<td><input type="text" name="qty" class="qty" value="<%=rs.getInt("qty")%>" size="4"> 개</td>
-									<td><input type="button" value="이 상품만 바로 구매" onclick="Buynow('<%=rs.getString("product_code")%>', <%=s%>, <%=rs.getInt("qty")%>)"></td>
+									<td><input type="button" value="이 상품만 바로 구매" onclick="Buynow('<%=rs.getString("product_code")%>', '<%=rs.getString("size")%>', <%=rs.getInt("qty")%>)"></td>
 								</tr>
 								<%
 										i++;
@@ -291,8 +283,8 @@ input[type=button], #button_buy {
 					<!-- 옵션변경 레이어 -->
 					<div id="layer_options_cart">
 						<span id="Show_options"></span>
-						<input type="button" value="변경" onclick="Change_options_save()">
-						<input type="button" value="취소" onclick="Change_options_close()">
+						<a href="javascript:Change_options_save()">변경</a>
+						<a href="javascript:Change_options_close()">취소</a>
 					</div>
 					<!-- ACCOUNT 페이지 메뉴 네비게이션바 -->
 					<div class="account_grid_right">
