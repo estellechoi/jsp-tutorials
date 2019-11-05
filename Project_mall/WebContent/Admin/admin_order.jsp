@@ -9,7 +9,7 @@
 	Statement stmt = conn.createStatement();
 	
 	// 0 ~ 24 인덱스 레코드만 출력하기
-	String sql = "select*from product, ordered where ordered.product_code=product.product_code order by ordered.id desc";
+	String sql = "select order_code, ordered.product_code, name, product_list, size, qty, delivery_fee, amount_pay, ordered.email, r_msg, ordered.writeday as writeday, status, ordered.id as id from product, ordered where ordered.product_code=product.product_code order by ordered.id desc";
 	ResultSet rs = stmt.executeQuery(sql);
 %>
 <!DOCTYPE html>
@@ -88,6 +88,12 @@ table td a {
 }
 
 </style>
+<script>
+	function Status(id, i) {
+		var status = document.getElementsByName("status")[i].value;
+		location = "admin_order_ok.jsp?id=" + id + "&status=" + status;
+	}
+</script>
 </head>
 <body>
 	<!-- 네비게이션 바 -->
@@ -102,53 +108,63 @@ table td a {
 				<div class="list_main">
 					<!-- 상품 테이블 -->
 					<div>
-						<table>
-							<caption><a href="product.jsp">상품등록</a></caption>
-							<tr id="field">
-								<td>오더번호</td>
-								<td>상품코드</td>
-								<td>상품명</td>
-								<td>이미지</td>
-								<td>사이즈</td>
-								<td>수량</td>
-								<td>배송비</td>
-								<td>결제금액</td>
-								<td>주문자</td>
-								<td>배송 메세지</td>
-								<td>주문 날짜</td>
-								<td>처리 현황</td>
-							</tr>
-							<%
-							while(rs.next()) {
-							%>
-							<tr>
-								<td><%=rs.getString("order_code")%></td>
-								<td><%=rs.getString("product_code")%></td>
-								<td><%=rs.getString("name")%></td>
-								<td><img src="../Product/Image/<%=rs.getString("product_list")%>" alt="no image" width="60" height="60"></td>
-								<td><%=rs.getString("size")%></td>
-								<td><%=rs.getInt("qty")%></td>
-								<td><%=Util.comma(rs.getInt("delivery_fee"))%></td>
-								<td><%=Util.comma(rs.getInt("amount_pay"))%></td>
-								<td><%=rs.getString("email")%></td>
-								<td><%=rs.getString("r_msg")%></td>
-								<td><%=rs.getString("writeday")%></td>
-								<td>
-									<select name="order_status">
-										<option value="입금 전">입금 전</option>
-										<option value="결제 완료">결제 완료</option>
-										<option value="배송 준비">배송 준비</option>
-										<option value="배송중">배송중</option>
-										<option value="배송 완료">배송 완료</option>
-										<option value="반품 접수">반품 접수</option>
-										<option value="반품 완료">반품 완료</option>
-									</select>
-								</td>
-							</tr>
-							<%
-							}
-							%>
-						</table>
+						<form action="admin_order_ok.jsp" method="post">
+							<table>
+								<caption><a href="product.jsp">상품등록</a></caption>
+								<tr id="field">
+									<td>오더번호</td>
+									<td>상품코드</td>
+									<td>상품명</td>
+									<td>이미지</td>
+									<td>사이즈</td>
+									<td>수량</td>
+									<td>배송비</td>
+									<td>결제금액</td>
+									<td>주문자</td>
+									<td>배송 메세지</td>
+									<td>주문 날짜</td>
+									<td>처리 현황</td>
+								</tr>
+								<%
+								int i = 0;
+								while(rs.next()) {
+								%>
+									<script>
+										$(function() {
+											document.getElementsByName("status")[<%=i%>].value = "<%=rs.getString("status")%>";										
+										});
+									</script>
+								<tr>
+									<td><%=rs.getString("order_code")%></td>
+									<td><%=rs.getString("product_code")%></td>
+									<td><%=rs.getString("name")%></td>
+									<td><img src="../Product/Image/<%=rs.getString("product_list")%>" alt="no image" width="60" height="60"></td>
+									<td><%=rs.getString("size")%></td>
+									<td><%=rs.getInt("qty")%></td>
+									<td><%=Util.comma(rs.getInt("delivery_fee"))%></td>
+									<td><%=Util.comma(rs.getInt("amount_pay"))%></td>
+									<td><%=rs.getString("email")%></td>
+									<td><%=rs.getString("r_msg")%></td>
+									<td><%=rs.getString("writeday")%></td>
+									<td>
+										<select name="status">
+											<option value="입금 전">입금 전</option>
+											<option value="결제 완료">결제 완료</option>
+											<option value="배송 준비">배송 준비</option>
+											<option value="배송중">배송중</option>
+											<option value="배송 완료">배송 완료</option>
+											<option value="반품 접수">반품 접수</option>
+											<option value="반품 완료">반품 완료</option>
+										</select>
+										<a href="javascript:Status(<%=rs.getInt("id")%>, <%=i%>)">저장</a>
+									</td>
+								</tr>
+								<%
+									i++;
+								}
+								%>
+							</table>
+						</form>
 					</div>
 					<!-- 관리자용 navigation -->
 					<jsp:include page="admin_nav.jsp" flush="false"/>
