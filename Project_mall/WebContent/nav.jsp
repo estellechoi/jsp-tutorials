@@ -37,7 +37,7 @@
 		document.getElementById("layer_search").style.visibility = "hidden";
 	}
 </script>
-<link rel="stylesheet" href="../Etc/nav.css?ver=6">
+<link rel="stylesheet" href="../Etc/nav.css?ver=7">
 </head>
 <body>
 <nav>

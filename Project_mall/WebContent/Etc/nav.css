@@ -23,11 +23,6 @@ nav {
 	grid-template-columns: 300px 1fr;
 }
 
-footer {
-	height: 250px;
-	background: grey;
-}
-
 /* nav bar 스타일 */
 /* 로고 */
 #top {
