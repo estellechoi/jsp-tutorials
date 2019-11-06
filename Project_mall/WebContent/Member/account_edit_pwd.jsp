@@ -80,7 +80,7 @@
 								</tr>
 								<tr>
 									<th></th>
-									<td><a href="forgot_id.jsp">비밀번호를 잊으셨나요 ?</a></td>
+									<td><a href="forgot_pwd.jsp">비밀번호를 잊으셨나요 ?</a></td>
 								</tr>
 							</table>
 						</form>						
