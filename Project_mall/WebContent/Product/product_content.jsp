@@ -73,7 +73,7 @@
 	}
 	// 2) 추가로 쿠키 생성
 	else {
-		int n = Integer.parseInt(cookies[cookies.length-2].getName().substring(12));
+		int n = Integer.parseInt(cookies[cookies.length - 2].getName().substring(12));
 		Cookie cookie = new Cookie("product_code" + (n + 1), rs.getString("product_code"));
 		cookie.setMaxAge(600);
 		response.addCookie(cookie);
@@ -88,20 +88,173 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!-- stylesheet -->
-<link rel="stylesheet" href="../Etc/product_content.css?ver=6">
 <style>
 /* TOP 버튼 */
-#TOP {
+#goTop {
 	border: 3px solid #FF00FF;
 	border-radius: 50%;
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 	color: #FF00FF;
 	font-weight: bold;
 	position: fixed;
 	top: 100px;
-	left: 800px;
+	left: 300px;
+	text-align: center;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.product_content_section #head {
+	height: 700px;
+	display: grid;
+	grid-template-columns: 700px 1fr;
+}
+
+/* 상품 대표 이미지 product_list */
+.product_content_section #head_left {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* 상품 구매박스 테이블 */
+#head_right table {
+	width: 600px;
+	margin: auto;
+}
+
+#head_right table caption {
+	padding-top: 50px;
+	padding-bottom: 50px;
+	font-size: 27px;
+	font-weight: bold;
+	letter-spacing: 3px;
+	color: #555555;
+}
+
+/* 상품 설명*/
+#head_right table #product_summary {
+	height: 270px;
+	color: grey;
+	font-size: 13px;
+}
+
+/* 상품 구매 박스 항목 */
+#head_right table td {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	color: #555555;
+}
+
+#head_right table #product_price, #buying_amount {
+	letter-spacing: 3px;
+	font-weight: bold;
+}
+
+#head_right table .product_size, #product_qty, #product_amount {
+	font-weight: bold;
+	font-size: 13px;
+}
+
+#head_right table .product_size select {
+	border: 1px solid grey;
+	width: 80px;
+	height: 30px;
+	color: #FF00FF;
+}
+
+#head_right table #product_alert {
+	font-size: 13px;
+}
+
+#head_right table #product_qty input {
+	border: none;
+	width: 50px;
+	height: 30px;
+	color: #FF00FF;
+	font-weight: bold;
+}
+
+/* 구매 버튼 */
+#head_right table #product_button button, input[type=button] {
+	border: 1px solid #555555;
+	color: white;
+	font-weight: bold;
+	background: #555555;
+	width: 150px;
+	height: 50px;
+	cursor: pointer;
+}
+
+#head_right table #product_button button:hover, input[type=button]:hover {
+	border: 3px solid #555555;
+	color: #555555;
+	background: none;
+}
+
+/* 상품 포스트 / 이미지 */
+.product_content_section #middle {
+	padding-top: 120px;
+	padding-bottom: 80px;
+	align: center;
+}
+/* 하단 상품정보 */
+
+.product_content_section #bottom table {
+	width: 1000px;
+	margin: auto;
+	border-collapse: collapse;
+}
+
+#bottom table td {
+	border: 1px solid #eeeeee;
+	height: 50px;
+	width: 200px;
+	text-align: center;
+	vertical-align: center;
+	font-size: 13px;
+	color: #555555;
+}
+
+#bottom table #information_field td {
+	font-weight: bold;
+}
+
+/* 레이어 hidden 처리 */
+#layer_cart, #layer_wishlist {
+	display: none;
+	width: 400px;
+	height: 130px;
+	position: absolute;
+	top: 300px;
+	left: 600px;
+	background: white;
+	border: 3px solid #555555;
+}
+
+#layer_cart p, #layer_wishlist p {
+	font-size: 13px;
+	color: #555555;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#layer_cart button, #layer_wishlist button {
+	width: 140px;
+	height: 40px;
+	border: 2px solid #555555; 
+	background: #555555;
+	color: white;
+	font-size: 13px;
+	cursor: pointer;
+}
+
+#layer_cart button:hover, #layer_wishlist button:hover {
+	background: white;
+	color: #555555;	
 }
 </style>
 <script>
@@ -184,6 +337,11 @@
 			return true;
 		}
 	}
+	
+	// 스크롤 탑
+	function GoTop() {
+		document.documentElement.scrollTop = 0;
+	}
 </script>
 <!-- jQuery 플러그인 spinner -->
 <script>
@@ -205,7 +363,7 @@
 </head>
 <body>
 	<!-- scrollTop 네비게이션바 -->
-	<div id="TOP" onclick="scrollTopButton()">TOP</div>
+	<a href="javascript:GoTop()" id="goTop">TOP</a>
 	<!-- 네비게이션 바 -->
 	<jsp:include page="../nav.jsp" flush="false"/>
 	<div id="grid_container">
