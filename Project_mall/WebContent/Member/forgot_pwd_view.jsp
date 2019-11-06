@@ -25,11 +25,6 @@
 		height: 730px;
 	}
 	
-	.forgot_section #forgot_main {
-		width: 800px;
-		margin: auto;
-	}
-	
 	/* 로그인 글자 */
 	#forgot_header {
 		height: 200px;
@@ -69,11 +64,6 @@
 		padding: 10px;
 	}
 </style>
-<script>
-	function Signin() {
-		location = "signin.jsp";
-	}
-</script>
 </head>
 <body>
 	<!-- 네비게이션 바 <body> display: grid -->
@@ -84,9 +74,9 @@
 			<div id="grid_right">
 				<!-- 로그인 페이지 -->
 				<section class="forgot_section">
-					<div id="forgot_main">
-						<!-- 로그인 글자 -->
-						<div id="forgot_header">FORGOT PASSWORD</div>
+					<!-- 로그인 글자 -->
+					<div id="forgot_header">FORGOT PASSWORD</div>
+					<div id="forgot_main" class="account_grid_container">
 						<div>
 							<table>
 								<caption><%=rs.getString("username")%> 님의 가입 정보</caption>
@@ -95,13 +85,19 @@
 									<td><%=rs.getString("email")%></td>
 								</tr>
 								<tr>
-									<th></th>
-									<td>
-										<input type="button" value="로그인 페이지" onclick="Signin()">
-									</td>
+									<th>비밀번호</th>
+									<td><%=rs.getString("pwd")%></td>
 								</tr>
 							</table>
 						</div>
+						<%
+							if(session.getAttribute("email") != null) {
+						%>
+						<!-- account 네비게이션바 -->
+						<jsp:include page="account_nav.jsp" flush="false"/>
+						<%
+							}
+						%>
 					</div>
 				</section>
 			</div>

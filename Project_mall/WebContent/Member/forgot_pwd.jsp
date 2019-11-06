@@ -15,11 +15,59 @@
 			document.getElementById("business_name").innerText = "이름";			
 		}
 	}
-	
-	function Back() {
-		history.back();
-	}
 </script>
+<style>
+#forgot_header {
+	height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 700;
+	letter-spacing: 2px;
+	font-size: 14px;
+	color: #353535;
+}
+
+#forgot_form {
+	margin-bottom: 100px;
+}
+
+#forgot_form table {
+	width: 800px;
+	margin: auto;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	border: 1px solid #495164;
+	border-radius: 5px;
+}
+
+#forgot_form table caption {
+	font-size: 12px;
+	padding: 20px;
+	text-align: left;
+}
+
+#forgot_form table th, td {
+	height: 40px;
+}
+
+#forgot_form table td a {
+	border: 1px solid #495164;
+	border-radius: 5px;
+	background: #495164;
+	color: white;
+	font-size: 12px;
+	font-weight: bold;
+	width: 150px;
+	padding: 10px;
+	text-decoration: none;
+}
+
+#forgot_form table td input {
+	height: 35px;
+}
+
+</style>
 </head>
 <body>
 	<!-- 네비게이션 바 <body> display: grid -->
@@ -30,9 +78,9 @@
 			<div id="grid_right">
 				<!-- 로그인 페이지 -->
 				<section class="forgot_section">
-					<div id="forgot_main">
-						<!-- 로그인 글자 -->
-						<div id="forgot_header">FORGOT PASSWORD</div>
+					<!-- 로그인 글자 -->
+					<div id="forgot_header">FORGOT PASSWORD</div>
+					<div id="forgot_main" class="account_grid_container">
 						<div id="forgot_form">
 						<form action="forgot_pwd_ok.jsp" method="post">
 							<table>
@@ -54,13 +102,23 @@
 									<th id="business_name">이름</th>
 									<td><input type="text" name="username"></td>
 								</tr>
+								<tr>
+									<th></th>
+									<td>
+										<input type="submit" value="비밀번호 찾기">
+									</td>
+								</tr>
 							</table>
-							<div id="submit">
-								<input type="submit" value="비밀번호 찾기" id="submit_button">
-								<input type="button" value="이전 페이지" onclick="Back()">
-							</div>
 						</form>
 						</div>
+						<%
+							if(session.getAttribute("email") != null) {
+						%>
+						<!-- account 네비게이션바 -->
+						 <jsp:include page="account_nav.jsp" flush="false"/>
+						 <%
+							}
+						 %>
 					</div>
 				</section>
 				<!-- footer -->
