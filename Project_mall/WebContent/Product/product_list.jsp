@@ -215,6 +215,8 @@ table .link_sub_category a:hover {
 					<!-- 쿠키 이미지 -->
 					<jsp:include page="../Product/cookie.jsp" flush="false"/>
 				</div>
+				<!-- footer -->
+				<jsp:include page="../footer.jsp" flush="false"/>
 			</section>
 		</div>
 	</div>
