@@ -96,6 +96,7 @@
 		width: 1000px;
 		margin: auto;
 		padding-bottom: 50px;
+		text-align: center;
 	}
 	
 	#page_header {
@@ -186,8 +187,8 @@
 		background: #303030;
 		color: white;
 		font-weight: bold;
-		width: 150px;
-		height: 35px;
+		width: 200px;
+		height: 50px;
 	}
 	
 	.button_submit:hover {
@@ -386,7 +387,7 @@
 							<th>주소 * </th>
 							<td class="address">
 								<input type="text" name="r_zip" class="zip">
-								<a href="javascript:SearchAddress(0)" class="zip_button">우편번호 검색</a>
+								<a href="javascript:SearchAddress(1)" class="zip_button">우편번호 검색</a>
 								<p></p>
 								<input type="text" name="r_address1" class="address1"><p></p>
 								<input type="text" name="r_address2" class="address2">			
@@ -469,11 +470,10 @@
 								결제수단과 입력정보를 저장하고 다음에도 사용합니다.
 							</td>
 						</tr>
-						<tr>
-							<th></th>
-							<td><input type="submit" value="결제하기" class="button_submit"></td>
-						</tr>
 					</table>
+				</div>
+				<div>
+					<input type="submit" value="결제하기" class="button_submit">
 				</div>
 			</form>
 		</article>
