@@ -465,6 +465,8 @@
 				<jsp:include page="../Board/review_list.jsp" flush="false">
 					<jsp:param name="id_product" value="<%=id_product%>"/>
 				</jsp:include>
+				<!-- footer -->
+				<jsp:include page="../footer.jsp" flush="false"/>
 			</section>
 		</div>
 	</div>
