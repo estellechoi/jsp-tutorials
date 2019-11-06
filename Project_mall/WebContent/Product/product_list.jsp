@@ -54,21 +54,120 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../Etc/product_list.css?ver=11">
+<style>
+
+.product_list_section {
+	height: 900px;
+	overflow: scroll;
+}
+
+/* .product_list_section .list_main { */
+/* 	width: 1000px; */
+/* 	margin: auto; */
+/* } */
+
+.list_header {
+	height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+/* 	font-family: 'Gill Sans MT Std'; */
+	font-weight: 700;
+	letter-spacing: 2px;
+	font-size: 14px;
+	color: #353535;
+}
+
+/* 리스트 메인 구간 grid display */
+.list_main {
+	display: grid;
+	grid-template-columns: 1fr 100px;
+}
+/* 상품 테이블 크기 (브라우저 크기에 맞추기) */
+table {
+	width: 100%;
+}
+
+table #text_box {
+	height: 500px;
+	letter-spacing: 5px;
+	font-weight: bold;
+	font-size: 12px;
+	color: #495164;
+	margin-top: 10px;
+	margin-bottom: 30px;
+}
+
+/* 상품별 상자 크기 */
+table #image_box {
+	width: 250px;
+	height: 250px;
+	overflow: hidden;
+	border: none;
+	border-radius: 50%;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+}
+
+table #image_box img {
+	cursor: pointer;
+}
+
+table #text_box {
+	height: 60px;
+/* 	border: 1px solid red; */
+	font-size: 13px;
+}
+
+/* 상품 테이블 caption (하위카테고리 링크) */
+table .link_sub_category {
+	height: 80px;
+}
+
+table .link_sub_category a {
+	text-decoration: none;
+	color: grey;
+	letter-spacing: 5px;
+	font-size: 12px;
+}
+
+table .link_sub_category a:hover {
+	text-decoration: underline;
+}
+
+/* TOP 버튼 */
+/* TOP 버튼 */
+#goTop {
+	border: 3px solid #FF00FF;
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	color: #FF00FF;
+	font-weight: bold;
+	position: fixed;
+	top: 100px;
+	left: 300px;
+	text-align: center;
+	cursor: pointer;
+	text-decoration: none;
+}
+	
+</style>
 <script>
 	function Content(id) {
 		location = "product_content.jsp?id="+id;
 	}
-	
-	function scrollTopButton() {
-		alert(document.documentElement.scrollTop);
+	// 스크롤 탑
+	// product_content.jsp 에서는 잘되는데 ? 여기선 왜안되지 ?
+	function GoTop() {
 		document.documentElement.scrollTop = 0;
 	}
 </script>
 </head>
 <body>
 	<!-- scrollTop 네비게이션바 -->
-	<div id="TOP" onclick="scrollTopButton()">TOP</div>
+	<a href="javascript:GoTop()" id="goTop">TOP</a>
 	<!-- 메뉴바 include -->
 	<jsp:include page="../nav.jsp" flush="false"/>
 	<div id="grid_container">
