@@ -25,93 +25,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-.buynow_view_section {
-	margin-bottom: 150px;
-}
-
-/* 주문 완료 글자 */
-#buynow_view_header {
-	height: 200px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-/* 	font-family: 'Gill Sans MT Std'; */
-	font-weight: 700;
-	letter-spacing: 2px;
-	font-size: 14px;
-	color: #353535;
-}
-
-/* 주문정보 테이블 */
-#table_ordered table {
-	width: 1200px;
-	margin: auto;
-	border-collapse: collapse;
-	border: 1px solid #eeeeee;
-}
-
-#table_ordered table td {
-	border: 1px solid #eeeeee;
-	font-size: 12px;
-	color: #515151;
-	height: 30px;
-	text-align: center;
-}
-
-#table_ordered table td img {
-	border: none;
-	border-radius: 50%;
-}
-
-#table_ordered table caption {
-	font-size: 12px;
-	color: #515151;
-	height: 30px;
-	text-align: left;
-	vertical-align: center;
-	font-weight: bold;
-	padding-left: 20px;
-	padding-top: 70px;
-}
-
-#table_ordered table .table_footer {
-	text-align: right;
-	padding-right: 20px;
-	font-weight: bold;
-	height: 50px;
-}
-
-/* 페이지이동 버튼 */
-.button {
-	width: 1200px;
-	height: 100px;
-	margin: auto;
-	padding-top: 50px;
-	padding-bottom: 50px;
-	display: flex;
-	justify-content: center;
-}
-.button input[type=button] {
-	border: 1px solid #495164;
-	border-radius: 5px;
-	background: #495164;
-	color: white;
-	font-size: 12px;
-	width: 120px;
-	height: 30px;
-	margin: 10px;
-	cursor: pointer;
-}
-.alert {
-	width: 1200px;
-	margin: auto;
-	text-align: left;
-	padding-left: 10px;
-	color: red;
-	font-size: 12px;
-}
-</style>
 <script>
 	function Myorder() {
 		location = "../Member/myorder.jsp";
@@ -263,6 +176,8 @@
 						%>
 					</div>
 				</div>
+				<!-- footer -->
+				<jsp:include page="../footer.jsp" flush="false"/>
 			</section>
 		</div>
 	</div>
